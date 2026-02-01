@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Twitter -->
     <meta name="twitter:site" content="@themepixels">
     <meta name="twitter:creator" content="@themepixels">
@@ -41,7 +41,9 @@
     <link rel="stylesheet" href="{{ asset('assets/backend/css/starlight.css') }}">
 </head>
 
-@yield('content')
+<body>
+    @yield('content')
+</body>
 
 
 
@@ -49,7 +51,8 @@
 <script src="{{ asset('assets/backend/lib/popper.js/popper.js') }}"></script>
 <script src="{{ asset('assets/backend/lib/bootstrap/bootstrap.js') }}"></script>
 <script src="{{ asset('assets/backend/lib/select2/js/select2.min.js') }}"></script>
-{{--
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     $(function () {
         'use strict';
@@ -58,4 +61,6 @@
             minimumResultsForSearch: Infinity
         });
     });
-</script> --}}
+</script>
+
+@yield('js')

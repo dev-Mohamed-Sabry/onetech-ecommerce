@@ -1,18 +1,15 @@
-@extends('Layouts.dashboard.dashboard')
+@extends('auth.master')
 
 @section('title', 'Register')
 
 @section('content')
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
 
-    <body>
-
-        <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
-
-            <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-35 bg-white">
-                <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">starlight <span
-                        class="tx-info tx-normal">admin</span></div>
-                <div class="tx-center mg-b-60">Professional Admin Template Design</div>
-
+        <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-35 bg-white">
+            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">starlight <span
+                    class="tx-info tx-normal">admin</span></div>
+            <div class="tx-center mg-b-60">Professional Admin Template Design</div>
+            <form action="">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Enter your username">
                 </div><!-- form-group -->
@@ -60,14 +57,12 @@
                 <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and
                     terms of use of our website.</div>
                 <button type="submit" class="btn btn-info btn-block">Sign Up</button>
-
-                <div class="mg-t-40 tx-center">Already have an account? <a href="{{ route('login') }}" class="tx-info">Sign
-                        In</a></div>
-            </div><!-- login-wrapper -->
-        </div><!-- d-flex -->
-
-
-    </body>
+            </form>
+            <div class="mg-t-40 tx-center">Already have an account? <a href="{{ route('login') }}" class="tx-info">Sign
+                    In</a></div>
+        </div><!-- login-wrapper -->
+    </div>
+    <!-- d-flex -->
 
 @endsection
 
