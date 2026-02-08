@@ -12,20 +12,20 @@ use Illuminate\Support\Facades\Hash;
 
 use function Pest\Laravel\json;
 
-class WebsiteController extends Controller
+class FrontendController extends Controller
 {
     public function index()
     {
-        return view('Website.index');
+        return view('Frontend.index');
     }
 
     public function contact()
     {
-        return view('website.contact');
+        return view('Frontend.contact');
     }
     public function blog()
     {
-        return view('website.blog');
+        return view('Frontend.blog');
     }
     // public function user_login(Request $request)
     // {
