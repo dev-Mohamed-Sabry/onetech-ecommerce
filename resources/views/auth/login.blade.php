@@ -7,9 +7,13 @@
     <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
 
         <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
-            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse"> <span class="tx-info tx-normal">Login</span></div>
-            <div class="tx-center mg-b-60">You can login here</div>
-
+            <div class="logo text-center">
+                <a href="{{ route('home') }} " style="
+                                                                font-size: 36px;
+                                                font-weight: 500;
+                                                color: #0e8ce4;">OneTech</a>
+            </div>
+            <div class="text-center p-2">Login Form</div>
             {{-- <form action=""> --}}
                 {{-- @csrf --}}
                 {{-- @method('post') --}}

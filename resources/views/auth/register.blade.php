@@ -6,9 +6,14 @@
     <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
 
         <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-35 bg-white">
-            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">starlight <span
-                    class="tx-info tx-normal">admin</span></div>
-            <div class="tx-center mg-b-60">Professional Admin Template Design</div>
+            <div class="logo text-center">
+                <a href="{{ route('home') }}" style=" 
+                                                                                    font-size: 36px;
+                                                                                    font-weight: 500;
+                                                                                    color: #0e8ce4;">OneTech</a>
+            </div>
+            <div class="text-center p-2">Registation Form</div>
+            {{-- <div class="tx-center mg-b-60">Register</div> --}}
             <form action="">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Enter your username">

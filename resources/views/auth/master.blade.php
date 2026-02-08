@@ -32,13 +32,13 @@
     <title>OneTech - @yield('title')</title>
 
     <!-- vendor css -->
-    <link href="{{ asset('assets/backend/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/backend/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/backend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/lib/select2/css/select2.min.css') }}" rel="stylesheet">
 
 
     <!-- Starlight CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/backend/css/starlight.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/starlight.css') }}">
 </head>
 
 <body>
@@ -47,10 +47,10 @@
 
 
 
-<script src="{{ asset('assets/backend/lib/jquery/jquery.js') }}"></script>
-<script src="{{ asset('assets/backend/lib/popper.js/popper.js') }}"></script>
-<script src="{{ asset('assets/backend/lib/bootstrap/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/backend/lib/select2/js/select2.min.js') }}"></script>
+<script src="{{ asset('assets/dashboard/lib/jquery/jquery.js') }}"></script>
+<script src="{{ asset('assets/dashboard/lib/popper.js/popper.js') }}"></script>
+<script src="{{ asset('assets/dashboard/lib/bootstrap/bootstrap.js') }}"></script>
+<script src="{{ asset('assets/dashboard/lib/select2/js/select2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
