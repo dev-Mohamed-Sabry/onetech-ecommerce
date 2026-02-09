@@ -22,7 +22,7 @@
                     <!-- loop starts here -->
                     <a href="" class="media-list-link">
                         <div class="media">
-                            <img src="../img/img3.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img3.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
                                 <span class="d-block tx-11 tx-gray-500">2 minutes ago</span>
@@ -35,7 +35,7 @@
                     <!-- loop ends here -->
                     <a href="" class="media-list-link">
                         <div class="media">
-                            <img src="../img/img4.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img4.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
                                 <span class="d-block tx-11 tx-gray-500">3 hours ago</span>
@@ -45,7 +45,7 @@
                     </a>
                     <a href="" class="media-list-link">
                         <div class="media">
-                            <img src="../img/img7.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img7.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Robert Walker</p>
                                 <span class="d-block tx-11 tx-gray-500">5 hours ago</span>
@@ -57,7 +57,7 @@
                     </a>
                     <a href="" class="media-list-link">
                         <div class="media">
-                            <img src="../img/img5.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Larry Smith</p>
                                 <span class="d-block tx-11 tx-gray-500">Yesterday, 8:34pm</span>
@@ -70,7 +70,7 @@
                     </a>
                     <a href="" class="media-list-link">
                         <div class="media">
-                            <img src="../img/img3.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img3.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
                                 <span class="d-block tx-11 tx-gray-500">Jan 23, 2:32am</span>
@@ -93,7 +93,7 @@
                     <!-- loop starts here -->
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img8.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img8.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth
                                         Bungaos</strong>
@@ -105,7 +105,7 @@
                     <!-- loop ends here -->
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img9.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img9.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Mellisa
                                         Brown</strong>
@@ -117,7 +117,7 @@
                     </a>
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img10.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in your <strong
                                         class="tx-medium tx-gray-800">Sale Group</strong></p>
@@ -127,7 +127,7 @@
                     </a>
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img5.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Julius
                                         Erving</strong> wants
@@ -140,7 +140,7 @@
                     </a>
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img8.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img8.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth
                                         Bungaos</strong>
@@ -151,7 +151,7 @@
                     </a>
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img10.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700">10+ new items added are for sale in your <strong
                                         class="tx-medium tx-gray-800">Sale Group</strong></p>
@@ -161,7 +161,7 @@
                     </a>
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img9.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img9.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Mellisa
                                         Brown</strong>
@@ -173,7 +173,7 @@
                     </a>
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
-                            <img src="../img/img5.jpg" class="wd-40 rounded-circle" alt="">
+                            <img src="{{ asset('assets/dashboard/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
                                 <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Julius
                                         Erving</strong> wants
@@ -362,7 +362,7 @@
                         </div><!-- card-header -->
                         <div class="list-group list-group-flush">
                             <a href="" class="list-group-item list-group-item-action media">
-                                <img src="../img/img10.jpg" alt="">
+                                <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" alt="">
                                 <div class="media-body">
                                     <div class="msg-top">
                                         <span>Mienard B. Lumaad</span>
@@ -373,7 +373,7 @@
                                 </div><!-- media-body -->
                             </a><!-- list-group-item -->
                             <a href="" class="list-group-item list-group-item-action media">
-                                <img src="../img/img9.jpg" alt="">
+                                <img src="{{ asset('assets/dashboard/img/img9.jpg') }}" alt="">
                                 <div class="media-body">
                                     <div class="msg-top">
                                         <span>Isidore Dilao</span>
@@ -384,7 +384,7 @@
                                 </div><!-- media-body -->
                             </a><!-- list-group-item -->
                             <a href="" class="list-group-item list-group-item-action media">
-                                <img src="../img/img8.jpg" alt="">
+                                <img src="{{ asset('assets/dashboard/img/img8.jpg') }}" alt="">
                                 <div class="media-body">
                                     <div class="msg-top">
                                         <span>Kirby Avendula</span>
@@ -396,7 +396,7 @@
                                 </div><!-- media-body -->
                             </a><!-- list-group-item -->
                             <a href="" class="list-group-item list-group-item-action media">
-                                <img src="../img/img7.jpg" alt="">
+                                <img src="{{ asset('assets/dashboard/img/img7.jpg') }}" alt="">
                                 <div class="media-body">
                                     <div class="msg-top">
                                         <span>Roven Galeon</span>

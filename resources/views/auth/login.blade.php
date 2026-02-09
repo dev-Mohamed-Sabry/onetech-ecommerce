@@ -9,9 +9,9 @@
         <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
             <div class="logo text-center">
                 <a href="{{ route('home') }} " style="
-                                                                font-size: 36px;
-                                                font-weight: 500;
-                                                color: #0e8ce4;">OneTech</a>
+                                                                    font-size: 36px;
+                                                    font-weight: 500;
+                                                    color: #0e8ce4;">OneTech</a>
             </div>
             <div class="text-center p-2">Login Form</div>
             {{-- <form action=""> --}}
