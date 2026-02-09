@@ -179,7 +179,7 @@
                     <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
                         <span class="logged-name">{{ $user->name ?? 'Admin' }}
                         </span>
-                        <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt="">
+                        <img src="{{ asset('assets/dashboard/img/img3.jpg') }}" class="wd-32 rounded-circle" alt="">
                     </a>
                     <div class="dropdown-menu dropdown-menu-header wd-200">
                         <ul class="list-unstyled user-profile-nav">
@@ -219,7 +219,14 @@
     </div><!-- sl-header -->
     <!-- ########## END: HEAD PANEL ########## -->
 
+
+
     @yield('content')
+
+
+
+
+
 
     <script src="{{ asset('assets/dashboard/lib/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/popper.js/popper.js') }}"></script>
