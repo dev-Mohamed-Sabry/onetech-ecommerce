@@ -15,7 +15,7 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'role:admin'])  // الأدمن فقط
         ->name('dashboard');
 });
 

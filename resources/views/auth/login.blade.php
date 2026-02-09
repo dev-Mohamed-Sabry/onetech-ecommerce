@@ -8,31 +8,30 @@
 
         <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
             <div class="logo text-center">
-                <a href="{{ route('home') }} " style="
-                                                                    font-size: 36px;
-                                                    font-weight: 500;
-                                                    color: #0e8ce4;">OneTech</a>
+                <a href="{{ route('home') }} " style=" font-size: 36px; font-weight: 500; color: #0e8ce4;">OneTech</a>
             </div>
             <div class="text-center p-2">Login Form</div>
-            {{-- <form action=""> --}}
-                {{-- @csrf --}}
-                {{-- @method('post') --}}
-                <!-- form-group -->
-                <div class="form-group">
-                    <input type="text" id="email" class="form-control" placeholder="Enter your Email">
-                </div>
-                <!-- form-group -->
-                <div class="form-group">
-                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
-                    <a href="" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
-                </div>
-                {{--
-            </form> --}}
-            <button type="submit" class="btn btn-info btn-block loginBtn" style="cursor:pointer;">Sign In</button>
 
-            <div class="mg-t-60 tx-center">Not yet a member? <a href="{{ route('register') }}" class="tx-info">Sign
-                    Up</a>
-            </div>
+            <form id="loginForm" name="loginForm" autocomplete="on">
+                @csrf
+                <div class="form-group">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your Email"
+                        autocomplete="email">
+                </div>
+                <!-- form-group -->
+                <div class="form-group">
+                    <input type="password" id="password" name="password" class="form-control"
+                        placeholder="Enter your password" autocomplete="current-password">
+                    <a href="#" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-block loginBtn" style="cursor:pointer;">Sign In</button>
+
+                <div class="mg-t-60 tx-center">Not yet a member? <a href="{{ route('register') }}" class="tx-info">Sign
+                        Up</a>
+                </div>
+            </form>
+
         </div>
     </div>
 
@@ -43,7 +42,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.loginBtn').click(function (e) {
+            $('#loginForm').on('submit', function (e) {
                 e.preventDefault();
                 let email = $('#email').val();
                 let password = $('#password').val();
@@ -62,10 +61,11 @@
                         data: {
                             email: email,
                             password: password,
+                            _token: "{{ csrf_token() }}"
                         },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
+                        // headers: {
+                        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        // },
                         // dataType: 'json',
                         success: function (response) {
                             if (response.status === 'false' && response.message === 'Invalid credentials') {

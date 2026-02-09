@@ -194,7 +194,7 @@
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
-            <a class="breadcrumb-item" href="index.html">Starlight</a>
+            <a class="breadcrumb-item" href="{{ route('home') }}">OneTech</a>
             <span class="breadcrumb-item active">Dashboard</span>
         </nav>
 
@@ -418,8 +418,17 @@
         </div><!-- sl-pagebody -->
         <footer class="sl-footer">
             <div class="footer-left">
-                <div class="mg-b-2">Copyright &copy; 2017. Starlight. All Rights Reserved.</div>
-                <div>Made by ThemePixels.</div>
+                <div class="copyright_content">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
+                        target="_blank">Eng/
+                        Mohamed Sabry </a>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
             </div>
             <div class="footer-right d-flex align-items-center">
                 <span class="tx-uppercase mg-r-10">Share:</span>
