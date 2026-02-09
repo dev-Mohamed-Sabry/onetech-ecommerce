@@ -57,7 +57,7 @@
                 } else {
                     $.ajax({
                         method: 'post',
-                        url: "/user/login",
+                        url: "/login",
                         data: {
                             email: email,
                             password: password,
@@ -68,10 +68,10 @@
                         // },
                         // dataType: 'json',
                         success: function (response) {
-                            if (response.status === 'false' && response.message === 'Invalid credentials') {
+                            if (!response.status) {
                                 Swal.fire({
                                     title: 'Error!',
-                                    text: 'Wrong Email Or Password',
+                                    text: response.message,
                                     icon: 'error',
                                     confirmButtonText: 'Ok',
                                 })

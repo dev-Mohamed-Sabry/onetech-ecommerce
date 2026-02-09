@@ -54,7 +54,7 @@ class FrontendController extends Controller
     // }
 
 
-    public function user_login(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'email'    => 'required|email',

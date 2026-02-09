@@ -10,7 +10,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/blog', 'blog')->name('blog');
-    Route::any('/user/login', 'user_login');
+    Route::post('/login', 'store');
 });
 
 Route::controller(DashboardController::class)->group(function () {
