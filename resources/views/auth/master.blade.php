@@ -39,9 +39,15 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/starlight.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/website/styles/bootstrap4/bootstrap.min.css') }}">
+
 </head>
 
 <body>
+
+
+
     @yield('content')
 </body>
 
@@ -53,14 +59,23 @@
 <script src="{{ asset('assets/dashboard/lib/select2/js/select2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-    $(function () {
-        'use strict';
+@yield('js')
 
-        $('.select2').select2({
-            minimumResultsForSearch: Infinity
-        });
-    });
+
+<script>
+    function togglePassword(inputId, icon) {
+        const input = document.getElementById(inputId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = "password";
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
 </script>
 
-@yield('js')
+</html>

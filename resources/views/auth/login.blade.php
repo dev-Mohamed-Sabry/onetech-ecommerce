@@ -4,6 +4,22 @@
 
 @section('content')
 
+    <style>
+        .password-toggle {
+            position: absolute;
+            top: 30%;
+            right: 12px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .password-toggle:hover {
+            color: #17a2b8;
+            /* لون info */
+        }
+    </style>
+
     <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
 
         <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
@@ -12,16 +28,17 @@
             </div>
             <div class="text-center p-2">Login Form</div>
 
-            <form id="loginForm" name="loginForm" autocomplete="on">
+            <form id="loginForm" name="loginForm" autocomplete="on" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your Email"
                         autocomplete="email">
                 </div>
                 <!-- form-group -->
-                <div class="form-group">
+                <div class="form-group position-relative">
                     <input type="password" id="password" name="password" class="form-control"
                         placeholder="Enter your password" autocomplete="current-password">
+                    <i class="fa fa-eye password-toggle" onclick="togglePassword('password', this)"></i>
                     <a href="#" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
                 </div>
 
@@ -39,6 +56,8 @@
 
 
 @section('js')
+
+
 
     <script>
         $(document).ready(function () {
