@@ -26,7 +26,8 @@
 
         <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-35 bg-white">
             <div class="logo text-center">
-                <a href="{{ route('home') }}" style=" font-size: 36px;font-weight: 500;color: #0e8ce4;">OneTech</a>
+                <a href="{{ route('home') }}"
+                    style=" font-size: 36px;font-weight: 500;color: #0e8ce4; text-decoration: none;">OneTech</a>
             </div>
             <div class="text-center p-2">Create New Account</div>
 
@@ -110,7 +111,7 @@
 
 @section('js')
 
-
+    {{-- Register Ajax Login --}}
     <script>
         $(document).ready(function () {
             $('#registerForm').on('submit', function (e) {
@@ -124,7 +125,7 @@
                 if (name == '' || email == '' || password == '' || password_confirmation == '') {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Please Fill All Inputs',
+                        text: 'Please Fill All Fields',
                         icon: 'error',
                         confirmButtonText: 'Okay!'
                     })
@@ -138,7 +139,7 @@
                 } else {
                     $.ajax({
                         method: 'post',
-                        url: "/register",
+                        url: "/new-account",
                         data: {
                             name: name,
                             email: email,
@@ -147,41 +148,42 @@
                             _token: "{{ csrf_token() }}",
                         },
                         success: function (response) {
-                            if (!response.status) {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: response.message,
-                                    icon: 'error',
-                                    confirmButtonText: 'Ok',
-                                })
-                            }
-                            else if (response.status && response.role === 'admin') {
+                            console.log(response);
+                            // if (!response.status) {
+                            //     Swal.fire({
+                            //         title: 'Error!',
+                            //         text: response.message,
+                            //         icon: 'error',
+                            //         confirmButtonText: 'Ok',
+                            //     })
+                            // }
+                            // else if (response.status && response.role === 'admin') {
 
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: "top-end",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    timerProgressBar: true,
-                                    didOpen: (toast) => {
-                                        toast.onmouseenter = Swal.stopTimer;
-                                        toast.onmouseleave = Swal.resumeTimer;
-                                    }
-                                });
-                                Toast.fire({
-                                    icon: "success",
-                                    title: "Logged In! Redirecting To Dashboard"
-                                });
+                            //     const Toast = Swal.mixin({
+                            //         toast: true,
+                            //         position: "top-end",
+                            //         showConfirmButton: false,
+                            //         timer: 1500,
+                            //         timerProgressBar: true,
+                            //         didOpen: (toast) => {
+                            //             toast.onmouseenter = Swal.stopTimer;
+                            //             toast.onmouseleave = Swal.resumeTimer;
+                            //         }
+                            //     });
+                            //     Toast.fire({
+                            //         icon: "success",
+                            //         title: "Logged In! Redirecting To Dashboard"
+                            //     });
 
-                                setTimeout(() => {
-                                    window.location.href = '/dashboard';
-                                }, 1500);
+                            //     setTimeout(() => {
+                            //         window.location.href = '/dashboard';
+                            //     }, 1500);
 
-                            }
+                            // }
 
-                            else if (response.status && response.role === 'user') {
-                                window.location = '/';
-                            }
+                            // else if (response.status && response.role === 'user') {
+                            //     window.location = '/';
+                            // }
 
                         },
                         error: function (xhr) {
