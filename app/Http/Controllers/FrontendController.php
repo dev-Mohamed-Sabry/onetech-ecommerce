@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 use function Pest\Laravel\json;
@@ -54,14 +55,14 @@ class FrontendController extends Controller
     // }
 
 
-    public function store(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required'
         ]);
 
-        $check = $request->only('email', 'password');
+        $check = $request->only(strip_tags('email'), strip_tags('password'));
 
         if (!Auth::attempt($check)) {
             return response()->json([
@@ -83,5 +84,44 @@ class FrontendController extends Controller
             'status' => true,
             'role'   => 'user'
         ]); // user
+    }
+
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+            ]);
+
+            $user->assignRole('user');
+            // لو عايز تسجله دخول تلقائي
+            Auth::login($user);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+                'role' => 'user',
+                'message' => 'Registered Successfully'
+            ]);
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return response()->json([
+                'message' => 'Something Went Wrong'
+            ], 500);
+        }
     }
 }

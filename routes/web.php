@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +12,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/blog', 'blog')->name('blog');
-    Route::post('/login', 'store')->name('login'); // login POST
+    Route::post('/login', 'login')->name('login'); // login POST
+    Route::post('/register', 'register')->name('register'); // Register POST
 });
 
 // ===== Logout Route =====

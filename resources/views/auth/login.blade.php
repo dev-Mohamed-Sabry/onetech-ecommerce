@@ -112,7 +112,7 @@
                                 });
                                 Toast.fire({
                                     icon: "success",
-                                    title: "Logged In! Redirecting To Dashboard"
+                                    title: "Logged In! \n Redirecting To Dashboard"
                                 });
 
                                 setTimeout(() => {
