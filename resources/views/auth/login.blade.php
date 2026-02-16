@@ -40,7 +40,7 @@
                     <input type="password" id="password" name="password" class="form-control"
                         placeholder="Enter your password" autocomplete="current-password">
                     <i class="fa fa-eye password-toggle" onclick="togglePassword('password', this)"></i>
-                    <a href="#" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+                    <a href="{{route('password.request')}}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn btn-info btn-block loginBtn" style="cursor:pointer;">Sign In</button>
@@ -122,7 +122,25 @@
                             }
 
                             else if (response.status && response.role === 'user') {
-                                window.location = '/';
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.onmouseenter = Swal.stopTimer;
+                                        toast.onmouseleave = Swal.resumeTimer;
+                                    }
+                                });
+                                Toast.fire({
+                                    icon: "success",
+                                    title: "Logged In! \n Redirecting To Home Page"
+                                });
+
+                                setTimeout(() => {
+                                    window.location.href = '/';
+                                }, 1500);
                             }
 
                         },

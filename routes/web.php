@@ -4,7 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
 use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // ===== Frontend Routes =====
@@ -17,12 +17,12 @@ Route::controller(FrontendController::class)->group(function () {
 });
 
 // ===== Logout Route =====
-Route::get('/logout', function () {
-    if (FacadesAuth::check()) {
-        return redirect()->route('dashboard'); // لو مسجل دخول
-    }
-    return redirect()->route('login'); // لو مش مسجل دخول
-});
+// Route::get('/logout', function () {
+//     if (Auth::check()) {
+//         return redirect()->route('dashboard'); // لو مسجل دخول
+//     }
+//     return redirect()->route('home'); // لو مش مسجل دخول
+// });
 
 // ===== Dashboard/Admin Routes =====
 Route::controller(DashboardController::class)->group(function () {

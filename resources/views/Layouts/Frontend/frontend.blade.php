@@ -76,8 +76,23 @@
                                 <div class="top_bar_user">
                                     <div class="user_icon"><img src="{{ asset('assets/website/images/user.svg') }}"
                                             alt=""></div>
-                                    <div><a href="{{route('register')}}">Register</a></div>
-                                    <div><a href="{{ route('login') }}">Login</a></div>
+                                    @if (Auth::check())
+
+                                        <div><a href="#">My Account</a></div>
+                                        <div>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+
+                                                <button type="submit "
+                                                    style="border: none; cursor: pointer; background:none;">Logout</button>
+                                        </div>
+                                        </form>
+
+                                    @else
+                                        <div><a href="{{route('register')}}">Register</a></div>
+                                        <div><a href="{{ route('login') }}">Log in</a></div>
+
+                                    @endif
                                 </div>
                             </div>
                         </div>
