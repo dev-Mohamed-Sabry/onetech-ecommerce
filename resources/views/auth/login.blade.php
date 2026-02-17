@@ -40,7 +40,8 @@
                     <input type="password" id="password" name="password" class="form-control"
                         placeholder="Enter your password" autocomplete="current-password">
                     <i class="fa fa-eye password-toggle" onclick="togglePassword('password', this)"></i>
-                    <a href="{{route('password.request')}}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+                    <a href="{{ route('user.forgot.password') }}" class="tx-info tx-12 d-block mg-t-10">Forgot
+                        password?</a>
                 </div>
 
                 <button type="submit" class="btn btn-info btn-block loginBtn" style="cursor:pointer;">Sign In</button>
@@ -79,14 +80,13 @@
                     $.ajax({
                         method: 'post',
                         url: "/login",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
                         data: {
                             email: email,
                             password: password,
-                            _token: "{{ csrf_token() }}"
                         },
-                        // headers: {
-                        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        // },
                         // dataType: 'json',
                         success: function (response) {
                             if (!response.status) {
@@ -145,10 +145,19 @@
 
                         },
                         error: function (xhr) {
-                            console.log(xhr.responseJSON);
+
+                            if (xhr.status === 429) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Too Many Attempts',
+                                    text: 'Please try again after a minute.'
+                                });
+                                return;
+                            }
+
                             Swal.fire({
                                 title: 'Error!',
-                                text: xhr.responseJSON.message ?? 'Something went wrong!',
+                                text: xhr.responseJSON?.message ?? 'Something went wrong!',
                                 icon: 'error',
                                 confirmButtonText: 'Okay!'
                             });

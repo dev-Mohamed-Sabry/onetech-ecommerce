@@ -29,7 +29,7 @@
             </div>
             <div class="text-center pt-2 pb-4">Forgot Password</div>
 
-            <form id="loginForm" name="loginForm" autocomplete="on" method="POST" action="{{ route('password.email') }}">
+            <form id="forgotPasswordForm" name="forgotPasswordForm" autocomplete="on">
                 @csrf
                 <div class="form-group">
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your Email"
@@ -52,12 +52,11 @@
 
 @section('js')
 
-
     {{-- Login Ajax Login --}}
 
     <script>
         $(document).ready(function () {
-            $('#loginForm').on('submit', function (e) {
+            $('#forgotPasswordForm').on('submit', function (e) {
                 e.preventDefault();
                 let email = $('#email').val();
 
@@ -71,20 +70,18 @@
                 } else {
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('password.email') }}",
+                        url: "/reset-password",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         data: {
                             email: email,
-                            _token: "{{ csrf_token() }}"
                         },
                         success: function (response) {
-                            if (!response.status) {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: response.message,
-                                    icon: 'error',
-                                    confirmButtonText: 'Ok',
-                                })
-                            }
+                            console.log(response.data);
+                        },
+                        error: function (xhr) {
+                            console.log(xhr.responseJSON);
                         }
                     })
                 }
