@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Envelope;
+use App\Mail\ForgetPassword;
 
 class AuthController extends Controller
 {
@@ -52,7 +56,6 @@ class AuthController extends Controller
         }
     }
 
-
     public function login_page()
     {
         return view('auth.login');
@@ -96,17 +99,29 @@ class AuthController extends Controller
 
     public function user_reset_password(Request $request)
     {
-        // $check =    $request->validate([
-        //     'email'    => 'required|email',
-        // ]);
 
         if ($request->isMethod('POST')) {
-            return response()->json(['data' => $request->all()]);
+            // هل البريد موجود في قاعدة البيانات ولا لا
+            // return response()->json(['data' => $request->only('email')]);
+            $check = User::find($request->email);
+
+            if (isset($check)) {
+                // return response()->json($check);
+                Mail::to($check->email)->send(new ForgetPassword(route('user.update.password', ['id' => $check->id])));
+            } else {
+                return    response()->json([
+                    'data' => false
+                ]);
+            };
         } else {
             return redirect()->route('home');
         }
     }
 
+    public function user_update_password($id)
+    {
+        return view('auth.update-password', ['id' => $id]);
+    }
 
     public function destroy(Request $request)
     {

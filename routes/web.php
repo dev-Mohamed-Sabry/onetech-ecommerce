@@ -31,9 +31,12 @@ Route::controller(AuthController::class)->group(function () {
         ->name('user.forgot.password'); // Forgot Password
     Route::post('/reset-password', 'user_reset_password')
         ->name('user.reset.password');  // Reset Password
+    Route::get('/update-password/{id}', 'user_update_password')
+        ->name('user.update.password');
 
+    // ===== Logout =====
     Route::post('logout', 'destroy')
-        ->name('logout');   // Logout
+        ->name('logout');
 });
 
 

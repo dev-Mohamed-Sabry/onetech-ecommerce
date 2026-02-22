@@ -54,6 +54,7 @@
 
     {{-- Login Ajax Login --}}
 
+    {{--
     <script>
         $(document).ready(function () {
             $('#forgotPasswordForm').on('submit', function (e) {
@@ -71,16 +72,14 @@
                     $.ajax({
                         method: 'POST',
                         url: "/reset-password",
-                        data: {
-                            email: email,
-                        },
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
+                        data: {
+                            email: email,
+                        },
                         success: function (response) {
-                            console.log(response.data);
-
-                            if (!response.data) {
+                            if (!response.status) {
                                 Swal.fire({
                                     title: 'Error!',
                                     text: 'This Email Does Not Exist',
@@ -95,7 +94,7 @@
                                     confirmButtonText: 'Okay!'
                                 })
                             }
-                            // console.log(response);
+                            console.log(response);
 
                         },
                         error: function (xhr) {
@@ -105,6 +104,6 @@
                 }
             })
         });
-    </script>
+    </script> --}}
 
 @endsection
