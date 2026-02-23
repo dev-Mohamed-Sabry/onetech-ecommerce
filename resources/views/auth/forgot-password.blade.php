@@ -59,6 +59,7 @@
             $('#forgotPasswordForm').on('submit', function (e) {
                 e.preventDefault();
                 let email = $('#email').val();
+                // console.log(email);
 
                 if (email == '') {
                     Swal.fire({
@@ -70,7 +71,7 @@
                 } else {
                     $.ajax({
                         method: 'POST',
-                        url: "/reset-password",
+                        url: "/user-reset-password",
                         data: {
                             email: email,
                         },
@@ -78,7 +79,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function (response) {
-                            console.log(response.data);
+                            // console.log(response.data);
 
                             if (!response.data) {
                                 Swal.fire({

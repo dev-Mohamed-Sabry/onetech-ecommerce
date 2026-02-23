@@ -29,10 +29,10 @@ Route::controller(AuthController::class)->group(function () {
     // ===== Password Forgot & Reset =====
     Route::get('/forgot-password', 'user_forgot_password')
         ->name('user.forgot.password'); // Forgot Password
-    Route::post('/reset-password', 'user_reset_password')
+    Route::post('/user-reset-password', 'user_reset_password')
         ->name('user.reset.password');  // Reset Password
     Route::get('/update-password/{id}', 'user_update_password')
-        ->name('user.update.password');
+        ->name('user.update.password')->middleware('signed');
 
     // ===== Logout =====
     Route::post('logout', 'destroy')

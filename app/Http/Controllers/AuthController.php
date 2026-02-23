@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use App\Mail\ForgetPassword;
+use Illuminate\Support\Facades\URL;
+
+use function Pest\Laravel\json;
 
 class AuthController extends Controller
 {
@@ -102,14 +105,26 @@ class AuthController extends Controller
 
         if ($request->isMethod('POST')) {
             // هل البريد موجود في قاعدة البيانات ولا لا
-            // return response()->json(['data' => $request->only('email')]);
-            $check = User::find($request->email);
+            $user = User::where('email', '=', $request->email)->first();
 
-            if (isset($check)) {
-                // return response()->json($check);
-                Mail::to($check->email)->send(new ForgetPassword(route('user.update.password', ['id' => $check->id])));
+
+            // return response()->json($check->id);
+            if (isset($user)) {
+
+                // ID encryption
+                $url = URL::temporarySignedRoute(
+                    'user.update.password',
+                    now()->addMinutes(30),
+                    ['id' => $user->id]
+                );
+
+                Mail::to($user->email)->send(new ForgetPassword($url));
+
+                return response()->json([
+                    'data' => true,
+                ]);
             } else {
-                return    response()->json([
+                return   response()->json([
                     'data' => false
                 ]);
             };
@@ -120,7 +135,8 @@ class AuthController extends Controller
 
     public function user_update_password($id)
     {
-        return view('auth.update-password', ['id' => $id]);
+
+        return view('auth.update-password', compact('id'));
     }
 
     public function destroy(Request $request)
