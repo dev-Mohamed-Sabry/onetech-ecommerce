@@ -107,15 +107,13 @@ class AuthController extends Controller
             // هل البريد موجود في قاعدة البيانات ولا لا
             $user = User::where('email', '=', $request->email)->first();
 
-
-            // return response()->json($check->id);
             if (isset($user)) {
 
                 // ID encryption
                 $url = URL::temporarySignedRoute(
-                    'user.update.password',
-                    now()->addMinutes(30),
-                    ['id' => $user->id]
+                    'user.update.password', // اسم الروت
+                    now()->addMinutes(30),  // مدة الصلاحية
+                    ['id' => $user->id]    // البراميتر
                 );
 
                 Mail::to($user->email)->send(new ForgetPassword($url));
@@ -136,9 +134,38 @@ class AuthController extends Controller
     public function user_update_password($id)
     {
 
-        return view('auth.update-password', compact('id'));
+        return view('auth.update-password', ['id' => $id]);
     }
 
+    public function user_store_new_password(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $user = User::findOrFail($request->id);
+            $user->update([
+                'password' => $request->password,
+            ]);
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+            ]);
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return response()->json(
+                [
+                    'message' => 'Something Went Wrong'
+                ],
+                500
+            );
+        }
+    }
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();

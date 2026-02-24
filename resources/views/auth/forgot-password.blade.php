@@ -1,6 +1,6 @@
 @extends('auth.master')
 
-@section('title', 'Login')
+@section('title', 'Forgot Password')
 
 @section('content')
 
@@ -36,7 +36,8 @@
                         autocomplete="email">
                 </div>
 
-                <button type="submit" class="btn btn-info btn-block loginBtn" style="cursor:pointer;">Send Reset
+                <button type="submit" id="submitButton" class="btn btn-info btn-block loginBtn" style="cursor:pointer;">Send
+                    Reset
                     Link</button>
 
                 <div class="mg-t-60 tx-center">Not yet a member? <a href="{{ route('register') }}" class="tx-info">Sign
@@ -56,7 +57,8 @@
 
     <script>
         $(document).ready(function () {
-            $('#forgotPasswordForm').on('submit', function (e) {
+            $('#forgotPasswordForm').one('submit', function (e) {
+                document.getElementById('submitButton').disabled = true;
                 e.preventDefault();
                 let email = $('#email').val();
                 // console.log(email);
@@ -71,7 +73,7 @@
                 } else {
                     $.ajax({
                         method: 'POST',
-                        url: "/user-reset-password",
+                        url: "{{ route('user.reset.password') }}",
                         data: {
                             email: email,
                         },

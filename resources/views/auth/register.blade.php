@@ -139,7 +139,7 @@
                 } else {
                     $.ajax({
                         method: 'post',
-                        url: "/register",
+                        url: "{{ route('register') }}",
                         data: {
                             name: name,
                             email: email,
