@@ -79,7 +79,7 @@
                 } else {
                     $.ajax({
                         method: 'post',
-                        url: "/login",
+                        url: "{{ route('login.store') }}",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },

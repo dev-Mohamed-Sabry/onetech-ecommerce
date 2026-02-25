@@ -56,49 +56,10 @@
                     <i class="fa fa-eye password-toggle" onclick="togglePassword('password_confirmation', this)"></i>
                 </div>
                 <!-- form-group -->
-                {{-- <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Enter your fullname">
-                </div> --}}
-                <!-- form-group -->
-                {{-- <div class="form-group">
-                    <label class="d-block tx-11 tx-uppercase tx-medium tx-spacing-1">Birthday</label>
-                    <div class="row row-xs">
-                        <div class="col-sm-4">
-                            <select class="form-control select2" data-placeholder="Month">
-                                <option label="Month"></option>
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                            </select>
-                        </div><!-- col-4 -->
-                        <div class="col-sm-4 mg-t-20 mg-sm-t-0">
-                            <select class="form-control select2" data-placeholder="Day">
-                                <option label="Day"></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div><!-- col-4 -->
-                        <div class="col-sm-4 mg-t-20 mg-sm-t-0">
-                            <select class="form-control select2" data-placeholder="Year">
-                                <option label="Year"></option>
-                                <option value="1">2010</option>
-                                <option value="2">2011</option>
-                                <option value="3">2012</option>
-                                <option value="4">2013</option>
-                                <option value="5">2014</option>
-                            </select>
-                        </div><!-- col-4 -->
-                    </div><!-- row -->
-                </div> --}}
-                <!-- form-group -->
                 <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and
                     terms of use of our website.</div>
-                <button type="submit" class="btn btn-info btn-block" style="cursor: pointer">Sign Up</button>
+                <button type="submit" id="signupSubmit" class="btn btn-info btn-block" style="cursor: pointer">Sign
+                    Up</button>
             </form>
             <div class="mg-t-40 tx-center">Already have an account? <a href="{{ route('login') }}" class="tx-info">Sign
                     In</a></div>
@@ -114,7 +75,8 @@
     {{-- Register Ajax Login --}}
     <script>
         $(document).ready(function () {
-            $('#registerForm').on('submit', function (e) {
+            $('#registerForm').one('submit', function (e) {
+
                 e.preventDefault();
 
                 let name = $('#name').val();
@@ -139,13 +101,15 @@
                 } else {
                     $.ajax({
                         method: 'post',
-                        url: "{{ route('register') }}",
+                        url: "{{ route('register.store') }}",
                         data: {
                             name: name,
                             email: email,
                             password: password,
                             password_confirmation: password_confirmation,
-                            _token: "{{ csrf_token() }}",
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function (response) {
                             console.log(response);
@@ -172,7 +136,7 @@
                                 });
                                 Toast.fire({
                                     icon: "success",
-                                    title: "User Registered Successfully! \n Redirecting To Home Page"
+                                    title: "Check Your Email For Verification! \n Redirecting To Home Page"
                                 });
 
                                 setTimeout(() => {

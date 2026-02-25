@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use App\Mail\ForgetPassword;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\URL;
 
+use Spatie\Permission\Guard;
 use function Pest\Laravel\json;
 
 class AuthController extends Controller
@@ -38,16 +40,19 @@ class AuthController extends Controller
                 'password' => $request->password,
             ]);
 
+            //  مهمة جدًا —  Email Verification إرسال 
+            event(new Registered($user));
+
             $user->assignRole('user');
             // لو عايز تسجله دخول تلقائي
-            Auth::login($user);
+            // Auth::login($user);
 
             DB::commit();
 
             return response()->json([
                 'status' => true,
                 'role' => 'user',
-                'message' => 'Registered Successfully'
+                'message' => 'Registered Successfully, Waiting For Verification',
             ]);
         } catch (\Exception $e) {
 
@@ -79,8 +84,17 @@ class AuthController extends Controller
             ], 401); // invalid credentials
         }
 
+        $user = Auth::Guard('web')->user();
+        if (!$user->hasVerifiedEmail()) {
+            Auth::logout();
+            return response()->json([
+                'status' => false,
+                'message' => 'Please Verify Your Email First',
+            ], 403);
+        }
+
         $request->session()->regenerate();
-        $user = Auth::user();
+
 
         if ($user->hasRole('admin')) {
             return response()->json([

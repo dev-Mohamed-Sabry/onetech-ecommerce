@@ -2,52 +2,96 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
-use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// ===== Frontend Routes =====
-Route::controller(FrontendController::class)->group(function () {
+/*
+|--------------------------------------------------------------------------
+| Frontend Routes
+|--------------------------------------------------------------------------
+*/
 
+Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/blog', 'blog')->name('blog');
 });
 
 
-// ===== Auth =====
-Route::controller(AuthController::class)->group(function () {
-    // ===== Register & Login =====
-    Route::get('register',  action: 'register_page')->name('register');
-    Route::post('/register', 'register_method')->name('register'); // Register POST
-    Route::get('login', 'login_page')->name('login');
-    Route::post('/login', 'login_method')->name('login')
-        ->middleware('throttle:5,1'); // login POST
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
 
-    // ===== Password Forgot & Reset =====
-    Route::get('/forgot-password', 'user_forgot_password')
-        ->name('user.forgot.password'); // Forgot Password
-    Route::post('/reset-password', 'user_reset_password')
-        ->name('user.reset.password');  // Reset Password
-    Route::get('/update-password/{id}', 'user_update_password')
-        ->name('user.update.password')->middleware('signed'); // Update Password Page
-    Route::post('/store-password/{id}', 'user_store_new_password')
-        ->name('user.store.password'); // Store Updated Password Method
+Route::controller(AuthController::class)->group(function () {
+
+    // ===== Register =====
+    Route::get('/register', 'register_page')->name('register');
+    Route::post('/register', 'register_method')->name('register.store');
+
+    // ===== Login =====
+    Route::get('/login', 'login_page')->name('login');
+    Route::post('/login', 'login_method')
+        ->middleware('throttle:5,1')
+        ->name('login.store');
 
     // ===== Logout =====
-    Route::post('logout', 'destroy')
+    Route::post('/logout', 'destroy')
+        ->middleware('auth')
         ->name('logout');
+
+    // ===== Forgot Password =====
+    Route::get('/forgot-password', 'user_forgot_password')
+        ->name('user.forgot.password');
+
+    Route::post('/reset-password', 'user_reset_password')
+        ->name('user.reset.password');
+
+    Route::get('/update-password/{id}', 'user_update_password')
+        ->middleware('signed')
+        ->name('user.update.password');
+
+    Route::post('/store-password/{id}', 'user_store_new_password')
+        ->name('user.store.password');
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| Email Verification Routes
+|--------------------------------------------------------------------------
+*/
 
-// ===== Dashboard/Admin Routes =====
-Route::controller(DashboardController::class)->group(function () {
-    Route::get('/dashboard', 'index')
-        ->middleware(['auth', 'verified', 'role:admin'])
-        ->name('dashboard');
+Route::middleware('auth')->group(function () {
+
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect()->route('login');
+    })->middleware('signed')->name('verification.verify');
+
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', 'Verification link sent!');
+    })->middleware('throttle:6,1')->name('verification.send');
 });
 
-require __DIR__ . '/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::controller(DashboardController::class)
+    ->middleware(['auth', 'verified', 'role:admin'])
+    ->group(function () {
+
+        Route::get('/dashboard', 'index')->name('dashboard');
+    });
