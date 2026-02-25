@@ -28,18 +28,19 @@
             </div>
             <div class="text-center pt-2 pb-4">Reset Password</div>
 
-            <form id="updatePasswordForm" name="updatePasswordForm" autocomplete="off">
+            <form id="updatePasswordForm" name="updatePasswordForm" autocomplete="off" method="POST"
+                action="{{ route('user.store.password', $id) }}">
                 @csrf
                 <!-- form-group -->
                 <div class="form-group position-relative mt-4">
                     <input type="password" id="password" name="password" class="form-control"
-                        placeholder="Enter your password" autocomplete="off">
+                        placeholder="Enter new password" autocomplete="off">
                     <i class="fa fa-eye password-toggle" onclick="togglePassword('password', this)"></i>
                 </div>
                 <!-- form-group -->
                 <div class="form-group position-relative">
                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
-                        placeholder="Enter your password again" autocomplete="off">
+                        placeholder="Enter new password again" autocomplete="off">
                     <i class="fa fa-eye password-toggle" onclick="togglePassword('password_confirmation', this)"></i>
                 </div>
 
@@ -67,7 +68,6 @@
 
                 let password = $('#password').val();
                 let password_confirmation = $('#password_confirmation').val();
-                let userId = $('#userId').val();
 
                 if (password == '' || password_confirmation == '') {
                     Swal.fire({
@@ -87,9 +87,8 @@
                 else {
                     $.ajax({
                         method: 'post',
-                        url: "{{ route('user.store.password') }}",
+                        url: $('#updatePasswordForm').attr('action'),
                         data: {
-                            id: id,
                             password: password,
                             password_confirmation: password_confirmation,
                         },

@@ -34,7 +34,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/update-password/{id}', 'user_update_password')
         ->name('user.update.password')->middleware('signed'); // Update Password Page
     Route::post('/store-password/{id}', 'user_store_new_password')
-        ->name('user.store.password')->middleware('signed'); // Store Updated Password Method
+        ->name('user.store.password'); // Store Updated Password Method
 
     // ===== Logout =====
     Route::post('logout', 'destroy')
