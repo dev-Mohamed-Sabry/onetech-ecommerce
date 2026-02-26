@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
+use function Symfony\Component\Clock\now;
+
 class AdminUserSeeder extends Seeder
 {
     public function run(): void
@@ -20,6 +22,7 @@ class AdminUserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'password' => Hash::make('12345678'),
+                'email_verified_at' => now(),
             ]
         );
 
