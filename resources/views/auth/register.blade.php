@@ -127,7 +127,7 @@
                                     toast: true,
                                     position: "top-end",
                                     showConfirmButton: false,
-                                    timer: 1500,
+                                    timer: 3500,
                                     timerProgressBar: true,
                                     didOpen: (toast) => {
                                         toast.onmouseenter = Swal.stopTimer;
@@ -141,7 +141,7 @@
 
                                 setTimeout(() => {
                                     window.location.href = '/';
-                                }, 1500);
+                                }, 3500);
 
                             }
 

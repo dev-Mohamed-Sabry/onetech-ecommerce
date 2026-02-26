@@ -65,22 +65,22 @@ Route::controller(AuthController::class)->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
-    Route::get('/email/verify', function () {
-        return view('auth.verify-email');
-    })->name('verification.notice');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
 
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-        return redirect()->route('login');
-    })->middleware('signed')->name('verification.verify');
+Route::get(
+    '/email/verify/{id}/{hash}',
+    [AuthController::class, 'verify_register']
+)->middleware('signed')->name('verification.verify');
 
-    Route::post('/email/verification-notification', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-        return back()->with('message', 'Verification link sent!');
-    })->middleware('throttle:6,1')->name('verification.send');
-});
+// Route::post('/email/verification-notification', function (Request $request) {
+//     $request->user()->sendEmailVerificationNotification();
+//     return back()->with('message', 'Verification link sent!');
+// })->middleware('throttle:6,1')->name('verification.send');
+// });
 
 
 /*

@@ -64,6 +64,24 @@ class AuthController extends Controller
         }
     }
 
+    public function verify_register(Request $request, $id, $hash)
+    {
+        $user = User::findOrFail($id);
+
+        if (!hash_equals(sha1($user->getEmailForVerification()), $hash)) {
+            abort(403);
+        }
+
+        if (!$request->hasValidSignature()) {
+            abort(403);
+        }
+
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+        return view('auth.verified-success');
+    }
+
     public function login_page()
     {
         return view('auth.login');
