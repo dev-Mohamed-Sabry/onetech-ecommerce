@@ -116,7 +116,7 @@
                                 });
 
                                 setTimeout(() => {
-                                    window.location.href = '/dashboard';
+                                    window.location.href = '{{ route('dashboard') }}';
                                 }, 1500);
 
                             }
@@ -139,7 +139,7 @@
                                 });
 
                                 setTimeout(() => {
-                                    window.location.href = '/';
+                                    window.location.href = '{{ route('home') }}';
                                 }, 1500);
                             }
 
