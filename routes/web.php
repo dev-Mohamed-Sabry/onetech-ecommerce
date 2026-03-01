@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -90,3 +91,15 @@ Route::controller(DashboardController::class)
 
         Route::get('/dashboard', 'index')->name('dashboard');
     });
+
+
+/*
+|--------------------------------------------------------------------------
+| Error Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'error.access'])->group(function () {
+    Route::get('/403', 'error_403')->name('error.403');
+    Route::get('/404', 'error_404')->name('error.404');
+});
