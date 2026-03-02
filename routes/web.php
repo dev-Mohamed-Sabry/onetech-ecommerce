@@ -85,13 +85,9 @@ Route::get(
 |--------------------------------------------------------------------------
 */
 
-Route::controller(DashboardController::class)
-    ->middleware(['auth', 'verified', 'role:admin'])
-    ->group(function () {
-
-        Route::get('/dashboard', 'index')->name('dashboard');
-    });
-
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class], 'index')->name('dashboard');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +96,6 @@ Route::controller(DashboardController::class)
 */
 
 Route::middleware(['auth', 'error.access'])->group(function () {
-    Route::get('/403', 'error_403')->name('error.403');
-    Route::get('/404', 'error_404')->name('error.404');
+    Route::get('/403', [ErrorController::class, 'error_403'])->name('error.403');
+    Route::get('/404', [ErrorController::class, 'error_404'])->name('error.404');
 });
