@@ -86,6 +86,7 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
     public function login_method(Request $request)
     {
         $request->validate([

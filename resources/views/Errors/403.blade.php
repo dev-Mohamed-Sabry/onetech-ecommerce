@@ -55,7 +55,7 @@
                 </div>
             </div><!-- d-flex --> --}}
 
-            <div class="tx-center mg-t-20">Back to <a href="{{ route('error.403') }}">home</a> page</div>
+            <div class="tx-center mg-t-20">Back to <a href="{{ route('home') }}">home</a> page</div>
         </div>
     </div><!-- ht-100v -->
 
