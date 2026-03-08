@@ -205,7 +205,7 @@
                         <h6 class="card-body-title mb-4">Add New Category</h6>
                         {{-- <p class="mg-b-20 mg-sm-b-30">A basic form where labels are aligned in left.</p> --}}
 
-                        <form id="categoryForm" action="">
+                        <form id="categoryForm" method="POST">
                             @csrf
                             <div class="row">
                                 <label class="col-sm-4 form-control-label">Category Name: <span
@@ -254,6 +254,23 @@
                         text: 'Please Enter Name & Order',
                         icon: 'error',
                         confirmButtonText: 'Okay!'
+                    })
+                }
+                else {
+                    $.ajax({
+                        method: "POST",
+                        url: "{{ route('categories.store') }}",
+                        data: {
+                            categoryName: categoryName,
+                            categoryOrder: categoryOrder,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+
+                        success: function (response) {
+                            console.log(response)
+                        }
                     })
                 }
             })
