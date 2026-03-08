@@ -220,12 +220,12 @@
                                 <label class="col-sm-4 form-control-label">Category Order: <span
                                         class="tx-danger">*</span></label>
                                 <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                    <input type="text" name="order" id="order" class="form-control"
+                                    <input type="text" name="cat-order" id="cat-order" class="form-control"
                                         placeholder="Enter Category Order">
                                 </div>
                             </div>
                             <div class="form-layout-footer mg-t-30">
-                                <button type="submit" class="btn btn-info mg-r-5">Submit</button>
+                                <button type="submit" class="btn btn-info mg-r-5" style="cursor: pointer;">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -245,9 +245,9 @@
         $(document).ready(function () {
             $('#categoryForm').on('submit', function (e) {
                 e.preventDefault();
+                // console.log('test');
                 let categoryName = $('#category').val();
-                let categoryOrder = $('#order').val();
-
+                let categoryOrder = $('#cat-order').val();
                 if (categoryName == '' || categoryOrder == '') {
                     Swal.fire({
                         title: 'Error!',
@@ -256,7 +256,7 @@
                         confirmButtonText: 'Okay!'
                     })
                 }
-            }
             })
+        })
     </script>
 @endsection
