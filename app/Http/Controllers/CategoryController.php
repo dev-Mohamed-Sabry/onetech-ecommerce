@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -19,6 +20,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+
+
         return view('dashboard.categories.create');
     }
 
@@ -27,7 +30,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(['data' => $request->all()]);
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'order' => ['required', 'string', 'lowercase', 'max:64', 'unique:categories'],
+        ]);
+
+        Category::create([
+            'name' => $request->name,
+            'order' => $request->order,
+        ]);
+
+        return response()->json(['data' => true]);
     }
 
     /**

@@ -225,12 +225,17 @@
 
 
 
-
     <script src="{{ asset('assets/dashboard/lib/jquery/jquery.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @yield('js')
+
+    <script src="{{ asset('assets/dashboard/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/popper.js/popper.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/bootstrap/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/jquery-ui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/dashboard/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/d3/d3.js') }}"></script>
     <script src="{{ asset('assets/dashboard/lib/rickshaw/rickshaw.min.js') }}"></script>
@@ -243,12 +248,9 @@
     <script src="{{ asset('assets/dashboard/js/starlight.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/ResizeSensor.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/dashboard.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @yield('js')
+
 </body>
 
 </html>
