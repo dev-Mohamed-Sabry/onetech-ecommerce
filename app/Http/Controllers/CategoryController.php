@@ -10,16 +10,18 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-        //
-    // }
+    public function index()
+    {
+        $categories = Category::all();
+        return view('Dashboard.Categories.index', ['categories' => $categories]);
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+
 
 
         return view('dashboard.categories.create');
@@ -33,7 +35,7 @@ class CategoryController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'order' => ['required', 'string', 'lowercase', 'max:64', 'unique:categories'],
+            'order' => ['required', 'string', 'max:64', 'unique:categories'],
         ]);
 
         Category::create([

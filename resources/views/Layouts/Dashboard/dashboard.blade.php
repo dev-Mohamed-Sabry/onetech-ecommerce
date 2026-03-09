@@ -77,7 +77,7 @@
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{{ route('categories.create') }}" class="nav-link">Add
                         Category</a></li>
-                <li class="nav-item"><a href="chart-flot.html" class="nav-link">View Categories</a></li>
+                <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">View Categories</a></li>
             </ul>
             <a href="#" class="sl-menu-link">
                 <div class="sl-menu-item">
