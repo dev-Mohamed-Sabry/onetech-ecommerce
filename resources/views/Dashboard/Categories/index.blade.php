@@ -4,6 +4,15 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
 
+<style>
+    #myTable_wrapper {
+        padding: 0 0 2rem;
+    }
+
+    .dt-input {
+        margin-right: 5px;
+    }
+</style>
 
 @section('content')
     <!-- ########## START: RIGHT PANEL ########## -->
@@ -201,24 +210,37 @@
             <span class="breadcrumb-item active">Dashboard</span>
         </nav>
 
-        <div class="sl-pagebody">
 
-            <table id="myTable" class="display">
+        <div class="sl-pagebody m-4">
+
+            <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4">
+                Add New Category
+            </a>
+
+            <table id="myTable" class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Category Name</th>
-                        <th>Order</th>
+                        <th class="text-left">Category Name</th>
+                        <th class="text-center">Order</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
-                        <tr>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->order }}</td>
-                        </tr>
-                    @endforeach
 
+                    @forelse ($categories as $category)
+                        <tr>
+                            <td class="align-content-center">{{ $category->name }}</td>
+                            <td class="text-center  align-content-center">{{ $category->order }}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-info rounded-1">Edit</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <p class="text text-danger text-center">No Categories Found</p>
+                    @endforelse
                 </tbody>
+
             </table>
 
         </div><!-- sl-pagebody -->

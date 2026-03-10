@@ -225,6 +225,8 @@
                                 </div>
                             </div>
                             <div class="form-layout-footer mg-t-30">
+                                <a href="{{ route('categories.index') }}" class="btn btn-secondary mg-r-5"
+                                    style="cursor: pointer;">All Categories</a>
                                 <button type="submit" class="btn btn-info mg-r-5" style="cursor: pointer;">Submit</button>
                             </div>
                         </form>
