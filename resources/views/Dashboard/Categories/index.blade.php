@@ -232,8 +232,14 @@
                             <td class="align-content-center">{{ $category->name }}</td>
                             <td class="text-center  align-content-center">{{ $category->order }}</td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-info rounded-1">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button class="btn btn-info edit-category" data-id="{{ $category->id }}"
+                                    data-name="{{ $category->name }}" style="cursor:pointer">
+                                    Edit
+                                </button>
+                                <button type="button" class="btn btn-danger delete-category" data-id="{{ $category->id }}"
+                                    style="cursor: pointer;">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     @empty
@@ -276,7 +282,130 @@
 
 @section('js')
 
-    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
-    <script>let table = new DataTable('#myTable');</script>
+    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>;
+    <script>let table = new DataTable('#myTable');</script>;
 
-@endsection
+    {{-- Update --}}
+
+    <script>
+        $(document).ready(function () {
+            $('.edit-category').on('click', function (e) {
+                e.preventDefault();
+
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+
+                Swal.fire({
+                    title: "Enter New Category Name",
+                    input: "text",
+                    inputValue: name,
+                    showCancelButton: true,
+                    confirmButtonText: "Update",
+                    showLoaderOnConfirm: true,
+
+                    preConfirm: (newName) => {
+                        return fetch(`/categories/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                "Accept": "application/json"
+                            },
+                            body: JSON.stringify({ name: newName })
+                        })
+                            .then(async response => {
+
+                                const data = await response.json();
+
+                                if (!response.ok) {
+
+                                    if (data.errors) {
+                                        let messages = Object.values(data.errors)
+                                            .flat()
+                                            .join('<br>');
+
+                                        Swal.showValidationMessage(messages);
+                                    } else {
+                                        Swal.showValidationMessage(data.message || 'Update failed');
+                                    }
+
+                                    return false;
+                                }
+
+                                return data;
+                            })
+                            .catch(error => {
+                                Swal.showValidationMessage(`Error: ${error}`);
+                            });
+                    }
+                })
+                    .then((result) => {
+
+                        if (result.isConfirmed && result.value) {
+
+                            Swal.fire(
+                                'Success',
+                                'Category updated successfully',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+
+                        }
+
+                    });
+
+            });
+        });
+    </script>
+    {{-- {{ Delete }} --}}
+    <script>
+        $(document).ready(function () {
+            $('.delete-category').on('click', function (e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Category will be deleted !",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/categories/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                "Accept": "application/json"
+                            },
+                        })
+                            .then(async response => {
+                                if (!response.ok) {
+                                    const data = await response.json();
+                                    throw new Error(data.message || "Delete failed!");
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Category has been deleted.',
+                                    'success'
+                                ).then(() => location.reload());
+                            })
+                            .catch(error => {
+                                Swal.fire(
+                                    'Error!',
+                                    error.message,
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+</script>@endsection
