@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:categories'],
             'order' => ['required', 'string', 'max:64', 'unique:categories'],
         ]);
 
