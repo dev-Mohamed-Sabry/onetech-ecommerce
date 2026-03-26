@@ -227,7 +227,7 @@
                 </thead>
                 <tbody>
 
-                    @forelse ($categories as $category)
+                    @foreach ($categories as $category)
                         <tr>
                             <td class="align-content-center">{{ $category->name }}</td>
                             <td class="text-center  align-content-center">{{ $category->order }}</td>
@@ -242,9 +242,7 @@
                                 </button>
                             </td>
                         </tr>
-                    @empty
-                        <p class="text text-danger text-center">No Categories Found</p>
-                    @endforelse
+                    @endforeach
                 </tbody>
 
             </table>
@@ -358,6 +356,7 @@
             });
         });
     </script>
+
     {{-- {{ Delete }} --}}
     <script>
         $(document).ready(function () {
@@ -408,4 +407,5 @@
                 });
             });
         });
-</script>@endsection
+    </script>
+@endsection
