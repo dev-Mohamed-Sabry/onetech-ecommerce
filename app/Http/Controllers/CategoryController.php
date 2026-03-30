@@ -7,16 +7,32 @@ use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use SebastianBergmann\Environment\Console;
+use Yajra\DataTables\DataTables;
+
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        $categories = Category::latest()->get();
-        return view('Dashboard.Categories.index', ['categories' => $categories]);
+        if ($request->ajax()) {
+            $categories = Category::select('id', 'name', 'order');
+            return DataTables::of($categories)
+                ->addColumn('action', function ($category) {
+                    return '
+                    <div class="text-center">
+                        <button  class="btn btn-info edit-category " data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
+                        <button  class="btn btn-danger delete-category " data-id="' . $category->id . '">Delete</button>
+                    </div>
+                ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('Dashboard.Categories.index');
     }
 
     /**

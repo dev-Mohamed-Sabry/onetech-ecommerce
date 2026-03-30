@@ -12,8 +12,15 @@
     .dt-input {
         margin-right: 5px;
     }
-</style>
 
+    .dt-type-numeric {
+        text-align: center !important;
+    }
+
+    /* .table.dataTable>tbody>tr:first-child>* {
+        text-align: center !important;
+    } */
+</style>
 @section('content')
     <!-- ########## START: RIGHT PANEL ########## -->
     <div class="sl-sideright">
@@ -227,22 +234,6 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($categories as $category)
-                        <tr>
-                            <td class="align-content-center">{{ $category->name }}</td>
-                            <td class="text-center  align-content-center">{{ $category->order }}</td>
-                            <td class="text-center">
-                                <button class="btn btn-info edit-category" data-id="{{ $category->id }}"
-                                    data-name="{{ $category->name }}" style="cursor:pointer">
-                                    Edit
-                                </button>
-                                <button type="button" class="btn btn-danger delete-category" data-id="{{ $category->id }}"
-                                    style="cursor: pointer;">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
                 </tbody>
 
             </table>
@@ -280,9 +271,21 @@
 
 @section('js')
 
-    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>;
-    <script>let table = new DataTable('#myTable');</script>;
+    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
 
+    <script>
+        let table = new DataTable('#myTable', {
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('categories.index') }}",
+            order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
+            columns: [
+                { data: 'name', name: 'name', orderable: true },
+                { data: 'order', name: 'order', orderable: true },
+                { data: 'action', name: 'action', orderable: false, searchable: false }
+            ]
+        });
+    </script>
     {{-- Update --}}
 
     <script>
@@ -290,7 +293,7 @@
             $('.edit-category').on('click', function (e) {
                 e.preventDefault();
 
-                let id = $(this).data('id');
+                let id = $(this).attr('data-id');
                 let name = $(this).data('name');
 
                 Swal.fire({
@@ -362,7 +365,7 @@
         $(document).ready(function () {
             $('.delete-category').on('click', function (e) {
                 e.preventDefault();
-                let id = $(this).data('id');
+                let id = $(this).attr('data-id');
 
                 Swal.fire({
                     title: "Are you sure?",
@@ -389,13 +392,15 @@
                                 }
                                 return response.json();
                             })
-                            .then(data => {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Category has been deleted.',
-                                    'success'
-                                ).then(() => location.reload());
-                            })
+                            .then(
+
+                                data => {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Category has been deleted.',
+                                        'success'
+                                    ).then(() => location.reload());
+                                })
                             .catch(error => {
                                 Swal.fire(
                                     'Error!',

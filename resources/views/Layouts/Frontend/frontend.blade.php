@@ -132,6 +132,12 @@
                                                         <li><a class="clc" href="#">Cameras</a></li>
                                                         <li><a class="clc" href="#">Hardware</a></li>
                                                         <li><a class="clc" href="#">Smartphones</a></li>
+                                                        {{-- @forelse ($categories as $category)
+                                                        <li><a class="clc" href="#">{{ $category->name }}</a></li> --
+                                                        @empty
+                                                        <p class="text text-danger">No Categories Found</p>
+                                                        @endforelse --}}
+
                                                     </ul>
                                                 </div>
                                             </div>

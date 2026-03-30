@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        // $categories = Category::all();
         return view('Frontend.index');
     }
 
