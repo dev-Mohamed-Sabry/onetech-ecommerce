@@ -19,10 +19,14 @@
         align-content: center !important;
     }
 
+    .table-bordered tbody tr td {
+        align-content: center !important;
+    }
+
     /* End DataTables Styling */
 </style>
 @section('content')
-    <!-- ########## START: RIGHT PANEL ########## -->
+        <!-- ########## START: RIGHT PANEL ########## -->
     <div class="sl-sideright">
         <ul class="nav nav-tabs nav-fill sidebar-tabs" role="tablist">
             <li class="nav-item">
@@ -41,8 +45,7 @@
                     <a href="" class="media-list-link">
                         <div class="media">
                             <img src="{{ asset('assets/dashboard/img/img3.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
+                            <div class="media-body"> <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
                                 <span class="d-block tx-11 tx-gray-500">2 minutes ago</span>
                                 <p class="tx-13 mg-t-10 mg-b-0">A wonderful serenity has taken possession of my entire soul,
                                     like these
@@ -54,8 +57,7 @@
                     <a href="" class="media-list-link">
                         <div class="media">
                             <img src="{{ asset('assets/dashboard/img/img4.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
+                            <div class="media-body"> <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
                                 <span class="d-block tx-11 tx-gray-500">3 hours ago</span>
                                 <p class="tx-13 mg-t-10 mg-b-0">My entire soul, like these sweet mornings of spring.</p>
                             </div>
@@ -64,8 +66,7 @@
                     <a href="" class="media-list-link">
                         <div class="media">
                             <img src="{{ asset('assets/dashboard/img/img7.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Robert Walker</p>
+                            <div class="media-body"> <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Robert Walker</p>
                                 <span class="d-block tx-11 tx-gray-500">5 hours ago</span>
                                 <p class="tx-13 mg-t-10 mg-b-0">I should be incapable of drawing a single stroke at the
                                     present
@@ -76,8 +77,7 @@
                     <a href="" class="media-list-link">
                         <div class="media">
                             <img src="{{ asset('assets/dashboard/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Larry Smith</p>
+                            <div class="media-body"> <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Larry Smith</p>
                                 <span class="d-block tx-11 tx-gray-500">Yesterday, 8:34pm</span>
 
                                 <p class="tx-13 mg-t-10 mg-b-0">When, while the lovely valley teems with vapour around me,
@@ -89,8 +89,7 @@
                     <a href="" class="media-list-link">
                         <div class="media">
                             <img src="{{ asset('assets/dashboard/img/img3.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
+                            <div class="media-body"> <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Donna Seay</p>
                                 <span class="d-block tx-11 tx-gray-500">Jan 23, 2:32am</span>
                                 <p class="tx-13 mg-t-10 mg-b-0">A wonderful serenity has taken possession of my entire soul,
                                     like these
@@ -112,10 +111,10 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img8.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth
-                                        Bungaos</strong>
-                                    tagged you and 18 others in a post.</p>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700"><strong
+                                    class="tx-medium tx-gray-800">Suzzeth
+                                    Bungaos</strong>
+                                tagged you and 18 others in a post.</p>
                                 <span class="tx-12">October 03, 2017 8:45am</span>
                             </div>
                         </div><!-- media -->
@@ -124,10 +123,10 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img9.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Mellisa
-                                        Brown</strong>
-                                    appreciated your work <strong class="tx-medium tx-gray-800">The Social Network</strong>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700"><strong
+                                    class="tx-medium tx-gray-800">Mellisa
+                                    Brown</strong>
+                                appreciated your work <strong class="tx-medium tx-gray-800">The Social Network</strong>
                                 </p>
                                 <span class="tx-12">October 02, 2017 12:44am</span>
                             </div>
@@ -136,9 +135,8 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in your <strong
-                                        class="tx-medium tx-gray-800">Sale Group</strong></p>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in
+                                your <strong class="tx-medium tx-gray-800">Sale Group</strong></p>
                                 <span class="tx-12">October 01, 2017 10:20pm</span>
                             </div>
                         </div><!-- media -->
@@ -146,12 +144,11 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Julius
-                                        Erving</strong> wants
-                                    to connect with you on your conversation with <strong
-                                        class="tx-medium tx-gray-800">Ronnie
-                                        Mara</strong></p>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700"><strong
+                                    class="tx-medium tx-gray-800">Julius
+                                    Erving</strong> wants
+                                to connect with you on your conversation with <strong class="tx-medium tx-gray-800">Ronnie
+                                    Mara</strong></p>
                                 <span class="tx-12">October 01, 2017 6:08pm</span>
                             </div>
                         </div><!-- media -->
@@ -159,10 +156,10 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img8.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth
-                                        Bungaos</strong>
-                                    tagged you and 12 others in a post.</p>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700"><strong
+                                    class="tx-medium tx-gray-800">Suzzeth
+                                    Bungaos</strong>
+                                tagged you and 12 others in a post.</p>
                                 <span class="tx-12">September 27, 2017 6:45am</span>
                             </div>
                         </div><!-- media -->
@@ -170,9 +167,8 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700">10+ new items added are for sale in your <strong
-                                        class="tx-medium tx-gray-800">Sale Group</strong></p>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700">10+ new items added are for sale in
+                                your <strong class="tx-medium tx-gray-800">Sale Group</strong></p>
                                 <span class="tx-12">September 28, 2017 11:30pm</span>
                             </div>
                         </div><!-- media -->
@@ -180,10 +176,10 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img9.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Mellisa
-                                        Brown</strong>
-                                    appreciated your work <strong class="tx-medium tx-gray-800">The Great Pyramid</strong>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700"><strong
+                                    class="tx-medium tx-gray-800">Mellisa
+                                    Brown</strong>
+                                appreciated your work <strong class="tx-medium tx-gray-800">The Great Pyramid</strong>
                                 </p>
                                 <span class="tx-12">September 26, 2017 11:01am</span>
                             </div>
@@ -192,12 +188,11 @@
                     <a href="" class="media-list-link read">
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
-                            <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Julius
-                                        Erving</strong> wants
-                                    to connect with you on your conversation with <strong
-                                        class="tx-medium tx-gray-800">Ronnie
-                                        Mara</strong></p>
+                            <div class="media-body"> <p class="tx-13 mg-b-0 tx-gray-700"><strong
+                                    class="tx-medium tx-gray-800">Julius
+                                    Erving</strong> wants
+                                to connect with you on your conversation with <strong class="tx-medium tx-gray-800">Ronnie
+                                    Mara</strong></p>
                                 <span class="tx-12">September 23, 2017 9:19pm</span>
                             </div>
                         </div><!-- media -->
@@ -215,54 +210,54 @@
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="{{ route('home') }}">OneTech</a>
             <span class="breadcrumb-item active">Dashboard</span>
-        </nav>
+            </nav>
 
 
-        <div class="sl-pagebody m-4">
+            <div class=" sl-pagebody m-4">
 
-            <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4">
-                Add New Category
-            </a>
+                <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4">
+                    Add New Category
+                </a>
 
-            <table id="myTable" class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-left">Category Name</th>
-                        <th class="text-center">Order</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <table id="myTable" class="table table-hover table-bordered align-content-center">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Category Name</th>
+                            <th class="text-center">Order</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
 
-        </div><!-- sl-pagebody -->
-        <footer class="sl-footer">
-            <div class="footer-left">
-                <div class="copyright_content">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
-                        target="_blank">Eng/
-                        Mohamed Sabry </a>
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </div>
+    </div><!-- sl-pagebody -->
+    <footer class="sl-footer">
+        <div class="footer-left">
+            <div class="copyright_content">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
+                    target="_blank">Eng/
+                    Mohamed Sabry </a>
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
-            <div class="footer-right d-flex align-items-center">
-                <span class="tx-uppercase mg-r-10">Share:</span>
-                <a target="_blank" class="pd-x-5"
-                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/starlight"><i
-                        class="fa fa-facebook tx-20"></i></a>
-                <a target="_blank" class="pd-x-5"
-                    href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
-                        class="fa fa-twitter tx-20"></i></a>
-            </div>
-        </footer>
+        </div>
+        <div class="footer-right d-flex align-items-center">
+            <span class="tx-uppercase mg-r-10">Share:</span>
+            <a target="_blank" class="pd-x-5"
+                href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/starlight"><i
+                    class="fa fa-facebook tx-20"></i></a>
+            <a target="_blank" class="pd-x-5"
+                href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
+                    class="fa fa-twitter tx-20"></i></a>
+        </div>
+    </footer>
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
@@ -279,7 +274,7 @@
             serverSide: true,
             ajax: "{{ route('categories.index') }}",
             order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
-            columns: [
+                columns: [
                 { data: 'name', name: 'name', orderable: true },
                 { data: 'order', name: 'order', orderable: true },
                 { data: 'action', name: 'action', orderable: false, searchable: false }
