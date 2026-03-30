@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
 
 <style>
+    /* Start DataTables Styling */
     #myTable_wrapper {
         padding: 0 0 2rem;
     }
@@ -15,11 +16,10 @@
 
     .dt-type-numeric {
         text-align: center !important;
+        align-content: center !important;
     }
 
-    /* .table.dataTable>tbody>tr:first-child>* {
-        text-align: center !important;
-    } */
+    /* End DataTables Styling */
 </style>
 @section('content')
     <!-- ########## START: RIGHT PANEL ########## -->
