@@ -1,5 +1,5 @@
 @extends('layouts.frontend.frontend')
-
+{{-- {{ dd($categories ?? 'NO DATA') }} --}}
 @section('title', 'Blog')
 
 @section('css')
@@ -13,7 +13,8 @@
     <!-- Home -->
 
     <div class="home">
-        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg">
+        <div class="home_background parallax-window" data-parallax="scroll"
+            data-image-src="{{ asset('assets/website/images/shop_background.jpg') }}">
         </div>
         <div class="home_overlay"></div>
         <div class="home_content d-flex flex-column align-items-center justify-content-center">
@@ -117,6 +118,10 @@
 @endsection
 
 @section('script')
+
     <script src="{{ asset('assets/website/plugins/parallax-js-master/parallax.min.js') }}"></script>
-    <script src="{{ asset('assets/website/js/blog_custom.js') }}"></script>
+
+    {{--
+    <script src="{{ asset('assets/website/js/blog_custom.js') }}"></script> --}}
+
 @endsection

@@ -87,7 +87,12 @@
                 </div>
             </div>
         </div>
-        <div class="panel"></div>
+        <div class="panel">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1241.7732975897413!2d-0.11877067567086798!3d51.503187368315416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d26973%3A0x4291f3172409ea92!2sLondon%20Eye!5e0!3m2!1sar!2seg!4v1774885692757!5m2!1sar!2seg"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </div>
 
     <!-- Map -->
@@ -103,6 +108,11 @@
 @endsection
 
 @section('script')
+
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-    <script src="{{ asset('assets/website/js/contact_custom.js') }}"></script>
+
+
+
+    {{--
+    <script src="{{ asset('assets/website/js/contact_custom.js') }}"></script> --}}
 @endsection

@@ -16,20 +16,27 @@ use function Pest\Laravel\json;
 
 class FrontendController extends Controller
 {
+
+    private function categories()
+    {
+        return Category::orderBy('order', 'asc')->get();
+    }
+
     public function index()
     {
-        // $categories = Category::all();
-        return view('Frontend.index');
+        // $categories = Category::select('name', 'order')->orderBy('order', 'asc')->get();
+        return view('Frontend.index', ['categories' => $this->categories()]);
     }
 
     public function contact()
     {
-        return view('Frontend.contact');
+        return view('Frontend.contact', ['categories' => $this->categories()]);
     }
     public function blog()
     {
-        return view('Frontend.blog');
+        return view('Frontend.blog', ['categories' => $this->categories()]);
     }
+
     // public function user_login(Request $request)
     // {
     //     $method = $request->isMethod('post');

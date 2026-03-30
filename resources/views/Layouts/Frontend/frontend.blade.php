@@ -127,17 +127,12 @@
                                                     <i class="fas fa-chevron-down"></i>
                                                     <ul class="custom_list clc">
                                                         <li><a class="clc" href="#">All Categories</a></li>
-                                                        <li><a class="clc" href="#">Computers</a></li>
-                                                        <li><a class="clc" href="#">Laptops</a></li>
-                                                        <li><a class="clc" href="#">Cameras</a></li>
-                                                        <li><a class="clc" href="#">Hardware</a></li>
-                                                        <li><a class="clc" href="#">Smartphones</a></li>
-                                                        {{-- @forelse ($categories as $category)
-                                                        <li><a class="clc" href="#">{{ $category->name }}</a></li> --
-                                                        @empty
-                                                        <p class="text text-danger">No Categories Found</p>
-                                                        @endforelse --}}
+                                                        @forelse ($categories as $category)
+                                                            <li><a class="clc" href="#">{{ $category->name }}</a></li>
 
+                                                        @empty
+                                                            <li class="text-danger">No Categories Found</li>
+                                                        @endforelse
                                                     </ul>
                                                 </div>
                                             </div>
@@ -202,11 +197,13 @@
                                     </div>
 
                                     <ul class="cat_menu">
-                                        <li><a href="#">Computers & Laptops <i
-                                                    class="fas fa-chevron-right ml-auto"></i></a>
-                                        </li>
-                                        <li><a href="#">Cameras & Photos<i class="fas fa-chevron-right"></i></a></li>
-                                        <li class="hassubs">
+                                        @forelse ($categories as $category)
+                                            <li><a class="clc" href="#">{{ $category->name }}</a></li>
+
+                                        @empty
+                                            <li class="text-danger">No Categories Found</li>
+                                        @endforelse
+                                        {{-- <li class="hassubs">
                                             <a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
                                             <ul>
                                                 <li class="hassubs">
@@ -230,15 +227,8 @@
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
                                             </ul>
-                                        </li>
-                                        <li><a href="#">Smartphones & Tablets<i class="fas fa-chevron-right"></i></a>
-                                        </li>
-                                        <li><a href="#">TV & Audio<i class="fas fa-chevron-right"></i></a></li>
-                                        <li><a href="#">Gadgets<i class="fas fa-chevron-right"></i></a></li>
-                                        <li><a href="#">Car Electronics<i class="fas fa-chevron-right"></i></a></li>
-                                        <li><a href="#">Video Games & Consoles<i class="fas fa-chevron-right"></i></a>
-                                        </li>
-                                        <li><a href="#">Accessories<i class="fas fa-chevron-right"></i></a></li>
+                                        </li> --}}
+
                                     </ul>
                                 </div>
 
@@ -587,7 +577,6 @@
     </div>
 
 
-
     <script src="{{ asset('assets/website/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('assets/website/styles/bootstrap4/popper.js') }}"></script>
     <script src="{{ asset('assets/website/styles/bootstrap4/bootstrap.min.js') }}"></script>
@@ -599,9 +588,9 @@
     <script src="{{ asset('assets/website/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/slick-1.8.0/slick.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
+    @yield('script')
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
 
-    @yield('script')
 </body>
 
 </html>
