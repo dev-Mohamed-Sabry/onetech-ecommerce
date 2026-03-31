@@ -25,8 +25,8 @@ class CategoryController extends Controller
                     return
                         '
                     <div class="text-center">
-                        <button  class="btn btn-info edit-category " data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
-                        <button  class="btn btn-danger delete-category " data-id="' . $category->id . '">Delete</button>
+                        <button  class="btn btn-info edit-category " style="cursor:pointer;" data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
+                        <button  class="btn btn-danger delete-category " style="cursor:pointer;" data-id="' . $category->id . '">Delete</button>
                     </div>
                 ';
                 })
