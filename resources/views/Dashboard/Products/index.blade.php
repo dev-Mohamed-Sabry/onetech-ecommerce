@@ -1,10 +1,32 @@
 @extends('layouts.dashboard.dashboard')
 
-@section('title', 'Add Product')
+@section('title', 'All Categories')
 
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
+
+<style>
+    /* Start DataTables Styling */
+    #myTable_wrapper {
+        padding: 0 0 2rem;
+    }
+
+    .dt-input {
+        margin-right: 5px;
+    }
+
+    .dt-type-numeric {
+        text-align: center !important;
+    }
+
+    .table-bordered tbody tr td {
+        align-content: center !important;
+    }
+
+    /* End DataTables Styling */
+</style>
 @section('content')
     <!-- ########## START: RIGHT PANEL ########## -->
-    {{-- <div class="sl-sideright">
+    <div class="sl-sideright">
         <ul class="nav nav-tabs nav-fill sidebar-tabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" role="tab" href="#messages">Messages (2)</a>
@@ -118,8 +140,8 @@
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in your <strong
-                                        class="tx-medium tx-gray-800">Sale Group</strong></p>
+                                <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in
+                                    your <strong class="tx-medium tx-gray-800">Sale Group</strong></p>
                                 <span class="tx-12">October 01, 2017 10:20pm</span>
                             </div>
                         </div><!-- media -->
@@ -152,8 +174,8 @@
                         <div class="media pd-x-20 pd-y-15">
                             <img src="{{ asset('assets/dashboard/img/img10.jpg') }}" class="wd-40 rounded-circle" alt="">
                             <div class="media-body">
-                                <p class="tx-13 mg-b-0 tx-gray-700">10+ new items added are for sale in your <strong
-                                        class="tx-medium tx-gray-800">Sale Group</strong></p>
+                                <p class="tx-13 mg-b-0 tx-gray-700">10+ new items added are for sale in
+                                    your <strong class="tx-medium tx-gray-800">Sale Group</strong></p>
                                 <span class="tx-12">September 28, 2017 11:30pm</span>
                             </div>
                         </div><!-- media -->
@@ -187,139 +209,181 @@
             </div><!-- #notifications -->
 
         </div><!-- tab-content -->
-    </div><!-- sl-sideright --> --}}
+    </div>
+    <!-- sl-sideright -->
     <!-- ########## END: RIGHT PANEL ########## --->
 
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
-            <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
-            <span class="breadcrumb-item active">Add Category</span>
+            <a class="breadcrumb-item" href="{{ route('home') }}">OneTech</a>
+            <span class="breadcrumb-item active">Dashboard</span>
         </nav>
 
-        <div class="sl-pagebody">
 
-            <div class="row row-sm mg-t-20">
-                <div class="col-xl-12">
-                    <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
-                        <h6 class="card-body-title mb-4">Add New Category</h6>
-                        {{-- <p class="mg-b-20 mg-sm-b-30">A basic form where labels are aligned in left.</p> --}}
+        <div class=" sl-pagebody m-4">
 
-                        <form id="categoryForm" method="POST">
-                            @csrf
-                            <div class="row">
-                                <label class="col-sm-4 form-control-label">Category Name: <span
-                                        class="tx-danger">*</span></label>
-                                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                    <input type="text" name="category-name" id="category-name" class="form-control"
-                                        placeholder="Enter Category Name">
-                                </div>
-                            </div><!-- row -->
+            <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4">
+                Add New Product
+            </a>
 
-                            <div class="row mg-t-20">
-                                <label class="col-sm-4 form-control-label">Category Order: <span
-                                        class="tx-danger">*</span></label>
-                                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                    <input type="text" name="category-order" id="category-order" class="form-control"
-                                        placeholder="Enter Category Order">
-                                </div>
-                            </div>
-                            <div class="form-layout-footer mg-t-30">
-                                <a href="{{ route('categories.index') }}" class="btn btn-secondary mg-r-5"
-                                    style="cursor: pointer;">All Categories</a>
-                                <button type="submit" class="btn btn-info mg-r-5" style="cursor: pointer;">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <table id="myTable" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-left">Category Name</th>
+                        <th class="text-center">Order</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+
+            </table>
 
         </div><!-- sl-pagebody -->
-
-
+        <footer class="sl-footer">
+            <div class="footer-left">
+                <div class="copyright_content">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
+                        target="_blank">Eng/
+                        Mohamed Sabry </a>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+            <div class="footer-right d-flex align-items-center">
+                <span class="tx-uppercase mg-r-10">Share:</span>
+                <a target="_blank" class="pd-x-5"
+                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/starlight"><i
+                        class="fa fa-facebook tx-20"></i></a>
+                <a target="_blank" class="pd-x-5"
+                    href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
+                        class="fa fa-twitter tx-20"></i></a>
+            </div>
+        </footer>
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
 @endsection
 
+
 @section('js')
 
 
+    {{-- Update --}}
+
     <script>
-        $(document).ready(function () {
-            $('#categoryForm').on('submit', function (e) {
-                e.preventDefault();
-                // console.log('test');
-                let categoryName = $('#category-name').val();
-                let categoryOrder = $('#category-order').val();
-                if (categoryName == '' || categoryOrder == '') {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Please Enter Name & Order',
-                        icon: 'error',
-                        confirmButtonText: 'Okay!'
-                    })
-                }
-                else {
-                    $.ajax({
+        $(document).on('click', '.edit-category', function (e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+
+            Swal.fire({
+                title: "Enter New Category Name",
+                input: "text",
+                inputValue: name,
+                showCancelButton: true,
+                confirmButtonText: "Update",
+                showLoaderOnConfirm: true,
+                preConfirm: (newName) => {
+                    return fetch(`/categories/${id}`, {
                         method: "POST",
-                        url: "{{ route('categories.store') }}",
-                        data: {
-                            name: categoryName,
-                            order: categoryOrder,
-                        },
                         headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         },
-                        success: function (response) {
-                            console.log(response);
-                            if (!response.data) {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: response.message,
-                                    icon: 'error',
-                                    confirmButtonText: 'Ok',
-                                })
-                            }
-                            else if (response.data) {
-
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: "top-end",
-                                    showConfirmButton: false,
-                                    timer: 1000,
-                                    timerProgressBar: true,
-                                    didOpen: (toast) => {
-                                        toast.onmouseenter = Swal.stopTimer;
-                                        toast.onmouseleave = Swal.resumeTimer;
-                                    }
-                                });
-                                Toast.fire({
-                                    icon: "success",
-                                    title: "Category Added Successfully"
-                                });
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 1000);
-
-
-                            }
-
-
-                        },
-                        error: function (xhr) {
-                            console.log(xhr.responseJSON);
-                            Swal.fire({
-                                title: 'Error!',
-                                text: xhr.responseJSON.message ?? 'Something went wrong!',
-                                icon: 'error',
-                                confirmButtonText: 'Okay!'
-                            });
-                        }
+                        body: JSON.stringify({
+                            _method: "PUT",
+                            name: newName
+                        })
                     })
+                        .then(async response => {
+                            const data = await response.json();
+
+                            if (!response.ok) {
+                                let messages = Object.values(data.errors || {}).flat().join('<br>');
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Validation Error',
+                                    text: messages
+                                });
+
+                                // ❌ نوقف العملية
+                                return false;
+                            }
+
+                            return data;
+                        });
                 }
-            })
-        })
+            }).then(result => {
+                if (result.isConfirmed) {
+                    Swal.fire('Success', 'Updated!', 'success')
+                        .then(() => location.reload());
+                }
+            });
+        });
+
     </script>
 
+    {{-- {{ Delete }} --}}
+    <script>
+
+        $(document).on('click', '.delete-category', function (e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+
+            Swal.fire({
+                title: "Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(`/categories/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        // body: JSON.stringify({ _method: "DELETE" })
+                    })
+                        .then(res => res.json())
+                        .then(() => {
+                            Swal.fire('Deleted!', '', 'success')
+                                .then(() => location.reload());
+                        })
+                        .catch(() => {
+                            Swal.fire('Error!', 'Something went wrong', 'error');
+                        });
+
+                }
+            });
+        });
+
+    </script>
+
+
+
+    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
+
+    <script>
+        let table = new DataTable('#myTable', {
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('categories.index') }}",
+            order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
+            columns: [
+                { data: 'name', name: 'name', orderable: true },
+                { data: 'order', name: 'order', orderable: true },
+                { data: 'action', name: 'action', orderable: false, searchable: true }
+            ]
+        });
+    </script>
 @endsection

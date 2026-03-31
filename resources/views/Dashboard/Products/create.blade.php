@@ -202,31 +202,31 @@
             <div class="row row-sm mg-t-20">
                 <div class="col-xl-12">
                     <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
-                        <h6 class="card-body-title mb-4">Add New Category</h6>
+                        <h6 class="card-body-title mb-4">Add New Product</h6>
                         {{-- <p class="mg-b-20 mg-sm-b-30">A basic form where labels are aligned in left.</p> --}}
 
                         <form id="categoryForm" method="POST">
                             @csrf
                             <div class="row">
-                                <label class="col-sm-4 form-control-label">Category Name: <span
+                                <label class="col-sm-4 form-control-label">Product Name: <span
                                         class="tx-danger">*</span></label>
                                 <div class="col-sm-8 mg-t-10 mg-sm-t-0">
                                     <input type="text" name="category-name" id="category-name" class="form-control"
-                                        placeholder="Enter Category Name">
+                                        placeholder="Enter Product Name">
                                 </div>
                             </div><!-- row -->
 
                             <div class="row mg-t-20">
-                                <label class="col-sm-4 form-control-label">Category Order: <span
+                                <label class="col-sm-4 form-control-label">Product Order: <span
                                         class="tx-danger">*</span></label>
                                 <div class="col-sm-8 mg-t-10 mg-sm-t-0">
                                     <input type="text" name="category-order" id="category-order" class="form-control"
-                                        placeholder="Enter Category Order">
+                                        placeholder="Enter Product Order">
                                 </div>
                             </div>
                             <div class="form-layout-footer mg-t-30">
                                 <a href="{{ route('categories.index') }}" class="btn btn-secondary mg-r-5"
-                                    style="cursor: pointer;">All Categories</a>
+                                    style="cursor: pointer;">All Products</a>
                                 <button type="submit" class="btn btn-info mg-r-5" style="cursor: pointer;">Submit</button>
                             </div>
                         </form>
