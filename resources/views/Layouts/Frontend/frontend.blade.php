@@ -238,7 +238,7 @@
                                     <ul class="standard_dropdown main_nav_dropdown">
                                         <li><a href="{{ route('home') }}">Home<i class="fas fa-chevron-down"></i></a>
                                         </li>
-                                        <li class="hassubs">
+                                        {{-- <li class="hassubs">
                                             <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
                                             <ul>
                                                 <li>
@@ -256,8 +256,8 @@
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
-                                        </li>
-                                        <li class="hassubs">
+                                        </li> --}}
+                                        {{-- <li class="hassubs">
                                             <a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
                                             <ul>
                                                 <li>
@@ -275,7 +275,7 @@
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
                                                 <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
-                                        </li>
+                                        </li> --}}
                                         {{-- <li class="hassubs">
                                             <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
                                             <ul>

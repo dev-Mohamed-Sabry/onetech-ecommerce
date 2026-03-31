@@ -227,7 +227,7 @@
                 Add New Category
             </a>
 
-            <table id="myTable" class="table table-hover table-bordered align-content-center">
+            <table id="myTable" class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th class="text-left">Category Name</th>
@@ -274,6 +274,103 @@
 
 @section('js')
 
+
+    {{-- Update --}}
+
+    <script>
+        $(document).on('click', '.edit-category', function (e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+
+            Swal.fire({
+                title: "Enter New Category Name",
+                input: "text",
+                inputValue: name,
+                showCancelButton: true,
+                confirmButtonText: "Update",
+                showLoaderOnConfirm: true,
+                preConfirm: (newName) => {
+                    return fetch(`/categories/${id}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            _method: "PUT",
+                            name: newName
+                        })
+                    })
+                        .then(async response => {
+                            const data = await response.json();
+
+                            if (!response.ok) {
+                                let messages = Object.values(data.errors || {}).flat().join('<br>');
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Validation Error',
+                                    text: messages
+                                });
+
+                                // ❌ نوقف العملية
+                                return false;
+                            }
+
+                            return data;
+                        });
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    Swal.fire('Success', 'Updated!', 'success')
+                        .then(() => location.reload());
+                }
+            });
+        });
+
+    </script>
+
+    {{-- {{ Delete }} --}}
+    <script>
+
+        $(document).on('click', '.delete-category', function (e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+
+            Swal.fire({
+                title: "Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(`/categories/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        // body: JSON.stringify({ _method: "DELETE" })
+                    })
+                        .then(res => res.json())
+                        .then(() => {
+                            Swal.fire('Deleted!', '', 'success')
+                                .then(() => location.reload());
+                        })
+                        .catch(() => {
+                            Swal.fire('Error!', 'Something went wrong', 'error');
+                        });
+
+                }
+            });
+        });
+
+    </script>
+
+
+
     <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
 
     <script>
@@ -285,135 +382,8 @@
             columns: [
                 { data: 'name', name: 'name', orderable: true },
                 { data: 'order', name: 'order', orderable: true },
-                { data: 'action', name: 'action', orderable: false, searchable: false }
+                { data: 'action', name: 'action', orderable: false, searchable: true }
             ]
-        });
-    </script>
-    {{-- Update --}}
-
-    <script>
-        $(document).ready(function () {
-            $('.edit-category').on('click', function (e) {
-                e.preventDefault();
-
-                let id = $(this).attr('data-id');
-                let name = $(this).data('name');
-
-                Swal.fire({
-                    title: "Enter New Category Name",
-                    input: "text",
-                    inputValue: name,
-                    showCancelButton: true,
-                    confirmButtonText: "Update",
-                    showLoaderOnConfirm: true,
-
-                    preConfirm: (newName) => {
-                        return fetch(`/categories/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                "Accept": "application/json"
-                            },
-                            body: JSON.stringify({ name: newName })
-                        })
-                            .then(async response => {
-
-                                const data = await response.json();
-
-                                if (!response.ok) {
-
-                                    if (data.errors) {
-                                        let messages = Object.values(data.errors)
-                                            .flat()
-                                            .join('<br>');
-
-                                        Swal.showValidationMessage(messages);
-                                    } else {
-                                        Swal.showValidationMessage(data.message || 'Update failed');
-                                    }
-
-                                    return false;
-                                }
-
-                                return data;
-                            })
-                            .catch(error => {
-                                Swal.showValidationMessage(`Error: ${error}`);
-                            });
-                    }
-                })
-                    .then((result) => {
-
-                        if (result.isConfirmed && result.value) {
-
-                            Swal.fire(
-                                'Success',
-                                'Category updated successfully',
-                                'success'
-                            ).then(() => {
-                                location.reload();
-                            });
-
-                        }
-
-                    });
-
-            });
-        });
-    </script>
-
-    {{-- {{ Delete }} --}}
-    <script>
-        $(document).ready(function () {
-            $('.delete-category').on('click', function (e) {
-                e.preventDefault();
-                let id = $(this).attr('data-id');
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "Category will be deleted !",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/categories/${id}`, {
-                            method: "DELETE",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                "Accept": "application/json"
-                            },
-                        })
-                            .then(async response => {
-                                if (!response.ok) {
-                                    const data = await response.json();
-                                    throw new Error(data.message || "Delete failed!");
-                                }
-                                return response.json();
-                            })
-                            .then(
-
-                                data => {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'Category has been deleted.',
-                                        'success'
-                                    ).then(() => location.reload());
-                                })
-                            .catch(error => {
-                                Swal.fire(
-                                    'Error!',
-                                    error.message,
-                                    'error'
-                                );
-                            });
-                    }
-                });
-            });
         });
     </script>
 @endsection

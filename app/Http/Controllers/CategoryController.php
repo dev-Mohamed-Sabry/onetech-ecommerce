@@ -22,7 +22,8 @@ class CategoryController extends Controller
             $categories = Category::select('id', 'name', 'order');
             return DataTables::of($categories)
                 ->addColumn('action', function ($category) {
-                    return '
+                    return
+                        '
                     <div class="text-center">
                         <button  class="btn btn-info edit-category " data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
                         <button  class="btn btn-danger delete-category " data-id="' . $category->id . '">Delete</button>
