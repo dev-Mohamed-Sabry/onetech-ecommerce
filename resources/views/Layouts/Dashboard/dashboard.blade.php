@@ -213,6 +213,7 @@
                 </a>
             </div><!-- navicon-right -->
         </div><!-- sl-header-right -->
+
     </div><!-- sl-header -->
     <!-- ########## END: HEAD PANEL ########## -->
 
