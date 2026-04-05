@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->decimal('price', 10, 2)->unsigned();
+            $table->integer('discount')->default(0); // نسبة الخصم %
+            $table->string('image')->nullable();
+            $table->integer('quantity')->default(0);
+            $table->string('description')->nullable();
+            $table->foreignId('category_id')->constrained()->restrictOnDelete();
             $table->timestamps();
         });
     }
