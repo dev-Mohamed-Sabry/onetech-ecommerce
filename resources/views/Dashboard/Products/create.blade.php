@@ -19,19 +19,19 @@
             <div class="row row-sm mt-4">
                 <div class="col-xl-12">
 
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" id="productForm" enctype="multipart/form-data">
                         @csrf
 
                         <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
                             <h6 class="card-body-title mb-4">Add New Product</h6>
 
                             <!-- Category -->
-                            <div class="row mg-b-20">
+                            <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
                                     Category: <span class="tx-danger">*</span>
                                 </label>
                                 <div class="col-sm-8">
-                                    <select name="category_id" id="category" class="form-control" required>
+                                    <select name="category_id" id="category_id" class="form-control">
                                         <option disabled selected>Choose Category</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">
@@ -43,69 +43,85 @@
                             </div>
 
                             <!-- Product Name -->
-                            <div class="row mg-b-20">
+                            <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
                                     Product Name: <span class="tx-danger">*</span>
                                 </label>
                                 <div class="col-sm-8">
-                                    <input required name="name" id="name" type="text" class="form-control"
+                                    <input name="name" id="name" type="text" class="form-control"
                                         placeholder="Enter product name">
                                 </div>
                             </div>
 
-                            <!-- Price -->
-                            <div class="row mg-b-20">
+                            <!-- Base Price -->
+                            <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
                                     Price: <span class="tx-danger">*</span>
                                 </label>
                                 <div class="col-sm-8">
-                                    <input required name="price" id="price" type="number" min="0" step="0.01"
-                                        class="form-control" placeholder="Enter product price">
+                                    <input name="base_price" id="base_price" type="number" min="0" class="form-control"
+                                        placeholder="Enter product price">
                                 </div>
                             </div>
-                            <!-- Discount -->
-                            <div class="row mg-b-20">
+
+                            <!-- Discount Type-->
+                            <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
-                                    Discount: <span class="tx-danger">*</span>
+                                    Discount:
                                 </label>
                                 <div class="col-sm-8">
-                                    <input required name="discount" id="discount" type="number" class="form-control"
-                                        placeholder="Enter product discount">
+                                    <select name="discount_type" id="discount_type" class="form-control">
+                                        <option value="none">No Discount</option>
+                                        <option value="percent">Percent %</option>
+                                        <option value="fixed">Fixed Amount</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Discount Value-->
+                            <div class="row  mb-1" id="discount_value_row">
+                                <label class="col-sm-4 form-control-label">
+                                    Discount Value: <span class="tx-danger">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <input name="discount_value" id="discount_value" type="number" class="form-control">
                                 </div>
                             </div>
 
                             <!-- Quantity -->
-                            <div class="row mg-b-20">
+                            <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
                                     Quantity: <span class="tx-danger">*</span>
                                 </label>
                                 <div class="col-sm-8">
-                                    <input required name="quantity" id="quantity" type="number" class="form-control"
+                                    <input name="quantity" id="quantity" type="number" class="form-control"
                                         placeholder="Enter quantity">
                                 </div>
                             </div>
 
-                            <!-- Description -->
-                            <div class="row mg-b-20">
-                                <label class="col-sm-4 form-control-label">
-                                    Description:
-                                </label>
-                                <div class="col-sm-8">
-                                    <textarea required name="description" id="description" rows="3" class="form-control"
-                                        placeholder="Product description"></textarea>
-                                </div>
-                            </div>
-
                             <!-- Image -->
-                            <div class="row mg-b-20">
+                            <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
                                     Product Image:
                                 </label>
                                 <div class="col-sm-8">
-                                    <input required name="image" id="image" type="file" accept="image/*"
+                                    <input name="image" id="image" type="file" accept=".jpg,.jpeg,.png,.webp"
                                         class="form-control">
                                 </div>
                             </div>
+
+                            <!-- Description -->
+                            <div class="row mb-1">
+                                <label class="col-sm-4 form-control-label">
+                                    Description:
+                                </label>
+                                <div class="col-sm-8">
+                                    <textarea name="description" id="description" rows="3" class="form-control"
+                                        placeholder="Product description"></textarea>
+                                </div>
+                            </div>
+
+
 
                             <!-- Buttons -->
                             <div class="form-layout-footer">
@@ -157,4 +173,147 @@
     <!-- sl-mainpanel -->
 
     <!-- ########## END: MAIN PANEL ########## -->
+@endsection
+
+
+@section('js')
+
+
+    <script>
+        // Hide Discount Value Field If None Selected
+        $(document).ready(function () {
+
+            function toggleDiscount() {
+                if ($('#discount_type').val() === 'fixed' || $('#discount_type').val() === 'percent') {
+                    $('#discount_value_row').show();
+                } else {
+                    $('#discount_value_row').hide();
+                }
+            }
+
+            // أول تحميل
+            toggleDiscount();
+
+            // عند التغيير
+            $('#discount_type').on('change', function () {
+                toggleDiscount();
+            });
+
+        });
+
+
+
+        $(document).ready(function () {
+
+            $('#productForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let categoryId = $('#category_id').val();
+                let productName = $('#name').val();
+                let productBasePrice = $('#base_price').val();
+                let productDiscountType = $('#discount_type').val();
+                let productDiscountValue = $('#discount_value').val();
+                let productQuantity = $('#quantity').val();
+                let productImage = $('#image')[0].files[0];
+                let productDescription = $('#description').val();
+
+                // ================= VALIDATION =================
+                if (
+                    categoryId == "" ||
+                    productName == '' ||
+                    productBasePrice == '' ||
+                    // productDiscountType !== 'none' ||
+                    // productDiscountType !== 'fixed' ||
+                    // productDiscountType !== 'percent' ||
+                    productQuantity == '' ||
+                    productDescription == ''
+                ) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'All Fields (Except Image) Are Required ',
+                        icon: 'warning',
+                        confirmButtonText: 'Okay!'
+                    });
+                    return;
+                }
+
+                // ================= FORM DATA =================
+                let formData = new FormData();
+
+                formData.append('category_id', categoryId);
+                formData.append('name', productName);
+                formData.append('base_price', productBasePrice);
+                formData.append('quantity', productQuantity);
+                formData.append('description', productDescription);
+
+                if (productDiscountType !== 'none') {
+                    formData.append('discount_value', productDiscountValue);
+                } else {
+                    formData.append('discount_value', 0);
+                }
+
+                // image optional
+                if (productImage) {
+                    formData.append('image', productImage);
+                }
+                console.log(formData);
+                // ================= AJAX =================
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('products.store') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+
+                    success: function (response) {
+                        console.log(response);
+
+                        if (!response.data) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'Ok',
+                            });
+                        } else {
+
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                            });
+
+                            Toast.fire({
+                                icon: "success",
+                                title: "Product Added Successfully"
+                            });
+
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    },
+
+                    error: function (xhr) {
+                        console.log(xhr.responseJSON);
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: xhr.responseJSON.message ?? 'Something went wrong!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay!'
+                        });
+                    }
+                });
+
+            });
+
+        });
+    </script>
+
 @endsection

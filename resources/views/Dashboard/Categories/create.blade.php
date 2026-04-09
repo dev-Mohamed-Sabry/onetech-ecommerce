@@ -50,9 +50,34 @@
 
         </div><!-- sl-pagebody -->
 
-
+        <footer class="sl-footer">
+            <div class="footer-left">
+                <div class="copyright_content">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
+                        target="_blank">Eng/
+                        Mohamed Sabry </a>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+            <div class="footer-right d-flex align-items-center">
+                <span class="tx-uppercase mg-r-10">Share:</span>
+                <a target="_blank" class="pd-x-5"
+                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/starlight"><i
+                        class="fa fa-facebook tx-20"></i></a>
+                <a target="_blank" class="pd-x-5"
+                    href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
+                        class="fa fa-twitter tx-20"></i></a>
+            </div>
+        </footer>
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
+
+
 
 @endsection
 
