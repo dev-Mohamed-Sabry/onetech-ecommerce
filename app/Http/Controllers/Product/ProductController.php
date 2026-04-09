@@ -59,7 +59,8 @@ class ProductController extends Controller
         // 🔹 Calculate Final Price
         // ========================
         $finalPrice = $basePrice;
-
+        \Log::emergency($discountType);
+        // dd();
         if ($discountType === 'percent') {
             // حماية: النسبة متعديش 100%
             $discountValue = min($discountValue, 100);
@@ -97,7 +98,7 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'description' => $request->description,
             'image' => $imageName,
-            'category_id' => $request->category_id,
+            'category_id' => $request->category_id
         ]);
 
         return response()->json([

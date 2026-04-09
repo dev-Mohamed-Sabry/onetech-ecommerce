@@ -245,6 +245,7 @@
                 formData.append('base_price', productBasePrice);
                 formData.append('quantity', productQuantity);
                 formData.append('description', productDescription);
+                formData.append('discount_type', productDiscountType);
 
                 if (productDiscountType !== 'none') {
                     formData.append('discount_value', productDiscountValue);
