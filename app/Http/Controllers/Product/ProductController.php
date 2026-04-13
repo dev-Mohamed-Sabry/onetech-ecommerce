@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Mews\Purifier\Facades\Purifier;
+
 
 class ProductController extends Controller
 {
@@ -14,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('Dashboard.Products.index');
+        $products = Product::all();
+        return view('Dashboard.Products.index', compact('products'));
     }
 
     /**
@@ -33,7 +36,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:255',
+            'name' => 'required|string|min:2|max:255',
             'base_price' => 'required|numeric|min:0',
             'discount_type' => 'nullable|in:none,percent,fixed',
             'discount_value' => 'nullable|numeric|min:0',
@@ -59,7 +62,7 @@ class ProductController extends Controller
         // 🔹 Calculate Final Price
         // ========================
         $finalPrice = $basePrice;
-        \Log::emergency($discountType);
+
         // dd();
         if ($discountType === 'percent') {
             // حماية: النسبة متعديش 100%
@@ -96,9 +99,9 @@ class ProductController extends Controller
             'discount_value' => $discountValue,
             'final_price' => $finalPrice,
             'quantity' => $request->quantity,
-            'description' => $request->description,
+            'description' => Purifier::clean($request->description),
             'image' => $imageName,
-            'category_id' => $request->category_id
+            'category_id' => $request->category_id,
         ]);
 
         return response()->json([

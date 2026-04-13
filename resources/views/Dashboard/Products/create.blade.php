@@ -2,6 +2,8 @@
 
 @section('title', 'Add Product')
 
+{{-- Quill Editor --}}
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
 @section('content')
 
@@ -115,9 +117,14 @@
                                 <label class="col-sm-4 form-control-label">
                                     Description:
                                 </label>
-                                <div class="col-sm-8">
+                                {{-- <div class="col-sm-8">
                                     <textarea name="description" id="description" rows="3" class="form-control"
                                         placeholder="Product description"></textarea>
+                                </div> --}}
+                                <div class="col-sm-8">
+                                    <div id="editor" name="description" id="description" rows="3" class="form-control "
+                                        placeholder="Product description">
+                                    </div>
                                 </div>
                             </div>
 
@@ -144,15 +151,16 @@
 
 
 
-        <footer class="sl-footer">
+
+        {{-- <footer class="justify-content-center sl-footer" style="gap: 13rem">
             <div class="footer-left">
                 <div class="copyright_content">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
-                        target="_blank">Eng/
+                    </script> All rights reserved | Project Developed By <a
+                        href="https://www.linkedin.com/in/mo-sabre" target="_blank">Eng/
                         Mohamed Sabry </a>
                     <i class="fa fa-heart" aria-hidden="true"></i>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -167,7 +175,8 @@
                     href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
                         class="fa fa-twitter tx-20"></i></a>
             </div>
-        </footer>
+        </footer> --}}
+
 
     </div>
     <!-- sl-mainpanel -->
@@ -177,6 +186,13 @@
 
 
 @section('js')
+
+    {{-- Quill Editor --}}
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script>  const quill = new Quill('#editor', {
+            theme: 'snow'
+        });</script>
+
 
 
     <script>
@@ -207,6 +223,8 @@
 
             $('#productForm').on('submit', function (e) {
                 e.preventDefault();
+                let productDescription = quill.root.innerHTML;
+
 
                 let categoryId = $('#category_id').val();
                 let productName = $('#name').val();
@@ -215,7 +233,7 @@
                 let productDiscountValue = $('#discount_value').val();
                 let productQuantity = $('#quantity').val();
                 let productImage = $('#image')[0].files[0];
-                let productDescription = $('#description').val();
+                // let productDescription = $('#description').val();
 
                 // ================= VALIDATION =================
                 if (
@@ -270,7 +288,7 @@
                     },
 
                     success: function (response) {
-                        console.log(response);
+                        // console.log(response);
 
                         if (!response.data) {
                             Swal.fire({
