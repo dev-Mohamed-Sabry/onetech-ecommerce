@@ -174,8 +174,8 @@
 
     </script> --}}
 
-    {{-- {{ Delete }} --}}
 
+    {{-- {{ Delete }} --}}
     <script>
 
         $(document).on('click', '.delete-product', function (e) {
