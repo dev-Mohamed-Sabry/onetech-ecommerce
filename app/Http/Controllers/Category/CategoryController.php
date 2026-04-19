@@ -24,12 +24,10 @@ class CategoryController extends Controller
             return DataTables::of($categories)
                 ->addColumn('action', function ($category) {
                     return
-                        '
-                    <div class="text-center">
-                        <button  class="btn btn-info edit-category " style="cursor:pointer;" data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
-                        <button  class="btn btn-danger delete-category " style="cursor:pointer;" data-id="' . $category->id . '">Delete</button>
-                    </div>
-                ';
+                        ' <div class="text-center">
+                            <button  class="btn btn-info edit-category " style="cursor:pointer;" data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
+                            <button  class="btn btn-danger delete-category " style="cursor:pointer;" data-id="' . $category->id . '">Delete</button>
+                        </div> ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

@@ -2,7 +2,6 @@
 
 @section('title', 'All Categories')
 
-<link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
 
 <style>
     /* Start DataTables Styling */
@@ -54,7 +53,8 @@
 
             </table>
 
-        </div><!-- sl-pagebody -->
+        </div>
+        <!-- sl-pagebody -->
         {{-- <footer class="sl-footer">
             <div class="footer-left">
                 <div class="copyright_content">
@@ -184,8 +184,9 @@
 
 
 
-    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
 
+
+    {{-- Datatables Show Data --}}
     <script>
         let table = new DataTable('#myTable', {
             processing: true,

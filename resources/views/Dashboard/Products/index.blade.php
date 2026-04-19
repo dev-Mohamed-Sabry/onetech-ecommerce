@@ -1,8 +1,7 @@
 @extends('layouts.dashboard.dashboard')
 
-@section('title', 'All Categories')
+@section('title', 'All Products')
 
-<link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
 
 <style>
     /* Start DataTables Styling */
@@ -24,6 +23,7 @@
 
     /* End DataTables Styling */
 </style>
+
 @section('content')
 
     <!-- ########## START: MAIN PANEL ########## -->
@@ -36,15 +36,21 @@
 
         <div class=" sl-pagebody m-4">
 
-            <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4">
+            <a href="{{ route('products.create') }}" class="btn btn-primary mb-4">
                 Add New Product
             </a>
 
-            <table id="myTable" class="table table-hover table-bordered">
+            <table id="productTable" class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-left">Category Name</th>
-                        <th class="text-center">Order</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Image</th>
+                        <th>Base Price</th>
+                        <th>Discount</th>
+                        <th>Final Price</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -88,11 +94,33 @@
 
 @section('js')
 
+    {{-- DataTables Show Products data --}}
+    <script>
+        let table = new DataTable('#productTable', {
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('products.index') }}",
+            // order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
+            columns: [
+                // { data: 'id', name: 'id', orderable: true },
+                { data: 'name', name: 'name', orderable: true },
+                { data: 'category', name: 'category', orderable: true },
+                { data: 'description', name: 'description', orderable: true },
+                { data: 'quantity', name: 'quantity', orderable: true },
+                { data: 'image', name: 'image', orderable: true },
+                { data: 'base_price', name: 'base_price', orderable: true },
+                { data: 'discount_value', name: 'discount_value', orderable: true },
+                { data: 'final_price', name: 'final_price', orderable: true },
+                { data: 'action', name: 'action', orderable: false, searchable: true }
+            ]
+        });
+    </script>
 
     {{-- Update --}}
 
+    {{--
     <script>
-        $(document).on('click', '.edit-category', function (e) {
+        $(document).on('click', '.edit-product', function (e) {
             e.preventDefault();
 
             let id = $(this).data('id');
@@ -144,12 +172,13 @@
             });
         });
 
-    </script>
+    </script> --}}
 
     {{-- {{ Delete }} --}}
+
     <script>
 
-        $(document).on('click', '.delete-category', function (e) {
+        $(document).on('click', '.delete-product', function (e) {
             e.preventDefault();
 
             let id = $(this).data('id');
@@ -161,7 +190,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    fetch(`/categories/${id}`, {
+                    fetch(`/products/${id}`, {
                         method: "DELETE",
                         headers: {
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -185,19 +214,5 @@
 
 
 
-    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
 
-    <script>
-        let table = new DataTable('#myTable', {
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('categories.index') }}",
-            order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
-            columns: [
-                { data: 'name', name: 'name', orderable: true },
-                { data: 'order', name: 'order', orderable: true },
-                { data: 'action', name: 'action', orderable: false, searchable: true }
-            ]
-        });
-    </script>
 @endsection

@@ -45,6 +45,10 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('assets/dashboard/css/starlight.css')}}">
+
+    {{-- DataTables --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
+
 </head>
 
 <body>
@@ -433,6 +437,9 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
 
     @yield('js')
 

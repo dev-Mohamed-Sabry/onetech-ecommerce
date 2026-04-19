@@ -159,8 +159,8 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | Project Developed By <a
-                        href="https://www.linkedin.com/in/mo-sabre" target="_blank">Eng/
+                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
+                        target="_blank">Eng/
                         Mohamed Sabry </a>
                     <i class="fa fa-heart" aria-hidden="true"></i>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -223,13 +223,11 @@
 
             $('#productForm').on('submit', function (e) {
                 e.preventDefault();
-                let productDescription = quill.root.innerHTML;
-
-
                 let categoryId = $('#category_id').val();
                 let productName = $('#name').val();
                 let productBasePrice = $('#base_price').val();
                 let productDiscountType = $('#discount_type').val();
+                let productDescription = quill.root.innerHTML;
                 let productDiscountValue = $('#discount_value').val();
                 let productQuantity = $('#quantity').val();
                 let productImage = $('#image')[0].files[0];

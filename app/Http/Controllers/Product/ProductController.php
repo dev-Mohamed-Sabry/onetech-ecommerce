@@ -6,18 +6,60 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
+use Yajra\DataTables\DataTables;
 
+use function Pest\Laravel\json;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('Dashboard.Products.index', compact('products'));
+        if ($request->ajax()) {
+            $products = Product::with('category')->select(
+                'id',
+                'name',
+                'description',
+                'quantity',
+                'image',
+                'base_price',
+                'discount_value',
+                'final_price',
+                'category_id',
+            );
+            return DataTables::of($products)
+
+                ->addColumn('category', function ($product) {
+
+                    return $product->category->name ?? '-';
+                })
+
+                ->editColumn('image', function ($product) {
+                    if (!$product->image) return '-';
+                    return ' <img src="/uploads/products/' . $product->image . '" width="60"> ';
+                })
+
+                ->editColumn('description', function ($product) {
+                    return Str::limit(strip_tags($product->description), 25);
+                })
+
+                ->addColumn('action', function ($product) {
+                    return
+                        ' <div class="d-flex text-center" style="gap:2px;">
+                            <button  class="btn btn-info edit-product " style="cursor:pointer;" data-id="' . $product->id . '" data-name="' . $product->name . '">Update</button>
+                            <button  class="btn btn-danger delete-product " style="cursor:pointer;" data-id="' . $product->id . '">Delete</button>
+                        </div> ';;
+                })
+
+                ->rawColumns(['action', 'image'])
+                ->make(true);
+        }
+        return view('Dashboard.Products.index');
     }
 
     /**
@@ -51,8 +93,9 @@ class ProductController extends Controller
         // ========================
         $basePrice = (float) $request->base_price;
         $discountType = $request->discount_type;
-        $discountValue = (float) ($request->discount_value ?? 0);
 
+        $discountValue = (float) ($request->discount_value ?? 0);
+        // dd($discountValue);
         // لو مفيش خصم نخلي القيمة صفر
         if ($discountType === 'none') {
             $discountValue = 0;
@@ -67,6 +110,7 @@ class ProductController extends Controller
         if ($discountType === 'percent') {
             // حماية: النسبة متعديش 100%
             $discountValue = min($discountValue, 100);
+
             $finalPrice = $basePrice - ($basePrice * $discountValue / 100);
         } elseif ($discountType === 'fixed') {
             $finalPrice = $basePrice - $discountValue;
@@ -108,6 +152,10 @@ class ProductController extends Controller
             'data' => true,
             'message' => 'Product added successfully'
         ]);
+
+        // return response()->json([
+        //     'data' => $request->all()
+        // ]);
     }
 
 
@@ -138,8 +186,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Product $product)
+    { {
+            $product->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product Deleted successfully'
+            ]);
+        }
     }
 }
