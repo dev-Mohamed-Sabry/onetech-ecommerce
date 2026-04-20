@@ -40,8 +40,8 @@ class ProductController extends Controller
                 })
 
                 ->editColumn('image', function ($product) {
-                    if (!$product->image) return '-';
-                    return ' <img src="/uploads/products/' . $product->image . '" width="60"> ';
+                    if (!$product->image) return ' <img src="/uploads/products/no_img.jpg" width="60">';
+                    return ' <img src="/uploads/products/' . $product->image . '" width="60">';
                 })
 
                 ->editColumn('description', function ($product) {
@@ -51,9 +51,9 @@ class ProductController extends Controller
                 ->addColumn('action', function ($product) {
                     return
                         ' <div class="d-flex text-center" style="gap:2px;">
-                            <button  class="btn btn-info edit-product " style="cursor:pointer;" data-id="' . $product->id . '" data-name="' . $product->name . '">Update</button>
+                            <a href= {{ route("product.edit") }}  class="btn btn-info edit-product " style="cursor:pointer;" data-id="' . $product->id . '" data-name="' . $product->name . '">Update</a>
                             <button  class="btn btn-danger delete-product " style="cursor:pointer;" data-id="' . $product->id . '">Delete</button>
-                        </div> ';;
+                        </div> ';
                 })
 
                 ->rawColumns(['action', 'image'])
@@ -80,7 +80,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|min:2|max:255',
             'base_price' => 'required|numeric|min:0',
-            'discount_type' => 'nullable|in:none,percent,fixed',
+            'discount_type' => 'required|in:none,percent,fixed',
             'discount_value' => 'nullable|numeric|min:0',
             'quantity' => 'required|integer|min:0',
             'description' => 'required|string|min:10|max:2000',
@@ -92,7 +92,7 @@ class ProductController extends Controller
         // 🔹 Prepare Data
         // ========================
         $basePrice = (float) $request->base_price;
-        $discountType = $request->discount_type;
+        $discountType = $request->discount_type ?? 'none';
 
         $discountValue = (float) ($request->discount_value ?? 0);
         // dd($discountValue);
@@ -170,9 +170,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, Product $product)
     {
-        //
+        $categories = Category::select('id', 'name');
+        return view('product.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**

@@ -116,63 +116,7 @@
         });
     </script>
 
-    {{-- Update --}}
 
-    {{--
-    <script>
-        $(document).on('click', '.edit-product', function (e) {
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let name = $(this).data('name');
-
-            Swal.fire({
-                title: "Enter New Category Name",
-                input: "text",
-                inputValue: name,
-                showCancelButton: true,
-                confirmButtonText: "Update",
-                showLoaderOnConfirm: true,
-                preConfirm: (newName) => {
-                    return fetch(`/categories/${id}`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            _method: "PUT",
-                            name: newName
-                        })
-                    })
-                        .then(async response => {
-                            const data = await response.json();
-
-                            if (!response.ok) {
-                                let messages = Object.values(data.errors || {}).flat().join('<br>');
-
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Validation Error',
-                                    text: messages
-                                });
-
-                                // ❌ نوقف العملية
-                                return false;
-                            }
-
-                            return data;
-                        });
-                }
-            }).then(result => {
-                if (result.isConfirmed) {
-                    Swal.fire('Success', 'Updated!', 'success')
-                        .then(() => location.reload());
-                }
-            });
-        });
-
-    </script> --}}
 
 
     {{-- {{ Delete }} --}}

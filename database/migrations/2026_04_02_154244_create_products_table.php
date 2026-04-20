@@ -29,7 +29,7 @@ return new class extends Migration
 
             // Pricing
             $table->decimal('base_price', 10, 2);
-            $table->enum('discount_type', ['percent', 'fixed'])->default('fixed');
+            $table->enum('discount_type', ['none', 'percent', 'fixed'])->default('none');
             $table->decimal('discount_value', 10, 2)->default(0.00);
             $table->decimal('final_price', 10, 2);
 

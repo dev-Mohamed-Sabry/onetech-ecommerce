@@ -273,7 +273,8 @@
                 if (productImage) {
                     formData.append('image', productImage);
                 }
-                console.log(formData);
+                // console.log(formData);
+                console.log(productDiscountType);
                 // ================= AJAX =================
                 $.ajax({
                     method: "POST",
