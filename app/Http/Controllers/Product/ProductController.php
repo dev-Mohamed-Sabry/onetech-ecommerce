@@ -40,20 +40,25 @@ class ProductController extends Controller
                 })
 
                 ->editColumn('image', function ($product) {
-                    if (!$product->image) return ' <img src="/uploads/products/no_img.jpg" width="60">';
-                    return ' <img src="/uploads/products/' . $product->image . '" width="60">';
+                    if (!$product->image) return ' <img src="/uploads/products/no_img.jpg" width="70" height="70">';
+                    return ' <img src="/uploads/products/' . $product->image . '" width="70" height="70">';
                 })
 
                 ->editColumn('description', function ($product) {
+
                     return Str::limit(strip_tags($product->description), 25);
                 })
 
                 ->addColumn('action', function ($product) {
-                    return
-                        ' <div class="d-flex text-center" style="gap:2px;">
-                            <a href= {{ route("product.edit") }}  class="btn btn-info edit-product " style="cursor:pointer;" data-id="' . $product->id . '" data-name="' . $product->name . '">Update</a>
-                            <button  class="btn btn-danger delete-product " style="cursor:pointer;" data-id="' . $product->id . '">Delete</button>
-                        </div> ';
+                    return ' <div class="d-flex text-center" style="gap:2px;">
+                                <a href="' . route('products.edit', $product->id) . '" 
+                                    class="btn btn-info edit-product" style="cursor:pointer;"> Edit </a>
+
+                                    <button class="btn btn-danger delete-product" style="cursor:pointer;" data-id="' . $product->id . '"> 
+                                        Delete
+                                    </button>
+                                </div>
+                            ';
                 })
 
                 ->rawColumns(['action', 'image'])
@@ -83,7 +88,7 @@ class ProductController extends Controller
             'discount_type' => 'required|in:none,percent,fixed',
             'discount_value' => 'nullable|numeric|min:0',
             'quantity' => 'required|integer|min:0',
-            'description' => 'required|string|min:10|max:2000',
+            'description' => 'nullable|string|min:10|max:2000',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -170,10 +175,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Product $product)
+    public function edit(Product $product)
     {
-        $categories = Category::select('id', 'name');
-        return view('product.edit', ['product' => $product, 'categories' => $categories]);
+        $categories = Category::all();
+        return view('dashboard.products.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**

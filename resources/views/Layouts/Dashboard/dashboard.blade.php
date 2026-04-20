@@ -49,6 +49,7 @@
     {{-- DataTables --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css">
 
+    @yield('css')
 </head>
 
 <body>
@@ -459,7 +460,6 @@
     <script src="{{ asset('assets/dashboard/js/starlight.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/ResizeSensor.js') }}"></script>
     <script src="{{ asset('assets/dashboard/js/dashboard.js') }}"></script>
-
 
 
 </body>

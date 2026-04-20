@@ -3,7 +3,9 @@
 @section('title', 'Add Product')
 
 {{-- Quill Editor --}}
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+@endsection
 
 @section('content')
 
@@ -246,7 +248,7 @@
                 ) {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'All Fields (Except Image) Are Required ',
+                        text: 'All Fields (Except Image & Description) Are Required ',
                         icon: 'warning',
                         confirmButtonText: 'Okay!'
                     });

@@ -2,7 +2,9 @@
 
 @section('title', 'All Products')
 
-
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+@endsection
 <style>
     /* Start DataTables Styling */
     #myTable_wrapper {
