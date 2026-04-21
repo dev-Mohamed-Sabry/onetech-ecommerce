@@ -83,7 +83,7 @@
 
 @section('js')
 
-
+    {{-- Create Category Method --}}
     <script>
         $(document).ready(function () {
             $('#categoryForm').on('submit', function (e) {

@@ -89,7 +89,6 @@
 
 
     {{-- Update --}}
-
     <script>
         $(document).on('click', '.edit-category', function (e) {
             e.preventDefault();

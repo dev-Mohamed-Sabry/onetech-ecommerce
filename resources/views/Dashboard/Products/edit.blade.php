@@ -19,7 +19,7 @@
             <div class="row row-sm mt-4">
                 <div class="col-xl-12">
 
-                    <form id="productForm" method="PUT" enctype="multipart/form-data">
+                    <form id="productForm" data-id="{{ $product->id }}" method="PUT" enctype="multipart/form-data">
                         @csrf
 
                         <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
@@ -191,6 +191,8 @@
             $('#productForm').on('submit', function (e) {
                 e.preventDefault();
 
+                let id = $(this).data('id');
+                // let categoryId = $('#category_id').val();
                 let productName = $('#name').val();
                 let productBasePrice = $('#base_price').val();
                 let productDiscountType = $('#discount_type').val();
@@ -200,14 +202,14 @@
                 let productImage = $('#image')[0].files[0];
 
 
-
                 // ================= VALIDATION =================
+                let isDescriptionEmpty = quill.getText().trim() === '';
                 if (
                     productName == '' ||
                     productBasePrice == '' ||
                     productDiscountType == '' ||
-                    productDescription == '' ||
-                    productQuantity == ''
+                    productQuantity == '' ||
+                    isDescriptionEmpty
                 ) {
                     Swal.fire({
                         title: 'Error!',
@@ -215,8 +217,78 @@
                         icon: 'error',
                         confirmButtonText: 'Okay!'
                     });
-                    // return;
+                    return;
                 }
+
+                // ================= FORM DATA =================
+                let formData = new FormData();
+                // FormData.append('id', $id);
+                formData.append('name', productName);
+                formData.append('base_price', productBasePrice);
+                formData.append('quantity', productQuantity);
+                formData.append('description', productDescription);
+                formData.append('discount_type', productDiscountType);
+                if (productDiscountType !== 'none') {
+                    formData.append('discount_value', productDiscountValue);
+                } else {
+                    formData.append('discount_value', 0);
+                }
+                // image optional
+                if (productImage) {
+                    formData.append('image', productImage);
+                }
+                // formData.append('category_id', categoryId);
+                formData.append('_method', 'PUT');
+
+                // ================= AJAX =================
+                $.ajax({
+                    method: "POST",
+                    url: `/products/${id}`,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (response) {
+                        if (!response.data) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'Ok',
+                            });
+                        } else {
+
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                            });
+
+                            Toast.fire({
+                                icon: "success",
+                                title: "Updated & Redirecting To Products Page"
+                            });
+
+                            setTimeout(() => {
+                                window.location.href = "{{ route('products.index') }}";
+                            }, 1000);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseJSON);
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: xhr.responseJSON.message ?? 'Something went wrong!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay!'
+                        });
+                    }
+                })
             })
         })
 

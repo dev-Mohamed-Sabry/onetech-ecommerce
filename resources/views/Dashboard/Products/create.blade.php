@@ -195,34 +195,9 @@
             theme: 'snow'
         });</script>
 
-
-
+    {{-- Create Product Method --}}
     <script>
-        // Hide Discount Value Field If None Selected
         $(document).ready(function () {
-
-            function toggleDiscount() {
-                if ($('#discount_type').val() === 'fixed' || $('#discount_type').val() === 'percent') {
-                    $('#discount_value_row').show();
-                } else {
-                    $('#discount_value_row').hide();
-                }
-            }
-
-            // أول تحميل
-            toggleDiscount();
-
-            // عند التغيير
-            $('#discount_type').on('change', function () {
-                toggleDiscount();
-            });
-
-        });
-
-
-
-        $(document).ready(function () {
-
             $('#productForm').on('submit', function (e) {
                 e.preventDefault();
                 let categoryId = $('#category_id').val();
@@ -233,7 +208,6 @@
                 let productDiscountValue = $('#discount_value').val();
                 let productQuantity = $('#quantity').val();
                 let productImage = $('#image')[0].files[0];
-                // let productDescription = $('#description').val();
 
                 // ================= VALIDATION =================
                 if (
@@ -249,7 +223,7 @@
                     Swal.fire({
                         title: 'Error!',
                         text: 'All Fields (Except Image & Description) Are Required ',
-                        icon: 'warning',
+                        icon: 'error',
                         confirmButtonText: 'Okay!'
                     });
                     return;
@@ -336,4 +310,26 @@
         });
     </script>
 
+    {{-- Hide Discount Value Field If None Selected --}}
+    <script>
+        $(document).ready(function () {
+
+            function toggleDiscount() {
+                if ($('#discount_type').val() === 'fixed' || $('#discount_type').val() === 'percent') {
+                    $('#discount_value_row').show();
+                } else {
+                    $('#discount_value_row').hide();
+                }
+            }
+
+            // أول تحميل
+            toggleDiscount();
+
+            // عند التغيير
+            $('#discount_type').on('change', function () {
+                toggleDiscount();
+            });
+
+        });
+    </script>
 @endsection
