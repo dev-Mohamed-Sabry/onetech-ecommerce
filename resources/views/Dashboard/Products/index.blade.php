@@ -135,25 +135,25 @@
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
-
-                    fetch(`/products/${id}`, {
-                        method: "DELETE",
+                    $.ajax({
+                        method: 'DELETE',
+                        url: `/products/${id}`,
                         headers: {
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
-                        // body: JSON.stringify({ _method: "DELETE" })
-                    })
-                        .then(res => res.json())
-                        .then(() => {
-                            Swal.fire('Deleted!', '', 'success')
-                                .then(() => location.reload());
-                        })
-                        .catch(() => {
-                            Swal.fire('Error!', 'Something went wrong', 'error');
-                        });
 
+                        success: function (response) {
+                            let table = $('#productTable').DataTable();
+                            if (response.status === 'success') {
+                                Swal.fire('Deleted!', '', 'success');
+
+                                table.ajax.reload(null, false); // بدون refresh الصفحة
+                            }
+                        }
+                    })
                 }
-            });
+            })
+
         });
 
     </script>
