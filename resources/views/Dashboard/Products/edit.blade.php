@@ -104,7 +104,7 @@
 
                                     @if ($product->image)
                                         <button type="button" id="delete-image-btn" class="btn btn-danger"
-                                            style="border-radius:3rem;">
+                                            style="border-radius:3rem; cursor: pointer;">
                                             Delete Image
                                         </button>
 
