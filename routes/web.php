@@ -94,6 +94,17 @@ Route::controller(DashboardController::class)->group(function () {
     });
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Product Image Delete
+|--------------------------------------------------------------------------
+*/
+
+Route::delete('/products/{product}/image', [ProductController::class, 'deleteProductImage']);
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Error Routes

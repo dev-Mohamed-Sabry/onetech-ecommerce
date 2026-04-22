@@ -97,17 +97,20 @@
                                 <div class="col-sm-8">
 
                                     <!-- Preview -->
+
+                                    <img id="product-image-preview"
+                                        src="{{ $product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg') }}"
+                                        width="120" height="120">
+
                                     @if ($product->image)
-                                        <div class="mb-2">
-                                            <img src="{{ asset('uploads/products/' . $product->image) }} " width="120"
-                                                height="120" id="imagePreview">
-                                        </div>
-                                    @else
-                                        <div class="mb-2">
-                                            <img src="{{ asset('uploads/products/no_img.jpg') }} " width="120" height="120"
-                                                id="imagePreview">
-                                        </div>
+                                        <button type="button" id="delete-image-btn" class="btn btn-danger"
+                                            style="border-radius:3rem;">
+                                            Delete Image
+                                        </button>
+
                                     @endif
+
+
 
                                     <input type="file" name="image" id="image" class="form-control">
                                 </div>
@@ -146,8 +149,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
+    {{-- ================= QUILL ================= --}}
     <script>
-        // ================= QUILL =================
         let quill = new Quill('#editor', {
             theme: 'snow'
         });
@@ -292,83 +295,43 @@
             })
         })
 
-
-
-        // $(document).on('click', '.edit-product', function (e) {
-        //     e.preventDefault();
-
-        //     let productName = $('#name').val();
-        //     let productBasePrice = $('#base_price').val();
-        //     let productDiscountType = $('#discount_type').val();
-        //     let productDescription = quill.root.innerHTML;
-        //     let productQuantity = $('#quantity').val();
-        //     let productDiscountValue = $('#discount_value').val();
-        //     let productImage = $('#image')[0].files[0];
-
-        //     // ================= VALIDATION =================
-        //     if (
-
-        //         productName == '' ||
-        //         productBasePrice == '' ||
-        //         productDiscountType == '' ||
-        //         productDescription == '' ||
-        //         productQuantity == '' ||
-        //                             ) {
-        //         Swal.fire({
-        //             title: 'Error!',
-        //             text: 'All Fields (Except Image & Description) Are Required ',
-        //             icon: 'warning',
-        //             confirmButtonText: 'Okay!'
-        //         });
-        //         // return;
-        //     }
-
-        //     // Swal.fire({
-        //     //     title: "Enter New Category Name",
-        //     //     input: "text",
-        //     //     inputValue: name,
-        //     //     showCancelButton: true,
-        //     //     confirmButtonText: "Update",
-        //     //     showLoaderOnConfirm: true,
-        //     //     preConfirm: (newName) => {
-        //     //         return fetch(`/categories/${id}`, {
-        //     //             method: "POST",
-        //     //             headers: {
-        //     //                 "Content-Type": "application/json",
-        //     //                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        //     //             },
-        //     //             body: JSON.stringify({
-        //     //                 _method: "PUT",
-        //     //                 name: newName
-        //     //             })
-        //     //         })
-        //     //             .then(async response => {
-        //     //                 const data = await response.json();
-
-        //     //                 if (!response.ok) {
-        //     //                     let messages = Object.values(data.errors || {}).flat().join('<br>');
-
-        //     //                     Swal.fire({
-        //     //                         icon: 'error',
-        //     //                         title: 'Validation Error',
-        //     //                         text: messages
-        //     //                     });
-
-        //     //                     // ❌ نوقف العملية
-        //     //                     return false;
-        //     //                 }
-
-        //     //                 return data;
-        //     //             });
-        //     //     }
-        //     // }).then(result => {
-        //     //     if (result.isConfirmed) {
-        //     //         Swal.fire('Success', 'Updated!', 'success')
-        //     //             .then(() => location.reload());
-        //     //     }
-        //     // });
-        // });
-
     </script>
 
+
+    {{-- Delete Product Image --}}
+    <script>
+        $(document).on('click', '#delete-image-btn', function () {
+
+            let id = $('#productForm').data('id');
+
+            Swal.fire({
+                title: "Delete image?",
+                icon: "warning",
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'DELETE',
+                        url: `/products/${id}/image`,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function (res) {
+
+                            if (res.status === 'success') {
+
+                                // 🔥 تحديث الصورة فوراً بدون refresh
+                                $('#product-image-preview').attr('src', '/uploads/products/no_img.jpg');
+
+                                Swal.fire('Deleted!', '', 'success');
+                            }
+                        }
+                    });
+
+                }
+            });
+
+        });
+    </script>
 @endsection

@@ -11,8 +11,6 @@ use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 use Yajra\DataTables\DataTables;
 
-use function Pest\Laravel\json;
-
 class ProductController extends Controller
 {
     /**
@@ -47,7 +45,7 @@ class ProductController extends Controller
 
                 ->editColumn('description', function ($product) {
 
-                    return Str::limit(strip_tags($product->description), 25);
+                    return Str::limit(strip_tags($product->description), 15);
                 })
 
                 ->addColumn('action', function ($product) {
@@ -275,8 +273,23 @@ class ProductController extends Controller
             $product->delete();
             return response()->json([
                 'status' => 'success',
-                'message' => 'Product Deleted successfully'
             ]);
         }
+    }
+
+
+    public function deleteProductImage(Product $product)
+    {
+        if ($product->image && file_exists(public_path('uploads/products/' . $product->image))) {
+            unlink(public_path('uploads/products/' . $product->image));
+        }
+
+        $product->update([
+            'image' => null
+        ]);
+
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 }
