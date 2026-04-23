@@ -58601,3 +58601,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.btn {
+  border-radius: 3rem !important;
+}

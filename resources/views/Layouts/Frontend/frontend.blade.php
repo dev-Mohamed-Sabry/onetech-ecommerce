@@ -128,7 +128,10 @@
                                                     <ul class="custom_list clc">
                                                         <li><a class="clc" href="#">All Categories</a></li>
                                                         @forelse ($categories as $category)
-                                                            <li><a class="clc" href="#">{{ $category->name }}</a></li>
+                                                            <li>
+                                                                <a class="clc"
+                                                                    href="{{ route('products.by.category', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                                                            </li>
 
                                                         @empty
                                                             <li class="text-danger">No Categories Found</li>
@@ -198,7 +201,10 @@
 
                                     <ul class="cat_menu">
                                         @forelse ($categories as $category)
-                                            <li><a class="clc" href="#">{{ $category->name }}</a></li>
+                                            <li>
+                                                <a class="clc"
+                                                    href="{{ route('products.by.category', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                                            </li>
 
                                         @empty
                                             <li class="text-danger">No Categories Found</li>

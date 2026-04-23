@@ -35,7 +35,7 @@
 
         <div class=" sl-pagebody m-4">
 
-            <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4">
+            <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4" z>
                 Add New Category
             </a>
 
