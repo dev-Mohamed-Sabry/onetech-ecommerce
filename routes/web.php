@@ -20,7 +20,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/blog', 'blog')->name('blog');
-    Route::get('/products-by-category', 'products_by_category')->name('products.by.category');
+    Route::get('/products-by-category/{category}', 'products_by_category')->name('products.by.category');
 });
 
 

@@ -130,11 +130,13 @@
                                                         @forelse ($categories as $category)
                                                             <li>
                                                                 <a class="clc"
-                                                                    href="{{ route('products.by.category', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                                                                    href="{{ route('products.by.category', $category) }}">{{ $category->name }}
+                                                                </a>
                                                             </li>
 
                                                         @empty
-                                                            <li class="text-danger">No Categories Found</li>
+                                                            <li class=" text-danger">No Categories Found
+                                                            </li>
                                                         @endforelse
                                                     </ul>
                                                 </div>
@@ -203,7 +205,7 @@
                                         @forelse ($categories as $category)
                                             <li>
                                                 <a class="clc"
-                                                    href="{{ route('products.by.category', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                                                    href="{{ route('products.by.category', $category) }}">{{ $category->name }}</a>
                                             </li>
 
                                         @empty

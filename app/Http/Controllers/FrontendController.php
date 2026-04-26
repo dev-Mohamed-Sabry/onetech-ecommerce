@@ -38,9 +38,10 @@ class FrontendController extends Controller
         return view('Frontend.blog', ['categories' => $this->categories()]);
     }
 
-    public function products_by_category(Category $categories, Product $products)
+    public function products_by_category(Category $category)
     {
-        $products = Product::select('category_id')->latest()->paginate(10);
-        return view('frontend.products-by-category', compact('categories', 'products'));
+        $categories = Category::all('id', 'name');
+        $products = $category->products()->latest()->paginate(10);
+        return view('frontend.products-by-category', compact('categories', 'category', 'products'));
     }
 }
