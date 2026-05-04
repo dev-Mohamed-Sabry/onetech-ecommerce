@@ -121,7 +121,7 @@
                                             class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                             <div class="viewed_image"><img
                                                     src="{{ asset('uploads/products/' . $product->image) }}"
-                                                    alt="{{ $product->image }}">
+                                                    alt="{{ $product->image }}" width="120px" height="120px">
                                             </div>
 
                                             <div class="viewed_content text-center">

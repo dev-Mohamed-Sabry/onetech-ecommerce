@@ -86,11 +86,15 @@
                                         </li>
                                     </ul>
 
-                                </div>
 
-                                <div class="product_price">
-                                    <h5>Price:</h5>
-                                    {{ $product->final_price }} EGP
+                                    <div class="product_price m-0">
+                                        <span>Price:</span>
+                                        @if($product->discount_value > 0)
+                                            <span class="text-danger"
+                                                style="text-decoration: line-through">{{ $product->base_price }}</span>
+                                        @endif
+                                        <h5>{{$product->final_price}} EGP</h5>
+                                    </div>
                                 </div>
                                 <div class="button_container">
                                     <button type="button" class="button cart_button">Add to Cart</button>
