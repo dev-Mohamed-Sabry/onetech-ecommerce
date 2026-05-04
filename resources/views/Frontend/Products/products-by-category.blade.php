@@ -5,7 +5,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/shop_styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/styles/shop_responsive.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/shop_responsive.css') }}">
 @endsection
 
 @section('content')
@@ -114,43 +114,63 @@
                             <div class="product_grid_border"></div>
 
                             <!-- Product Item -->
-                            <div class="product_item">
-                                <div class="product_border"></div>
-                                <div class="product_image d-flex flex-column align-items-center justify-content-center"><img
-                                        src="images/featured_2.png" alt=""></div>
-                                <div class="product_content">
-                                    <div class="product_price">$379</div>
-                                    <div class="product_name">
-                                        <div><a href="#" tabindex="0">Apple iPod shuffle</a></div>
+                            @forelse ($products as $product)
+                                <a href="{{ route('product.details', $product->id) }}">
+                                    <div class="product_item">
+                                        <div
+                                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                            <div class="viewed_image"><img
+                                                    src="{{ asset('uploads/products/' . $product->image) }}"
+                                                    alt="{{ $product->image }}">
+                                            </div>
+
+                                            <div class="viewed_content text-center">
+                                                @if ($product->discount_value > 0)
+
+                                                    {{-- في حالة وجود خصم --}}
+                                                    <div class="viewed_price">
+                                                        {{ $product->final_price }}
+                                                        <span>{{ $product->base_price }}</span>
+                                                    </div>
+
+                                                    <ul class="item_marks">
+                                                        <li class="item_mark item_discount">
+                                                            {{ $product->discount_value }}
+                                                        </li>
+                                                        {{-- <li class="item_mark item_new">new</li> --}}
+                                                    </ul>
+
+                                                @else
+
+                                                    {{-- بدون خصم --}}
+                                                    <div class="viewed_price">
+                                                        {{ $product->base_price }}
+                                                    </div>
+
+                                                @endif
+
+                                                <div class="viewed_name">
+                                                    <a href="{{ route('product.details', $product->id) }}">
+                                                        {{ $product->name }}
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
+                                </a>
+                            @empty
+                                    <p class="text-danger">No Products Found</p>
                                 </div>
-                                <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                <ul class="product_marks">
-                                    <li class="product_mark product_discount">-25%</li>
-                                    <li class="product_mark product_new">new</li>
-                                </ul>
-                            </div>
-
-
-                        </div>
-
-                        <!-- Shop Page Navigation -->
-
-                        <div class="shop_page_nav d-flex flex-row">
-                            <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i
-                                    class="fas fa-chevron-left"></i></div>
-                            <ul class="page_nav d-flex flex-row">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">...</a></li>
-                                <li><a href="#">21</a></li>
-                            </ul>
-                            <div class="page_next d-flex flex-column align-items-center justify-content-center"><i
-                                    class="fas fa-chevron-right"></i></div>
-                        </div>
+                            @endforelse
 
                     </div>
+
+
+
+                    <!-- Shop Page Navigation -->
+
+                    {{ $products->links() }}
 
                 </div>
             </div>
@@ -181,7 +201,9 @@
                             <div class="owl-item">
                                 <div
                                     class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_1.jpg" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('assets/website/images/view_1.jpg') }}"
+                                            alt="">
+                                    </div>
                                     <div class="viewed_content text-center">
                                         <div class="viewed_price">$225<span>$300</span></div>
                                         <div class="viewed_name"><a href="#">Beoplay H7</a></div>
@@ -197,7 +219,8 @@
                             <div class="owl-item">
                                 <div
                                     class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_2.jpg" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('assets/website/images/view_2.jpg') }}"
+                                            alt=""></div>
                                     <div class="viewed_content text-center">
                                         <div class="viewed_price">$379</div>
                                         <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
@@ -213,7 +236,8 @@
                             <div class="owl-item">
                                 <div
                                     class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('assets/website/images/view_3.jpg') }}"
+                                            alt=""></div>
                                     <div class="viewed_content text-center">
                                         <div class="viewed_price">$225</div>
                                         <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
@@ -229,7 +253,8 @@
                             <div class="owl-item">
                                 <div
                                     class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_4.jpg" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('assets/website/images/view_4.jpg') }}"
+                                            alt=""></div>
                                     <div class="viewed_content text-center">
                                         <div class="viewed_price">$379</div>
                                         <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
@@ -245,7 +270,8 @@
                             <div class="owl-item">
                                 <div
                                     class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_5.jpg" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('assets/website/images/view_5.jpg') }}"
+                                            alt=""></div>
                                     <div class="viewed_content text-center">
                                         <div class="viewed_price">$225<span>$300</span></div>
                                         <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
@@ -261,7 +287,8 @@
                             <div class="owl-item">
                                 <div
                                     class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_6.jpg" alt=""></div>
+                                    <div class="viewed_image"><img src="{{ asset('assets/website/images/view_6.jpg') }}"
+                                            alt=""></div>
                                     <div class="viewed_content text-center">
                                         <div class="viewed_price">$375</div>
                                         <div class="viewed_name"><a href="#">Speedlink...</a></div>
@@ -294,35 +321,35 @@
 
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_1.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_1.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_2.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_2.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_3.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_3.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_4.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_4.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_5.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_5.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_6.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_6.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_7.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_7.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_8.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_8.jpg') }}" alt=""></div>
                             </div>
 
                         </div>

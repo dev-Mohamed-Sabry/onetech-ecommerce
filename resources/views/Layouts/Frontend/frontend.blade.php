@@ -27,6 +27,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/main_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/responsive.css') }}">
 
+
+
     @yield('css')
 </head>
 
@@ -412,7 +414,7 @@
                                     <div class="menu_contact_item">
                                         <div class="menu_contact_icon"><img
                                                 src="{{ asset('assets/website/images/phone_white.png') }}" alt=""></div>
-                                        +38 068 005 3570
+                                        +20 101 253 7622
                                     </div>
                                     <div class="menu_contact_item">
                                         <div class="menu_contact_icon"><img
@@ -598,6 +600,8 @@
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
     @yield('script')
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
+
+
 
 </body>
 

@@ -38,10 +38,21 @@ class FrontendController extends Controller
         return view('Frontend.blog', ['categories' => $this->categories()]);
     }
 
+    /*
+|--------------------------------------------------------------------------
+|Frontend Show Products
+|--------------------------------------------------------------------------
+*/
     public function products_by_category(Category $category)
     {
         $categories = Category::all('id', 'name');
         $products = $category->products()->latest()->paginate(10);
-        return view('frontend.products-by-category', compact('categories', 'category', 'products'));
+        return view('Frontend.Products.products-by-category', compact('categories', 'category', 'products'));
+    }
+
+    public function product_details(Product $product, Category $category)
+    {
+        $categories = Category::all('id', 'name');
+        return view('Frontend.Products.view', compact('product', 'category', 'categories'));
     }
 }

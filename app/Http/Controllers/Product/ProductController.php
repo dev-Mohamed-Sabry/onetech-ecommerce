@@ -49,7 +49,7 @@ class ProductController extends Controller
                 })
 
                 ->addColumn('action', function ($product) {
-                    return ' <div class="d-flex text-center" style="gap:2px;">
+                    return ' <div class="d-flex justify-content-center" style="gap:2px;">
                                 <a href="' . route('products.edit', $product->id) . '" 
                                     class="btn btn-info edit-product" style="cursor:pointer;"> Edit </a>
 
