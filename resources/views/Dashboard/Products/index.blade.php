@@ -48,6 +48,7 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Description</th>
+                        <th>Is Featured</th>
                         <th>Quantity</th>
                         <th>Image</th>
                         <th>Base Price</th>
@@ -108,6 +109,7 @@
                 { data: 'name', name: 'name', orderable: true },
                 { data: 'category', name: 'category', orderable: true },
                 { data: 'description', name: 'description', orderable: true },
+                { data: 'is_featured', name: 'is_featured', orderable: true },
                 { data: 'quantity', name: 'quantity', orderable: true },
                 { data: 'image', name: 'image', orderable: true },
                 { data: 'base_price', name: 'base_price', orderable: true },

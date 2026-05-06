@@ -24,6 +24,7 @@ class ProductController extends Controller
                 'id',
                 'name',
                 'description',
+                'is_featured',
                 'quantity',
                 'image',
                 'base_price',
@@ -36,6 +37,9 @@ class ProductController extends Controller
                 ->addColumn('category', function ($product) {
 
                     return $product->category->name ?? '-';
+                })
+                ->addColumn('Is Featured', function ($product) {
+                    return $product->is_featured;
                 })
 
                 ->editColumn('image', function ($product) {
@@ -90,6 +94,8 @@ class ProductController extends Controller
             'description' => 'nullable|string|min:10|max:2000',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'category_id' => 'required|exists:categories,id',
+            'is_featured' => 'required|min:0|max:1',
+
         ]);
 
         // ========================
@@ -150,6 +156,7 @@ class ProductController extends Controller
             'description' => Purifier::clean($request->description),
             'image' => $imageName,
             'category_id' => $request->category_id,
+            'is_featured' => (bool) $request->is_featured,
         ]);
 
         return response()->json([

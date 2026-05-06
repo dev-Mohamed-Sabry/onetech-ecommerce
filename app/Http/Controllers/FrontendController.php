@@ -38,6 +38,7 @@ class FrontendController extends Controller
         return view('Frontend.blog', ['categories' => $this->categories()]);
     }
 
+
     /*
 |--------------------------------------------------------------------------
 |Frontend Show Products

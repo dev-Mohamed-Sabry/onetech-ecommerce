@@ -114,6 +114,19 @@
                                 </div>
                             </div>
 
+                            <!-- Is Featured -->
+                            <div class="row mb-1">
+                                <label class="col-sm-4 form-control-label">
+                                    Is Featured: <span class="tx-danger">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    <select name="is_featured" id="is_featured" class="form-control">
+                                        <option value="0">🔴 No (Default)</option>
+                                        <option value="1">🟢 Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- Description -->
                             <div class="row mb-1">
                                 <label class="col-sm-4 form-control-label">
@@ -205,6 +218,7 @@
                 let productBasePrice = $('#base_price').val();
                 let productDiscountType = $('#discount_type').val();
                 let productDescription = quill.root.innerHTML;
+                let productIsFeatured = $('#is_featured').val();
                 let productDiscountValue = $('#discount_value').val();
                 let productQuantity = $('#quantity').val();
                 let productImage = $('#image')[0].files[0];
@@ -218,7 +232,8 @@
                     // productDiscountType !== 'fixed' ||
                     // productDiscountType !== 'percent' ||
                     productQuantity == '' ||
-                    productDescription == ''
+                    productDescription == '' ||
+                    productIsFeatured == ''
                 ) {
                     Swal.fire({
                         title: 'Error!',
@@ -238,6 +253,7 @@
                 formData.append('quantity', productQuantity);
                 formData.append('description', productDescription);
                 formData.append('discount_type', productDiscountType);
+                formData.append('is_featured', productIsFeatured);
 
                 if (productDiscountType !== 'none') {
                     formData.append('discount_value', productDiscountValue);

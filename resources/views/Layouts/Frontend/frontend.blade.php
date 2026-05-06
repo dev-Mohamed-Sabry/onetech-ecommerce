@@ -55,7 +55,7 @@
                                         alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
                             </div>
                             <div class="top_bar_content ml-auto">
-                                <div class="top_bar_menu">
+                                {{-- <div class="top_bar_menu">
                                     <ul class="standard_dropdown top_bar_dropdown">
                                         <li>
                                             <a href="#">English<i class="fas fa-chevron-down"></i></a>
@@ -74,7 +74,7 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> --}}
                                 <div class="top_bar_user">
                                     <div class="user_icon"><img src="{{ asset('assets/website/images/user.svg') }}"
                                             alt=""></div>
@@ -247,6 +247,8 @@
                                 <div class="main_nav_menu ml-auto">
                                     <ul class="standard_dropdown main_nav_dropdown">
                                         <li><a href="{{ route('home') }}">Home<i class="fas fa-chevron-down"></i></a>
+                                        </li>
+                                        <li><a href="#">Prodcuts<i class="fas fa-chevron-down"></i></a>
                                         </li>
                                         {{-- <li class="hassubs">
                                             <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
