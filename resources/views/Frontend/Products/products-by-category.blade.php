@@ -119,9 +119,15 @@
                                     <div class="product_item">
                                         <div
                                             class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="viewed_image"><img
-                                                    src="{{ asset('uploads/products/' . $product->image) }}"
-                                                    alt="{{ $product->image }}" width="120px" height="120px">
+                                            <div class="viewed_image">
+
+                                                @if (!$product->image)
+                                                    <img src="/uploads/products/no_img.jpg" width="120px" height="120px">
+                                                @else
+                                                    <img src=" {{ asset('uploads/products/' . $product->image) }}"
+                                                        alt="{{ $product->image }}" width="120px" height="120px">
+                                                @endif
+
                                             </div>
 
                                             <div class="viewed_content text-center">

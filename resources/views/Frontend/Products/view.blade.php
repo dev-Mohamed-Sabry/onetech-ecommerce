@@ -33,19 +33,41 @@
 
                 <!-- Selected Image -->
                 <div class="col-lg-5 order-lg-2 order-1">
-                    <div class="image_selected"><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""></div>
+                    <div class="image_selected">
+                        @if (!$product->image)
+                            <img src="/uploads/products/no_img.jpg">
+                        @else
+                            <img src="{{ asset('uploads/products/' . $product->image) }}">
+                        @endif
+                        {{-- <img src="{{ asset('uploads/products/' . $product->image) }}" alt=""> --}}
+                    </div>
+
                 </div>
 
                 <!-- Description -->
                 <div class="col-lg-5 order-3">
+
                     <div class="product_description">
+
                         <div class="product_category">{{ $product->category->name ?? "no"}}</div>
-                        <div class="product_name">{{ $product->name }}</div>
+
+                        <div class="product_name">{{ $product->name }}</div><!-- Featured -->
+                        {{-- <div class="product_is_featured">
+                            @if ($product->is_featured)
+                            <span class="text-success">🟢 Featured</span>
+                            @else
+                            <span class="text-secondary">🔴 Normal</span>
+                            @endif
+                        </div> --}}
                         <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                        <div class="product_text">
+
+                        <div class="product_text ">
                             <h5>Description:</h5>
                             <p>{!!   $product->description  !!}</p>
                         </div>
+
+
+
                         <div class="order_info d-flex flex-row">
                             <form action="#">
                                 <div class="clearfix" style="z-index: 1000;">
@@ -88,7 +110,7 @@
 
 
                                     <div class="product_price m-0">
-                                        <span>Price:</span>
+                                        <div>Price:</div>
                                         @if($product->discount_value > 0)
                                             <span class="text-danger"
                                                 style="text-decoration: line-through">{{ $product->base_price }}</span>

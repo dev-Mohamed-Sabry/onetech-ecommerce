@@ -32,14 +32,19 @@ class ProductController extends Controller
                 'final_price',
                 'category_id',
             );
+            // ->orderByDesc('is_featured');
+
             return DataTables::of($products)
 
                 ->addColumn('category', function ($product) {
 
                     return $product->category->name ?? '-';
                 })
-                ->addColumn('Is Featured', function ($product) {
-                    return $product->is_featured;
+
+                ->addColumn('featured_status', function ($product) {
+                    return $product->is_featured
+                        ? '<span class="text-success">🟢 Featured</span>'
+                        : '<span class="text-secondary">🔴 Normal</span>';
                 })
 
                 ->editColumn('image', function ($product) {
@@ -64,7 +69,7 @@ class ProductController extends Controller
                             ';
                 })
 
-                ->rawColumns(['action', 'image'])
+                ->rawColumns(['action', 'image', 'featured_status'])
                 ->make(true);
         }
         return view('Dashboard.Products.index');
@@ -92,9 +97,9 @@ class ProductController extends Controller
             'discount_value' => 'nullable|numeric|min:0',
             'quantity' => 'required|integer|min:0',
             'description' => 'nullable|string|min:10|max:2000',
+            'is_featured' => 'required|min:0|max:1',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'category_id' => 'required|exists:categories,id',
-            'is_featured' => 'required|min:0|max:1',
 
         ]);
 
@@ -154,9 +159,9 @@ class ProductController extends Controller
             'final_price' => $finalPrice,
             'quantity' => $request->quantity,
             'description' => Purifier::clean($request->description),
+            'is_featured' => (bool) $request->is_featured,
             'image' => $imageName,
             'category_id' => $request->category_id,
-            'is_featured' => (bool) $request->is_featured,
         ]);
 
         return response()->json([
@@ -200,6 +205,7 @@ class ProductController extends Controller
             'discount_value' => 'nullable|numeric|min:0',
             'quantity' => 'required|integer|min:0',
             'description' => 'nullable|string|min:10|max:2000',
+            'is_featured' => 'required|min:0|max:1',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             // 'category_id' => 'required|exists:categories,id',
         ]);
@@ -262,6 +268,7 @@ class ProductController extends Controller
             'final_price' => $finalPrice,
             'quantity' => $request->quantity,
             'description' => Purifier::clean($request->description),
+            'is_featured' => (bool) $request->is_featured,
             'image' => $imageName ?? $product->image,
             // 'category_id' => $request->category_id,
         ]);

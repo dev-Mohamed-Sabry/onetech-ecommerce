@@ -116,6 +116,29 @@
                                 </div>
                             </div>
 
+                            <!-- Is Featured -->
+                            <div class="row mb-1">
+                                <label class="col-sm-4 form-control-label">
+                                    Is Featured: <span class="tx-danger">*</span>
+                                </label>
+                                <div class="col-sm-8">
+                                    {{-- value="{{ $product->is_featured }}" --}}
+                                    {{-- <select name="is_featured" id="is_featured" class="form-control">
+                                        <option value="0">🔴 No (Default)</option>
+                                        <option value="1">🟢 Yes</option>
+                                    </select> --}}
+                                    <select name="is_featured" id="is_featured" class="form-control">
+                                        <option value="0" {{ $product->is_featured == 0 ? 'selected' : '' }}>
+                                            🔴 No (Default)
+                                        </option>
+
+                                        <option value="1" {{ $product->is_featured == 1 ? 'selected' : '' }}>
+                                            🟢 Yes
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- Description -->
                             <div class="row mb-2">
                                 <label class="col-sm-4 form-control-label">Description</label>
@@ -160,6 +183,8 @@
             $('#description').val(quill.root.innerHTML);
         });
 
+
+
         // ================= IMAGE PREVIEW =================
         $('#imageInput').on('change', function () {
             let file = this.files[0];
@@ -200,6 +225,7 @@
                 let productBasePrice = $('#base_price').val();
                 let productDiscountType = $('#discount_type').val();
                 let productDescription = quill.root.innerHTML;
+                let productIsFeatured = $('#is_featured').val();
                 let productQuantity = $('#quantity').val();
                 let productDiscountValue = $('#discount_value').val();
                 let productImage = $('#image')[0].files[0];
@@ -212,7 +238,8 @@
                     productBasePrice == '' ||
                     productDiscountType == '' ||
                     productQuantity == '' ||
-                    isDescriptionEmpty
+                    isDescriptionEmpty ||
+                    productIsFeatured == ''
                 ) {
                     Swal.fire({
                         title: 'Error!',
@@ -230,6 +257,7 @@
                 formData.append('base_price', productBasePrice);
                 formData.append('quantity', productQuantity);
                 formData.append('description', productDescription);
+                formData.append('is_featured', productIsFeatured);
                 formData.append('discount_type', productDiscountType);
                 if (productDiscountType !== 'none') {
                     formData.append('discount_value', productDiscountValue);
