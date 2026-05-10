@@ -4,16 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
-use function Pest\Laravel\json;
 
 class FrontendController extends Controller
 {
@@ -25,8 +16,15 @@ class FrontendController extends Controller
 
     public function index()
     {
-        // $categories = Category::select('name', 'order')->orderBy('order', 'asc')->get();
-        return view('Frontend.index', ['categories' => $this->categories()]);
+        $product_by_category = Product::first();
+        $featuredProducts = Product::where('is_featured', 1)->latest()->get();
+        $products_deals_of_the_week = Product::latest()->take(3)->get();
+        return view('Frontend.index', [
+            'categories' => $this->categories(),
+            'featuredProducts' => $featuredProducts,
+            'products_deals_of_the_week' => $products_deals_of_the_week,
+            'product_by_category' => $product_by_category,
+        ]);
     }
 
     public function contact()
