@@ -19,18 +19,6 @@
         <div class="container">
             <div class="row">
 
-                <!-- Images -->
-                {{-- <div class="col-lg-2 order-lg-1 order-2">
-                    <ul class="image_list">
-                        <li data-image="images/single_4.jpg"><img src="{{ asset('assets/website/images/single_4.jpg') }}"
-                                alt=""></li>
-                        <li data-image="images/single_2.jpg"><img src="{{ asset('assets/website/images/single_2.jpg') }}"
-                                alt=""></li>
-                        <li data-image="images/single_3.jpg"><img src="{{ asset('assets/website/images/single_3.jpg') }}"
-                                alt=""></li>
-                    </ul>
-                </div> --}}
-
                 <!-- Selected Image -->
                 <div class="col-lg-5 order-lg-2 order-1">
                     <div class="image_selected">
@@ -39,7 +27,6 @@
                         @else
                             <img src="{{ asset('uploads/products/' . $product->image) }}">
                         @endif
-                        {{-- <img src="{{ asset('uploads/products/' . $product->image) }}" alt=""> --}}
                     </div>
 
                 </div>
@@ -52,13 +39,6 @@
                         <div class="product_category">{{ $product->category->name ?? "no"}}</div>
 
                         <div class="product_name">{{ $product->name }}</div><!-- Featured -->
-                        {{-- <div class="product_is_featured">
-                            @if ($product->is_featured)
-                            <span class="text-success">🟢 Featured</span>
-                            @else
-                            <span class="text-secondary">🔴 Normal</span>
-                            @endif
-                        </div> --}}
                         <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
 
                         <div class="product_text ">
@@ -113,7 +93,7 @@
                                         <div>Price:</div>
                                         @if($product->discount_value > 0)
                                             <span class="text-danger"
-                                                style="text-decoration: line-through">{{ $product->base_price }}</span>
+                                                style="text-decoration: line-through">{{ $product->base_price }} EGP</span>
                                         @endif
                                         <h5>{{$product->final_price}} EGP</h5>
                                     </div>

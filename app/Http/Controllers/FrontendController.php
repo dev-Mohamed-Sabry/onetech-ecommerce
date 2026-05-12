@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 
-
 class FrontendController extends Controller
 {
 
@@ -17,16 +16,39 @@ class FrontendController extends Controller
     public function index()
     {
         $product_by_category = Product::first();
-        $featuredProducts = Product::where('is_featured', 1)->latest()->get();
-        $products_deals_of_the_week = Product::latest()->take(3)->get();
+        $bannerProduct = Product::where('is_featured', 1)
+            ->latest()
+            ->first();
+
+        $products = Product::with('category')
+            ->latest()
+            ->get();
+
+        $featuredProducts = Product::with('category')
+            ->where('is_featured', 1)
+            ->latest()
+            ->get();
+
+        $products_deals_of_the_week = Product::latest()
+            ->take(3)
+            ->get();
+
+        $laptopCategory_latest_products = Product::with('category')
+            ->where('category_id', 2)
+            ->latest()
+            ->take(3)
+            ->get();
+
         return view('Frontend.index', [
             'categories' => $this->categories(),
+            'products' => $products,
             'featuredProducts' => $featuredProducts,
             'products_deals_of_the_week' => $products_deals_of_the_week,
+            'laptopCategory_latest_products' => $laptopCategory_latest_products,
+            'bannerProduct' => $bannerProduct,
             'product_by_category' => $product_by_category,
         ]);
     }
-
     public function contact()
     {
         return view('Frontend.contact', ['categories' => $this->categories()]);

@@ -11,16 +11,20 @@
             style="background-image:url({{asset('assets/website/images/banner_background.jpg')}})"></div>
         <div class="container fill_height">
             <div class="row fill_height">
-                <div class="banner_product_image"><img src="{{ asset('assets/website/images/banner_product.png') }}" alt="">
+                <div class="banner_product_image"><img src="{{ asset('uploads/products/' . $bannerProduct->image) }} "
+                        width="400" alt="">
                 </div>
                 <div class="col-lg-5 offset-lg-4 fill_height">
                     <div class="banner_content">
                         <h1 class="banner_text">new era of shopping</h1>
-                        <div class="banner_price"><span>$530</span>$460</div>
-                        <div class="banner_product_name">Apple Iphone 6s</div>
+                        <div class="banner_price">
+                            <span>{{ $bannerProduct->base_price }}</span>
+                            {{ $bannerProduct->final_price }} EGP
+                        </div>
+                        <div class="banner_product_name">{{ Str::limit($bannerProduct->name, 25, '...') }}</div>
                         <div class="button banner_button">
 
-                            <a href="{{route('products.by.category', $product_by_category->category->id)}}">Shop Now </a>
+                            <a href="{{route('products.by.category', $bannerProduct->category->id)}}">Shop Now </a>
                             {{-- <a href="#">Shop Now </a> --}}
                         </div>
                     </div>
@@ -117,11 +121,11 @@
 
 
                                                 @if ($product->discount_value > 0)
-                                                    <div class="deals_item_price_a ml-auto text-danger"
-                                                        style="text-decoration: line-through;">
+                                                    <span class="deals_item_price_a ml-auto"
+                                                        style="text-decoration: line-through !important;">
                                                         {{ $product->base_price }}
                                                         {{-- 500 --}}
-                                                    </div>
+                                                    </span>
                                                     {{-- @else
                                                     <div class="deals_item_price_a ml-auto">
                                                         {{ $product->final_price }}
@@ -129,9 +133,13 @@
 
                                                 @endif
                                             </div>
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_name">{{$product->name}}</div>
-                                                <div class="deals_item_price ml-auto"> {{ $product->final_price }}</div>
+                                            <div class="deals_info_line">
+                                                <div class="deals_item_price">
+                                                    <span style="color:#999999; font-size: 20px;">Limited Time:</span>
+                                                    {{ $product->final_price }} EGP
+                                                </div>
+                                                <br>
+                                                <div class="deals_item_name">{{Str::limit($product->name, 25, '...')}}</div>
                                             </div>
                                             <div class="available">
                                                 <div class="available_line d-flex flex-row justify-content-start">
@@ -220,8 +228,9 @@
                                                             <div
                                                                 class="product_price {{ $product->discount_value > 0 ? 'discount' : '' }}">
                                                                 @if ($product->discount_value > 0)
-                                                                    {{ $product->final_price }}
-                                                                    <span>{{ $product->base_price }}</span>
+                                                                    {{ $product->final_price }} EGP
+                                                                    <span
+                                                                        style="text-decoration: line-through !important;">{{ $product->base_price }}</span>
                                                                 @else
                                                                     {{ $product->base_price }}
                                                                 @endif
@@ -229,7 +238,7 @@
                                                             </div>
                                                             <div class="product_name">
                                                                 <div>
-                                                                    <p>{{ $product->name }}</p>
+                                                                    <p>{{ Str::limit($product->name, 25, '...') }}</p>
                                                                 </div>
                                                             </div>
                                                             <div class="product_extras">
@@ -393,94 +402,41 @@
             <div class="owl-carousel owl-theme banner_2_slider">
 
                 <!-- Banner 2 Slider Item -->
-                <div class="owl-item">
-                    <div class="banner_2_item">
-                        <div class="container fill_height">
-                            <div class="row fill_height">
-                                <div class="col-lg-4 col-md-6 fill_height">
-                                    <div class="banner_2_content">
-                                        <div class="banner_2_category">Laptops</div>
-                                        <div class="banner_2_title">MacBook Air 13</div>
-                                        <div class="banner_2_text">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit. Maecenas fermentum laoreet.</div>
-                                        <div class="rating_r rating_r_4 banner_2_rating">
-                                            <i></i><i></i><i></i><i></i><i></i>
+                @foreach ($laptopCategory_latest_products as $product)
+                    <div class="owl-item">
+                        <div class="banner_2_item">
+                            <div class="container fill_height">
+                                <div class="row fill_height">
+                                    <div class="col-lg-4 col-md-6 fill_height">
+                                        <div class="banner_2_content">
+                                            <div class="banner_2_category">Laptops</div>
+                                            <div class="banner_2_title">{{ Str::limit($product->name, 24) }}
+                                            </div>
+                                            <div class="banner_2_text">
+                                                {{$product->description }}
+                                            </div>
+                                            <div class="rating_r rating_r_4 banner_2_rating">
+                                                <i></i><i></i><i></i><i></i><i></i>
+                                            </div>
+                                            <div class="button banner_2_button"><a
+                                                    href="{{ route('product.details', $product->id) }}">Explore</a></div>
                                         </div>
-                                        <div class="button banner_2_button"><a href="#">Explore</a></div>
-                                    </div>
 
-                                </div>
-                                <div class="col-lg-8 col-md-6 fill_height">
-                                    <div class="banner_2_image_container">
-                                        <div class="banner_2_image"><img
-                                                src="{{ asset('assets/website/images/banner_2_product.png') }}" alt="">
+                                    </div>
+                                    <div class="col-lg-8 col-md-6 fill_height">
+                                        <div class="banner_2_image_container">
+                                            <div class="banner_2_image"><img
+                                                    src="{{ asset('uploads/products/' . $product->image) }}"
+                                                    alt="{{ $product->name }}" style="width: 80%;">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
-                <!-- Banner 2 Slider Item -->
-                <div class="owl-item">
-                    <div class="banner_2_item">
-                        <div class="container fill_height">
-                            <div class="row fill_height">
-                                <div class="col-lg-4 col-md-6 fill_height">
-                                    <div class="banner_2_content">
-                                        <div class="banner_2_category">Laptops</div>
-                                        <div class="banner_2_title">MacBook Air 13</div>
-                                        <div class="banner_2_text">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit. Maecenas fermentum laoreet.</div>
-                                        <div class="rating_r rating_r_4 banner_2_rating">
-                                            <i></i><i></i><i></i><i></i><i></i>
-                                        </div>
-                                        <div class="button banner_2_button"><a href="#">Explore</a></div>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-8 col-md-6 fill_height">
-                                    <div class="banner_2_image_container">
-                                        <div class="banner_2_image"><img
-                                                src="{{ asset('assets/website/images/banner_2_product.png') }}" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Banner 2 Slider Item -->
-                <div class="owl-item">
-                    <div class="banner_2_item">
-                        <div class="container fill_height">
-                            <div class="row fill_height">
-                                <div class="col-lg-4 col-md-6 fill_height">
-                                    <div class="banner_2_content">
-                                        <div class="banner_2_category">Laptops</div>
-                                        <div class="banner_2_title">MacBook Air 13</div>
-                                        <div class="banner_2_text">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing elit. Maecenas fermentum laoreet.</div>
-                                        <div class="rating_r rating_r_4 banner_2_rating">
-                                            <i></i><i></i><i></i><i></i><i></i>
-                                        </div>
-                                        <div class="button banner_2_button"><a href="#">Explore</a></div>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-8 col-md-6 fill_height">
-                                    <div class="banner_2_image_container">
-                                        <div class="banner_2_image"><img
-                                                src="{{ asset('assets/website/images/banner_2_product.png') }}" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>

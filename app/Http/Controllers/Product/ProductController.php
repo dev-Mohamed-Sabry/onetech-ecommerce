@@ -28,6 +28,7 @@ class ProductController extends Controller
                 'quantity',
                 'image',
                 'base_price',
+                'discount_type',
                 'discount_value',
                 'final_price',
                 'category_id',
@@ -37,8 +38,11 @@ class ProductController extends Controller
             return DataTables::of($products)
 
                 ->addColumn('category', function ($product) {
-
                     return $product->category->name ?? '-';
+                })
+
+                ->editColumn('name', function ($product) {
+                    return Str::limit(strip_tags($product->name), 25, '...');
                 })
 
                 ->addColumn('featured_status', function ($product) {
@@ -52,10 +56,30 @@ class ProductController extends Controller
                     return ' <img src="/uploads/products/' . $product->image . '" width="70" height="70">';
                 })
 
-                ->editColumn('description', function ($product) {
-
-                    return Str::limit(strip_tags($product->description), 15);
+                ->editColumn('base_price', function ($product) {
+                    return $product->base_price . " " . "EGP";
                 })
+
+                ->editColumn('description', function ($product) {
+                    return Str::limit(strip_tags($product->description), 25);
+                })
+
+
+                ->editColumn('discount_value', function ($product) {
+                    if ($product->discount_value <= 0) {
+                        return '-';
+                    }
+                    return $product->discount_value . ($product->discount_type == "percent" ? ' %' : ' EGP');
+                })
+
+                ->editColumn('final_price', function ($product) {
+                    return $product->final_price . " " . "EGP";
+                })
+
+                ->editColumn('description', function ($product) {
+                    return Str::limit(strip_tags($product->description), 25);
+                })
+
 
                 ->addColumn('action', function ($product) {
                     return ' <div class="d-flex justify-content-center" style="gap:2px;">

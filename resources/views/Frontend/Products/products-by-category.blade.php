@@ -135,7 +135,7 @@
 
                                                     {{-- في حالة وجود خصم --}}
                                                     <div class="viewed_price">
-                                                        {{ $product->final_price }}
+                                                        {{ $product->final_price }} EGP
                                                         <span>{{ $product->base_price }}</span>
                                                     </div>
 
@@ -150,14 +150,14 @@
 
                                                     {{-- بدون خصم --}}
                                                     <div class="viewed_price">
-                                                        {{ $product->base_price }}
+                                                        {{ $product->base_price }} EGP
                                                     </div>
 
                                                 @endif
 
                                                 <div class="viewed_name">
                                                     <a href="{{ route('product.details', $product->id) }}">
-                                                        {{ $product->name }}
+                                                        {{ Str::limit($product->name, 25, '...') }}
                                                     </a>
                                                 </div>
 

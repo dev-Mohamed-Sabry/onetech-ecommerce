@@ -34,6 +34,8 @@
 
 <body>
 
+
+
     <div class="super_container">
 
         <!-- Header -->
@@ -213,31 +215,6 @@
                                         @empty
                                             <li class="text-danger">No Categories Found</li>
                                         @endforelse
-                                        {{-- <li class="hassubs">
-                                            <a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
-                                            <ul>
-                                                <li class="hassubs">
-                                                    <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-                                                    <ul>
-                                                        <li><a href="#">Menu Item<i
-                                                                    class="fas fa-chevron-right"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i
-                                                                    class="fas fa-chevron-right"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i
-                                                                    class="fas fa-chevron-right"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i
-                                                                    class="fas fa-chevron-right"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                            </ul>
-                                        </li> --}}
 
                                     </ul>
                                 </div>
@@ -248,7 +225,12 @@
                                     <ul class="standard_dropdown main_nav_dropdown">
                                         <li><a href="{{ route('home') }}">Home<i class="fas fa-chevron-down"></i></a>
                                         </li>
-                                        <li><a href="#">Prodcuts<i class="fas fa-chevron-down"></i></a>
+
+                                        <li>
+                                            <a
+                                                href="{{ route('products.by.category', App\Models\Product::first()?->id ?? 'No products') }}">Products
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
                                         </li>
                                         {{-- <li class="hassubs">
                                             <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
