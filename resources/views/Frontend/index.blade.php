@@ -409,11 +409,11 @@
                                 <div class="row fill_height">
                                     <div class="col-lg-4 col-md-6 fill_height">
                                         <div class="banner_2_content">
-                                            <div class="banner_2_category">Laptops</div>
+                                            <div class="banner_2_category">{{ $product->category->name }}</div>
                                             <div class="banner_2_title">{{ Str::limit($product->name, 24) }}
                                             </div>
                                             <div class="banner_2_text">
-                                                {{$product->description }}
+                                                <p> {!! Str::limit($product->description, 200)!!}</p>
                                             </div>
                                             <div class="rating_r rating_r_4 banner_2_rating">
                                                 <i></i><i></i><i></i><i></i><i></i>
