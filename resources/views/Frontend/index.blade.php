@@ -1,3 +1,5 @@
+{{-- {{ dd($hotSaleProducts) }} --}}
+
 @extends('layouts.frontend.frontend')
 
 @section('title', 'Home')
@@ -202,13 +204,12 @@
                             <div class="tabs">
                                 <ul class="clearfix">
                                     <li class="active">Featured</li>
-                                    {{-- <li>On Sale</li> --}}
-                                    {{-- <li>Best Rated</li> --}}
+                                    <li>Hot Sale</li>
                                 </ul>
                                 <div class="tabs_line"><span></span></div>
                             </div>
 
-                            <!-- Product Panel -->
+                            <!--Featured Product Panel -->
                             <div class="product_panel panel active">
                                 <div class="featured_slider slider">
                                     <!-- Slider Item -->
@@ -276,13 +277,83 @@
                                         </div>
                                     @endforeach
                             </div>
-                            <div class="featured_slider_dots_cover"></div>
+                        </div>
+
+                        <!--Hot Sale Product Panel -->
+                        <div class="product_panel panel">
+                            <div class="featured_slider slider">
+                                <!-- Slider Item -->
+                                @foreach ($hotSaleProducts as $product)
+                                        <div class="featured_slider_item">
+                                            <div class="border_active"></div>
+                                            <a href="{{ route('product.details', $product->id)}}">
+                                                <div
+                                                    class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                                    <div
+                                                        class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                        <img src="{{ $product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg')}}"
+                                                            alt="{{$product->image ? $product->image : 'No Img'}}" height="100"
+                                                            width="100">
+                                                    </div>
+                                                    <div class="product_content">
+                                                        <div
+                                                            class="product_price {{ $product->discount_value > 0 ? 'discount' : '' }}">
+                                                            @if ($product->discount_value > 0)
+                                                                {{ $product->final_price }} EGP
+                                                                <span
+                                                                    style="text-decoration: line-through !important;">{{ $product->base_price }}</span>
+                                                            @else
+                                                                {{ $product->base_price }}
+                                                            @endif
+
+                                                        </div>
+                                                        <div class="product_name">
+                                                            <div>
+                                                                <p>{{ Str::limit($product->name, 25, '...') }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product_extras">
+                                                            <div class="product_color">
+                                                                <input type="radio" checked name="product_color"
+                                                                    style="background:#b19c83">
+                                                                <input type="radio" name="product_color" style="background:#000000">
+                                                                <input type="radio" name="product_color" style="background:#999999">
+                                                            </div>
+                                                            <button class="product_cart_button">Add to Cart</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                    <ul class="product_marks">
+                                                        @if ($product->discount_value > 0)
+
+                                                            <li class="product_mark product_discount">
+                                                                @if ($product->discount_type == 'percent')
+                                                                    -{{ $product->discount_value }}%
+                                                                @else
+                                                                    -${{ $product->discount_value }}
+                                                                @endif
+                                                            </li>
+
+                                                        @endif
+
+                                                        @if ($product->created_at->gt(now()->subDays(7)))
+                                                            <li class="product_mark product_new">new</li>
+                                                        @endif
+                                                    </ul>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
                         </div>
                     </div>
-                </div>
 
+                    <div class="featured_slider_dots_cover"></div>
+                </div>
             </div>
         </div>
+
+    </div>
+    </div>
     </div>
     </div>
 
@@ -444,7 +515,7 @@
 
     <!-- Hot New Arrivals -->
 
-    <div class="new_arrivals">
+    {{-- <div class="new_arrivals">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -2153,11 +2224,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Best Sellers -->
 
-    <div class="best_sellers">
+    {{-- <div class="best_sellers">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -3031,11 +3102,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Adverts -->
 
-    <div class="adverts">
+    {{-- <div class="adverts">
         <div class="container">
             <div class="row">
 
@@ -3091,11 +3162,11 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Trends -->
 
-    <div class="trends">
+    {{-- <div class="trends">
         <div class="trends_background"
             style="background-image:url({{asset('assets/website/images/trends_background.jpg')}})"></div>
         <div class="trends_overlay"></div>
@@ -3258,11 +3329,11 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Reviews -->
 
-    <div class="reviews">
+    {{-- <div class="reviews">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -3421,7 +3492,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Recently Viewed -->
 

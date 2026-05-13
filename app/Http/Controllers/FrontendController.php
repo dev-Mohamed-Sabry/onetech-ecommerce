@@ -16,6 +16,7 @@ class FrontendController extends Controller
     public function index()
     {
         $product_by_category = Product::first();
+
         $bannerProduct = Product::where('is_featured', 1)
             ->latest()
             ->first();
@@ -26,6 +27,10 @@ class FrontendController extends Controller
 
         $featuredProducts = Product::with('category')
             ->where('is_featured', 1)
+            ->latest()
+            ->get();
+
+        $hotSaleProducts = Product::where('discount_value', '>', 0)
             ->latest()
             ->get();
 
@@ -47,6 +52,7 @@ class FrontendController extends Controller
             'laptopCategory_latest_products' => $laptopCategory_latest_products,
             'bannerProduct' => $bannerProduct,
             'product_by_category' => $product_by_category,
+            'hotSaleProducts' => $hotSaleProducts,
         ]);
     }
     public function contact()

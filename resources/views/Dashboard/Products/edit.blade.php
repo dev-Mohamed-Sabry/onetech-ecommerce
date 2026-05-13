@@ -107,7 +107,6 @@
                                             style="border-radius:3rem; cursor: pointer;">
                                             Delete Image
                                         </button>
-
                                     @endif
 
 
@@ -143,7 +142,7 @@
                             <div class="row mb-2">
                                 <label class="col-sm-4 form-control-label">Description</label>
                                 <div class="col-sm-8">
-                                    <div id="editor" style="height: 150px;">
+                                    <div id="description" style="height: 150px;">
                                         {!! $product->description !!}
                                     </div>
                                     <input type="hidden" name="description" id="description">
@@ -174,7 +173,7 @@
 
     {{-- ================= QUILL ================= --}}
     <script>
-        let quill = new Quill('#editor', {
+        let quill = new Quill('#description', {
             theme: 'snow'
         });
 
@@ -232,13 +231,13 @@
 
 
                 // ================= VALIDATION =================
-                let isDescriptionEmpty = quill.getText().trim() === '';
+                // let isDescriptionEmpty = quill.getText().trim() === '';
                 if (
                     productName == '' ||
                     productBasePrice == '' ||
                     productDiscountType == '' ||
                     productQuantity == '' ||
-                    isDescriptionEmpty ||
+                    // isDescriptionEmpty ||
                     productIsFeatured == ''
                 ) {
                     Swal.fire({
