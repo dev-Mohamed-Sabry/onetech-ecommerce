@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\RecentlyViewedProduct;
 
 class FrontendController extends Controller
 {
@@ -15,6 +16,22 @@ class FrontendController extends Controller
 
     public function index()
     {
+        $identifierColumn = auth()->check()
+            ? 'user_id'
+            : 'session_id';
+
+        $identifierValue = auth()->check()
+            ? auth()->id()
+            : session()->getId();
+
+        $recentlyViewedProducts = RecentlyViewedProduct::with([
+            'product:id,name,image,base_price,final_price,discount_type,discount_value,created_at'
+        ])
+            ->where($identifierColumn, $identifierValue)
+            ->orderByDesc('updated_at')
+            ->take(10)
+            ->get();
+
         $product_by_category = Product::first();
 
         $bannerProduct = Product::where('is_featured', 1)
@@ -53,8 +70,10 @@ class FrontendController extends Controller
             'bannerProduct' => $bannerProduct,
             'product_by_category' => $product_by_category,
             'hotSaleProducts' => $hotSaleProducts,
+            'recentlyViewedProducts' => $recentlyViewedProducts,
         ]);
     }
+
     public function contact()
     {
         return view('Frontend.contact', ['categories' => $this->categories()]);
@@ -77,9 +96,31 @@ class FrontendController extends Controller
         return view('Frontend.Products.products-by-category', compact('categories', 'category', 'products'));
     }
 
-    public function product_details(Product $product, Category $category)
+    public function product_details(Product $product)
     {
+        $product->load('category');
+
+        $identifierColumn = auth()->check()
+            ? 'user_id'
+            : 'session_id';
+
+        $identifierValue = auth()->check()
+            ? auth()->id()
+            : session()->getId();
+
+        RecentlyViewedProduct::where($identifierColumn, $identifierValue)
+            ->where('product_id', $product->id)
+            ->delete();
+
+
+
+        RecentlyViewedProduct::create([
+            $identifierColumn => $identifierValue,
+            'product_id' => $product->id,
+        ]);
+
         $categories = Category::all('id', 'name');
-        return view('Frontend.Products.view', compact('product', 'category', 'categories'));
+
+        return view('Frontend.Products.view', compact('product',  'categories'));
     }
 }
