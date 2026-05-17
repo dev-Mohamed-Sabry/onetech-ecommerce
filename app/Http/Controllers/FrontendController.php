@@ -108,19 +108,31 @@ class FrontendController extends Controller
             ? auth()->id()
             : session()->getId();
 
-        RecentlyViewedProduct::where($identifierColumn, $identifierValue)
-            ->where('product_id', $product->id)
-            ->delete();
+        RecentlyViewedProduct::updateOrCreate(
+            [
+                $identifierColumn => $identifierValue,
+                'product_id' => $product->id,
+            ],
+            [
+                'viewed_at' => now(),
+            ]
+        );
 
-
-
-        RecentlyViewedProduct::create([
-            $identifierColumn => $identifierValue,
-            'product_id' => $product->id,
-        ]);
+        $recentlyViewedProducts = RecentlyViewedProduct::with('product')
+            ->where($identifierColumn, $identifierValue)
+            ->orderByDesc('last_viewed_at')
+            ->take(10)
+            ->get();
 
         $categories = Category::all('id', 'name');
 
-        return view('Frontend.Products.view', compact('product',  'categories'));
+        return view(
+            'Frontend.Products.view',
+            [
+                'recentlyViewedProducts' => $recentlyViewedProducts,
+                'product' => $product,
+                'categories' => $categories
+            ]
+        );
     }
 }
