@@ -114,7 +114,7 @@ class FrontendController extends Controller
                 'product_id' => $product->id,
             ],
             [
-                'viewed_at' => now(),
+                'last_viewed_at' => now(),
             ]
         );
 

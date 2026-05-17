@@ -10,6 +10,7 @@ class RecentlyViewedProduct extends Model
         'user_id',
         'session_id',
         'product_id',
+        'last_viewed_at',
     ];
 
     public function product()
