@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\RecentlyViewedProduct;
+use Symfony\Component\HttpFoundation\Request;
 
 class FrontendController extends Controller
 {
@@ -83,7 +84,6 @@ class FrontendController extends Controller
         return view('Frontend.blog', ['categories' => $this->categories()]);
     }
 
-
     /*
 |--------------------------------------------------------------------------
 |Frontend Show Products
@@ -134,5 +134,31 @@ class FrontendController extends Controller
                 'categories' => $categories
             ]
         );
+    }
+
+    public function search_products(Request $request)
+    {
+        try {
+            $product = $request->search;
+            $products = Product::where('name', 'LIKE', "%{$product}%")
+                ->select('id', 'name', 'image', 'final_price')->latest()->paginate(10);
+
+            if ($products->isNotEmpty()) {
+                return response()->json([
+                    'success' => true,
+                    'products' => $products
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No products found'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong'
+            ], 500);
+        }
     }
 }

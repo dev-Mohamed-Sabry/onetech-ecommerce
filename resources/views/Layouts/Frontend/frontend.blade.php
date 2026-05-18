@@ -4,10 +4,10 @@
 <head>
     <title>@yield('title')</title>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="OneTech shop project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     {{-- Font Awesome CDN --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -122,29 +122,32 @@
                             <div class="header_search">
                                 <div class="header_search_content">
                                     <div class="header_search_form_container">
-                                        <form action="#" class="header_search_form clearfix">
-                                            <input type="search" required="required" class="header_search_input"
+
+                                        <form action="#" id="searchForm" method="POST"
+                                            class="header_search_form clearfix">
+                                            <input type="search" name="search" class="header_search_input"
                                                 placeholder="Search for products...">
-                                            <div class="custom_dropdown">
+                                            {{-- <div class="custom_dropdown">
                                                 <div class="custom_dropdown_list">
                                                     <span class="custom_dropdown_placeholder clc">All Categories</span>
                                                     <i class="fas fa-chevron-down"></i>
                                                     <ul class="custom_list clc">
                                                         <li><a class="clc" href="#">All Categories</a></li>
                                                         @forelse ($categories as $category)
-                                                            <li>
-                                                                <a class="clc"
-                                                                    href="{{ route('products.by.category', $category) }}">{{ $category->name }}
-                                                                </a>
-                                                            </li>
+                                                        <li>
+                                                            <a class="clc"
+                                                                href="{{ route('products.by.category', $category) }}">{{
+                                                                $category->name }}
+                                                            </a>
+                                                        </li>
 
                                                         @empty
-                                                            <li class=" text-danger">No Categories Found
-                                                            </li>
+                                                        <li class=" text-danger">No Categories Found
+                                                        </li>
                                                         @endforelse
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <button type="submit" class="header_search_button trans_300"
                                                 value="Submit"><img
                                                     src="{{ asset('assets/website/images/search.png') }}"
@@ -571,6 +574,8 @@
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('assets/website/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('assets/website/styles/bootstrap4/popper.js') }}"></script>
     <script src="{{ asset('assets/website/styles/bootstrap4/bootstrap.min.js') }}"></script>
@@ -582,10 +587,68 @@
     <script src="{{ asset('assets/website/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/slick-1.8.0/slick.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
-    @yield('script')
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
+    @yield('script')
+
+    <script>
+        $('#searchForm').on('submit', function (e) {
+
+            e.preventDefault();
+            let input = $('.header_search_input').val();
+
+            if (input == '') {
+                Swal.mixin({
+                    toast: true,
+                    position: "top",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+
+                }).fire({
+                    icon: "info",
+                    title: "Search Can Not Be Empty",
+                });
+                // console.log(input);
+            } else {
+                $.ajax({
+                    url: '{{ route('products.search') }}',
+                    method: "POST",
+                    data: {
+                        search: input.trim()
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (response) {
+                        console.log(response);
+
+                        if (!response.success) {
+                            Swal.mixin({
+                                toast: true,
+                                position: "top",
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+
+                            }).fire({
+                                icon: "error",
+                                title: response.message ?? "Name Not Found ",
+                            });
+                        } else {
+
+                        }
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseJSON);
+                        location.reload();
+                    }
+                })
+            }
+        })
 
 
+
+    </script>
 
 </body>
 
