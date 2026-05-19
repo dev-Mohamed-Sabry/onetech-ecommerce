@@ -17,7 +17,7 @@
         </div>
         <div class="home_overlay"></div>
         <div class="home_content d-flex flex-column align-items-center justify-content-center">
-            <h2 class="home_title">{{ $category->name }}</h2>
+            <h2 class="home_title">Search Results</h2>
         </div>
     </div>
 
@@ -46,7 +46,6 @@
                                 @endforelse
                             </ul>
                         </div>
-
                     </div>
 
                 </div>
@@ -61,72 +60,110 @@
                         </div>
 
                         <div class="product_grid">
+
                             <div class="product_grid_border"></div>
 
-                            <!-- Product Item -->
                             @forelse ($products as $product)
-                                <a href="{{ route('product.details', $product->id) }}">
-                                    <div class="product_item">
-                                        <div
-                                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="viewed_image">
 
-                                                @if (!$product->image)
-                                                    <img src="/uploads/products/no_img.jpg" width="120px" height="120px">
-                                                @else
-                                                    <img src=" {{ asset('uploads/products/' . $product->image) }}"
-                                                        alt="{{ $product->image }}" width="120px" height="120px">
-                                                @endif
+                                                <div class="product_item">
 
-                                            </div>
-
-                                            <div class="viewed_content text-center">
-                                                @if ($product->discount_value > 0)
-
-                                                    {{-- في حالة وجود خصم --}}
-                                                    <div class="viewed_price">
-                                                        {{ $product->final_price }} EGP
-                                                        <span>{{ $product->base_price }}</span>
-                                                    </div>
-
-                                                    <ul class="item_marks">
-                                                        <li class="item_mark item_discount">
-                                                            {{ $product->discount_value }}
-                                                        </li>
-                                                        {{-- <li class="item_mark item_new">new</li> --}}
-                                                    </ul>
-
-                                                @else
-
-                                                    {{-- بدون خصم --}}
-                                                    <div class="viewed_price">
-                                                        {{ $product->base_price }} EGP
-                                                    </div>
-
-                                                @endif
-
-                                                <div class="viewed_name">
                                                     <a href="{{ route('product.details', $product->id) }}">
-                                                        {{ Str::limit($product->name, 25, '...') }}
+
+                                                        <div
+                                                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+
+                                                            <div class="viewed_image">
+
+                                                                <img src="{{ $product->image
+                                ? asset('uploads/products/' . $product->image)
+                                : asset('uploads/products/no_img.jpg') }}" alt="{{ $product->name }}" width="120"
+                                                                    height="120">
+
+                                                            </div>
+
+                                                            <div class="viewed_content text-center">
+
+                                                                <div class="viewed_price">
+
+                                                                    @if ($product->discount_value > 0)
+
+                                                                        {{ $product->final_price }} EGP
+                                                                        <span>{{ $product->base_price }} EGP</span>
+
+                                                                    @else
+
+                                                                        {{ $product->base_price }} EGP
+
+                                                                    @endif
+
+                                                                </div>
+
+                                                                <div class="viewed_name">
+                                                                    <span>
+                                                                        {{ Str::limit($product->name, 25, '...') }}
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <ul class="item_marks">
+
+                                                                @if ($product->discount_value > 0)
+
+                                                                    <li class="item_mark item_discount">
+
+                                                                        @if ($product->discount_type == 'percent')
+
+                                                                            -{{ $product->discount_value }}%
+
+                                                                        @else
+
+                                                                            -{{ $product->discount_value }} EGP
+
+                                                                        @endif
+
+                                                                    </li>
+
+                                                                @endif
+
+                                                                @if ($product->created_at->gt(now()->subDays(7)))
+
+                                                                    <li class="item_mark item_new">
+                                                                        new
+                                                                    </li>
+
+                                                                @endif
+
+                                                            </ul>
+
+                                                        </div>
+
                                                     </a>
+
                                                 </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
                             @empty
-                                    <p class="text-danger">No Products Found</p>
+
+                                <div class="col-12">
+                                    <div class="alert alert-danger text-center">
+                                        No Products Found
+                                    </div>
                                 </div>
+
                             @endforelse
 
+                        </div>
+
+                        {{-- <div class="mt-4 d-flex justify-content-center">
+                            {{ $products->links() }}
+                        </div> --}}
                     </div>
 
 
 
                     <!-- Shop Page Navigation -->
 
-                    {{ $products->links() }}
+                    {{-- {{ $products->links() }} --}}
 
                 </div>
             </div>
@@ -246,6 +283,7 @@
 
 
 @section('script')
+
     <script src="{{ asset('assets/website/plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/Isotope/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/parallax-js-master/parallax.min.js') }}"></script>

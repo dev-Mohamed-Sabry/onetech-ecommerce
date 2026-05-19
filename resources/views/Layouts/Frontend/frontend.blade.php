@@ -123,8 +123,7 @@
                                 <div class="header_search_content">
                                     <div class="header_search_form_container">
 
-                                        <form action="#" id="searchForm" method="POST"
-                                            class="header_search_form clearfix">
+                                        <form id="searchForm" method="POST" class="header_search_form clearfix">
                                             <input type="search" name="search" class="header_search_input"
                                                 placeholder="Search for products...">
                                             {{-- <div class="custom_dropdown">
@@ -574,6 +573,8 @@
     </div>
 
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{ asset('assets/website/js/jquery-3.3.1.min.js') }}"></script>
@@ -601,17 +602,17 @@
                     toast: true,
                     position: "top",
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 1500,
                     timerProgressBar: true,
 
                 }).fire({
                     icon: "info",
                     title: "Search Can Not Be Empty",
                 });
-                // console.log(input);
+
             } else {
                 $.ajax({
-                    url: '{{ route('products.search') }}',
+                    url: '{{ route('products.search.check') }}',
                     method: "POST",
                     data: {
                         search: input.trim()
@@ -627,15 +628,19 @@
                                 toast: true,
                                 position: "top",
                                 showConfirmButton: false,
-                                timer: 2000,
+                                timer: 1500,
                                 timerProgressBar: true,
 
                             }).fire({
                                 icon: "error",
-                                title: response.message ?? "Name Not Found ",
+                                title: response.message ?? "Product Not Found ",
                             });
-                        } else {
-
+                        }
+                        else {
+                            console.log(input);
+                            // window.location.href = '/search/' + input + '';
+                            window.location.href = '/search?result=' + encodeURIComponent(input);
+                            // console.log(response);
                         }
                     },
                     error: function (xhr) {

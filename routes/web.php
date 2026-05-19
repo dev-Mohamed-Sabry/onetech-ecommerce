@@ -22,7 +22,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/blog', 'blog')->name('blog');
     Route::get('/products-by-category/{category}', 'products_by_category')->name('products.by.category');
     Route::get('/product-details/{product}', 'product_details')->name('product.details');
-    Route::post('/search-products', 'search_products')->name('products.search');
+    Route::post('/search-check', 'search_products')->name('products.search.check');
+    Route::get('/search', 'search_result')->name('products.search');
 });
 
 

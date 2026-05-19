@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\RecentlyViewedProduct;
+use App\Services\RecentlyViewedService;
 use Symfony\Component\HttpFoundation\Request;
 
 class FrontendController extends Controller
@@ -15,23 +16,10 @@ class FrontendController extends Controller
         return Category::orderBy('order', 'asc')->get();
     }
 
-    public function index()
+    public function index(RecentlyViewedService $recentlyViewed)
     {
-        $identifierColumn = auth()->check()
-            ? 'user_id'
-            : 'session_id';
 
-        $identifierValue = auth()->check()
-            ? auth()->id()
-            : session()->getId();
-
-        $recentlyViewedProducts = RecentlyViewedProduct::with([
-            'product:id,name,image,base_price,final_price,discount_type,discount_value,created_at'
-        ])
-            ->where($identifierColumn, $identifierValue)
-            ->orderByDesc('updated_at')
-            ->take(10)
-            ->get();
+        $recentlyViewedProducts = $recentlyViewed->get();
 
         $product_by_category = Product::first();
 
@@ -89,11 +77,13 @@ class FrontendController extends Controller
 |Frontend Show Products
 |--------------------------------------------------------------------------
 */
-    public function products_by_category(Category $category)
+    public function products_by_category(RecentlyViewedService $recentlyViewed, Category $category)
     {
+        $recentlyViewedProducts = $recentlyViewed->get();
+
         $categories = Category::all('id', 'name');
         $products = $category->products()->latest()->paginate(10);
-        return view('Frontend.Products.products-by-category', compact('categories', 'category', 'products'));
+        return view('Frontend.Products.products-by-category', compact('recentlyViewedProducts', 'categories', 'category', 'products'));
     }
 
     public function product_details(Product $product)
@@ -138,27 +128,45 @@ class FrontendController extends Controller
 
     public function search_products(Request $request)
     {
-        try {
-            $product = $request->search;
-            $products = Product::where('name', 'LIKE', "%{$product}%")
-                ->select('id', 'name', 'image', 'final_price')->latest()->paginate(10);
 
-            if ($products->isNotEmpty()) {
-                return response()->json([
-                    'success' => true,
-                    'products' => $products
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No products found'
-                ]);
-            }
-        } catch (\Exception $e) {
+        $product = $request->search;
+
+        $products = Product::where('name', 'LIKE', "%{$product}%")
+            ->select('id', 'name', 'image', 'final_price')->get();
+
+        if ($products->isNotEmpty()) {
+            return response()->json([
+                'success' => true,
+                'products' => $products
+            ]);
+        } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong'
-            ], 500);
+                'message' => 'Product Not Found'
+            ]);
         }
+    }
+
+    public function search_result(RecentlyViewedService $recentlyViewed, Request $request, Category $category)
+    {
+
+        $product = $request->result;
+        $products = Product::where('name', 'LIKE', "%$product%")
+            ->select('id', 'name', 'image', 'base_price', 'final_price', 'created_at')->latest()->paginate(10);
+
+        $categories = Category::all('id', 'name');
+
+        $recentlyViewedProducts = $recentlyViewed->get();
+
+
+        return view(
+            'Frontend.Products.search-result',
+            [
+                'categories' => $categories,
+                'products' => $products,
+                'category' => $category,
+                'recentlyViewedProducts' => $recentlyViewedProducts,
+            ]
+        );
     }
 }
