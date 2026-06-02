@@ -155,7 +155,6 @@ class FrontendController extends Controller
             ->select('id', 'name', 'image', 'base_price', 'final_price', 'created_at')->latest()->paginate(10);
 
         $categories = Category::all('id', 'name');
-
         $recentlyViewedProducts = $recentlyViewed->get();
 
 

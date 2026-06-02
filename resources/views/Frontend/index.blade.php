@@ -216,15 +216,17 @@
                                     @foreach ($featuredProducts as $product)
                                             <div class="featured_slider_item">
                                                 <div class="border_active"></div>
-                                                <a href="{{ route('product.details', $product->id)}}">
-                                                    <div
-                                                        class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                                <div
+                                                    class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+
+                                                    <a href="{{ route('product.details', $product->id)}}">
                                                         <div
                                                             class="product_image d-flex flex-column align-items-center justify-content-center">
                                                             <img src="{{ $product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg')}}"
                                                                 alt="{{$product->image ? $product->image : 'No Img'}}" height="100"
                                                                 width="100">
                                                         </div>
+
                                                         <div class="product_content">
                                                             <div
                                                                 class="product_price {{ $product->discount_value > 0 ? 'discount' : '' }}">
@@ -242,37 +244,31 @@
                                                                     <p>{{ Str::limit($product->name, 25, '...') }}</p>
                                                                 </div>
                                                             </div>
-                                                            <div class="product_extras">
-                                                                <div class="product_color">
-                                                                    <input type="radio" checked name="product_color"
-                                                                        style="background:#b19c83">
-                                                                    <input type="radio" name="product_color"
-                                                                        style="background:#000000">
-                                                                    <input type="radio" name="product_color"
-                                                                        style="background:#999999">
-                                                                </div>
-                                                                <button class="product_cart_button">Add to Cart</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                                        <ul class="product_marks">
-                                                            @if ($product->discount_value > 0)
+                                                    </a>
 
-                                                                <li class="product_mark product_discount">
-                                                                    @if ($product->discount_type == 'percent')
-                                                                        -{{ $product->discount_value }}%
-                                                                    @else
-                                                                        -${{ $product->discount_value }}
-                                                                    @endif
-                                                                </li>
+                                                    <div class="product_extras">
+                                                        <button id="cart_button" class="product_cart_button">Add to Cart</button>
+                                                    </div>
+                                                </div>
+                                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                <ul class="product_marks">
+                                                    @if ($product->discount_value > 0)
 
+                                                        <li class="product_mark product_discount">
+                                                            @if ($product->discount_type == 'percent')
+                                                                -{{ $product->discount_value }}%
+                                                            @else
+                                                                -${{ $product->discount_value }}
                                                             @endif
+                                                        </li>
 
-                                                            @if ($product->created_at->gt(now()->subDays(7)))
-                                                                <li class="product_mark product_new">new</li>
-                                                            @endif
-                                                        </ul>
-                                                </a>
+                                                    @endif
+
+                                                    @if ($product->created_at->gt(now()->subDays(7)))
+                                                        <li class="product_mark product_new">new</li>
+                                                    @endif
+                                                </ul>
+
                                             </div>
                                         </div>
                                     @endforeach
@@ -286,9 +282,9 @@
                                 @foreach ($hotSaleProducts as $product)
                                         <div class="featured_slider_item">
                                             <div class="border_active"></div>
-                                            <a href="{{ route('product.details', $product->id)}}">
-                                                <div
-                                                    class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                            <div
+                                                class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                                <a href="{{ route('product.details', $product->id)}}">
                                                     <div
                                                         class="product_image d-flex flex-column align-items-center justify-content-center">
                                                         <img src="{{ $product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg')}}"
@@ -312,35 +308,30 @@
                                                                 <p>{{ Str::limit($product->name, 25, '...') }}</p>
                                                             </div>
                                                         </div>
-                                                        <div class="product_extras">
-                                                            <div class="product_color">
-                                                                <input type="radio" checked name="product_color"
-                                                                    style="background:#b19c83">
-                                                                <input type="radio" name="product_color" style="background:#000000">
-                                                                <input type="radio" name="product_color" style="background:#999999">
-                                                            </div>
-                                                            <button class="product_cart_button">Add to Cart</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                                    <ul class="product_marks">
-                                                        @if ($product->discount_value > 0)
+                                                </a>
+                                                <div class="product_extras">
+                                                    <button class="product_cart_button">Add to Cart</button>
+                                                </div>
+                                            </div>
+                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                            <ul class="product_marks">
+                                                @if ($product->discount_value > 0)
 
-                                                            <li class="product_mark product_discount">
-                                                                @if ($product->discount_type == 'percent')
-                                                                    -{{ $product->discount_value }}%
-                                                                @else
-                                                                    -${{ $product->discount_value }}
-                                                                @endif
-                                                            </li>
-
+                                                    <li class="product_mark product_discount">
+                                                        @if ($product->discount_type == 'percent')
+                                                            -{{ $product->discount_value }}%
+                                                        @else
+                                                            -${{ $product->discount_value }}
                                                         @endif
+                                                    </li>
 
-                                                        @if ($product->created_at->gt(now()->subDays(7)))
-                                                            <li class="product_mark product_new">new</li>
-                                                        @endif
-                                                    </ul>
-                                            </a>
+                                                @endif
+
+                                                @if ($product->created_at->gt(now()->subDays(7)))
+                                                    <li class="product_mark product_new">new</li>
+                                                @endif
+                                            </ul>
+
                                         </div>
                                     </div>
                                 @endforeach
@@ -3601,65 +3592,65 @@
                     </div>
                 </div>
             </div>
-                </div>
+        </div>
     @endif
 
-        <!-- Brands -->
+    <!-- Brands -->
 
-        <div class="brands">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="brands_slider_container">
+    <div class="brands">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="brands_slider_container">
 
-                            <!-- Brands Slider -->
+                        <!-- Brands Slider -->
 
-                            <div class="owl-carousel owl-theme brands_slider">
+                        <div class="owl-carousel owl-theme brands_slider">
 
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_1.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_2.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_3.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_4.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_5.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_6.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_7.jpg')}}" alt=""></div>
-                                </div>
-                                <div class="owl-item">
-                                    <div class="brands_item d-flex flex-column justify-content-center"><img
-                                            src="{{asset('assets/website/images/brands_8.jpg')}}" alt=""></div>
-                                </div>
-
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_1.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_2.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_3.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_4.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_5.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_6.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_7.jpg')}}" alt=""></div>
+                            </div>
+                            <div class="owl-item">
+                                <div class="brands_item d-flex flex-column justify-content-center"><img
+                                        src="{{asset('assets/website/images/brands_8.jpg')}}" alt=""></div>
                             </div>
 
-                            <!-- Brands Slider Navigation -->
-                            <div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
-                            <div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
-
                         </div>
+
+                        <!-- Brands Slider Navigation -->
+                        <div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
+                        <div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 

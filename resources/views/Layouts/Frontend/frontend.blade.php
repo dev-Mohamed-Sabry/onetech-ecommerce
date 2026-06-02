@@ -655,6 +655,13 @@
 
     </script>
 
+
+    <script>
+        $(document).on('click', '#cart_button', function (e) {
+            e.preventDefault();
+            console.log('clicked');
+        });
+    </script>
 </body>
 
 </html>

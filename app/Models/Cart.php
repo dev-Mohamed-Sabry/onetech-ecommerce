@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
 
-class RecentlyViewedProduct extends Model
+class Cart extends Model
 {
     protected $fillable = [
         'user_id',
         'session_id',
         'product_id',
-        'last_viewed_at',
+        'quantity',
     ];
-
     public function product()
     {
-        return $this->belongsTo(Product::class)->withDefault();
+        return  $this->belongsTo(Product::class);
     }
 }
