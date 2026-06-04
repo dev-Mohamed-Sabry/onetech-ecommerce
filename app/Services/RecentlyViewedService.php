@@ -34,6 +34,7 @@ class RecentlyViewedService
         return RecentlyViewedProduct::with('product')
             ->where($this->key(), $this->value())
             ->orderByDesc('last_viewed_at')
+
             ->take($limit)
             ->get();
     }

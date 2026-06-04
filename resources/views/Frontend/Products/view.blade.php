@@ -99,7 +99,10 @@
                                     </div>
                                 </div>
                                 <div class="button_container">
-                                    <button type="button" class="button cart_button">Add to Cart</button>
+                                    <button type="button" id="cart_button" class="button cart_button add-to-cart"
+                                        data-product-id="{{ $product->id }}">
+                                        Add to Cart
+                                    </button>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
                                 </div>
 
@@ -235,35 +238,35 @@
 
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_1.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_1.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_2.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_2.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_3.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_3.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_4.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_4.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_5.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_5.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_6.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_6.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_7.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_7.jpg') }}" alt=""></div>
                             </div>
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center"><img
-                                        src="images/brands_8.jpg" alt=""></div>
+                                        src="{{ asset('assets/website/images/brands_8.jpg') }}" alt=""></div>
                             </div>
 
                         </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
@@ -26,7 +27,18 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/search', 'search_result')->name('products.search');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Cart Routes
+|--------------------------------------------------------------------------
+*/
 
+Route::controller(CartController::class)->group(function () {
+    Route::get('/cart', 'index');
+    Route::post('/cart/add', 'add')->name('cart.add');
+    Route::post('/cart/update', 'update');
+    Route::post('/cart/remove', 'remove');
+});
 
 /*
 |--------------------------------------------------------------------------

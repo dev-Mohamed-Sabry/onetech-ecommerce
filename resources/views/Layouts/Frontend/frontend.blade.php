@@ -170,17 +170,45 @@
                                 </div>
 
                                 <!-- Cart -->
-                                <div class="cart">
-                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
-                                        <div class="cart_icon">
+                                <div class="cart position-relative">
+                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end"
+                                        id="cartToggle">
+
+                                        <div class="cart_icon position-relative">
                                             <img src="{{ asset('assets/website/images/cart.png') }}" alt="">
-                                            <div class="cart_count"><span>10</span></div>
+                                            <div class="cart_count">
+                                                <span id="cart-count">0</span>
+                                            </div>
                                         </div>
+
                                         <div class="cart_content">
                                             <div class="cart_text"><a href="#">Cart</a></div>
-                                            <div class="cart_price">$85</div>
+                                            <div class="cart_price" id="cart-total">0 EGP</div>
                                         </div>
                                     </div>
+
+                                    <!-- Mini Cart Dropdown -->
+                                    <div class="mini_cart shadow" id="miniCart">
+                                        <div class="mini_cart_header">
+                                            <span>Shopping Cart</span>
+                                        </div>
+
+                                        <div class="mini_cart_body" id="mini-cart-items">
+                                            <div class="empty_cart">Your cart is empty</div>
+                                        </div>
+
+                                        <div class="mini_cart_footer">
+                                            <div class="mini_cart_total">
+                                                Total: <span id="mini-cart-total">0 EGP</span>
+                                            </div>
+
+                                            <div class="mini_cart_actions">
+                                                <a href="#" class="btn_view_cart">View Cart</a>
+                                                <a href="#" class="btn_checkout">Checkout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -234,62 +262,6 @@
                                                 <i class="fas fa-chevron-down"></i>
                                             </a>
                                         </li>
-                                        {{-- <li class="hassubs">
-                                            <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li>
-                                                    <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                    <ul>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-                                            </ul>
-                                        </li> --}}
-                                        {{-- <li class="hassubs">
-                                            <a href="#">Featured Brands<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li>
-                                                    <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                    <ul>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                        </li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
-                                            </ul>
-                                        </li> --}}
-                                        {{-- <li class="hassubs">
-                                            <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="product.html">Product<i
-                                                            class="fas fa-chevron-down"></i></a>
-                                                </li>
-                                                <li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="blog_single.html">Blog Post<i
-                                                            class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="regular.html">Regular Post<i
-                                                            class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="contact.html">Contact<i
-                                                            class="fas fa-chevron-down"></i></a>
-                                                </li>
-                                            </ul>
-                                        </li> --}}
                                         <li><a href="{{ route('blog') }}">Blog<i class="fas fa-chevron-down"></i></a>
                                         </li>
                                         <li><a href="{{ route('contact') }}">Contact<i
@@ -655,13 +627,165 @@
 
     </script>
 
+    {{-- Cart --}}
 
+    {{-- Show All Products In Cart --}}
     <script>
-        $(document).on('click', '#cart_button', function (e) {
-            e.preventDefault();
-            console.log('clicked');
+        $(document).ready(function () {
+
+            $.ajax({
+                url: '/cart',
+                method: 'GET',
+                success: function (res) {
+                    renderCart(res.cart, res.total);
+                }
+            });
+
         });
     </script>
+    {{-- Add To Cart --}}
+    <script>
+        $(document).on('click', '#cartToggle', function (e) {
+            e.preventDefault();
+            $('#miniCart').toggle();
+        });
+
+        // إغلاق عند الضغط خارجها
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.cart').length) {
+                $('#miniCart').hide();
+            }
+        });
+
+
+        // Add To Cart Button
+        $(document).on('click', '.add-to-cart', function (e) {
+            e.preventDefault();
+
+            let productId = $(this).data('product-id');
+
+            // productId ? console.log('Clicked') : null;
+            $.ajax({
+                url: '/cart/add',
+                method: 'POST',
+                data: {
+                    product_id: productId,
+                    quantity: 1
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function (res) {
+
+                    let html = '';
+
+                    if (res.cart.length === 0) {
+                        html = `<div class="empty_cart">Your cart is empty</div>`;
+                    } else {
+
+                        res.cart.forEach(item => {
+                            html += `
+                            <div class="mini_cart_item" data-product-id="${item.product.id}">
+    
+                                <div class="item_name">${item.product.name}</div>
+
+                                <div class="qty_controls">
+                                    <button class="qty-minus">-</button>
+
+                                    <span class="qty">${item.quantity}</span>
+
+                                    <button class="qty-plus">+</button>
+                                </div>
+
+                                <div class="item_price">
+                                    ${item.product.final_price} EGP
+                                </div>
+                            </div>
+                            `;
+                        });
+                    }
+
+                    $('#mini-cart-items').html(html);
+                    $('#mini-cart-total').text(res.total + ' EGP');
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+    </script>
+
+    {{-- Update Cart --}}
+    <script>
+        $(document).on('click', '.qty-plus', function () {
+
+            let item = $(this).closest('.mini_cart_item');
+            let productId = item.data('product-id');
+            let qty = parseInt(item.find('.qty').text());
+
+            updateCart(productId, qty + 1);
+        });
+
+
+        $(document).on('click', '.qty-minus', function () {
+
+            let item = $(this).closest('.mini_cart_item');
+            let productId = item.data('product-id');
+            let qty = parseInt(item.find('.qty').text());
+
+            updateCart(productId, qty - 1);
+        });
+
+
+        function updateCart(productId, quantity) {
+
+            $.ajax({
+                url: '/cart/update',
+                method: 'POST',
+                data: {
+                    product_id: productId,
+                    quantity: quantity
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function (res) {
+                    renderCart(res.cart, res.total);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function renderCart(cart, total) {
+
+            let html = '';
+
+            cart.forEach(item => {
+                html += `
+            <div class="mini_cart_item" data-product-id="${item.product.id}">
+                <div>${item.product.name}</div>
+
+                <div class="qty_controls">
+                    <button class="qty-minus">-</button>
+                    <span class="qty">${item.quantity}</span>
+                    <button class="qty-plus">+</button>
+                </div>
+
+                <div class='item_price'>${item.product.final_price * item.quantity} EGP</div>
+            </div>
+        `;
+            });
+
+            if (cart.length === 0) {
+                html = `<div class="empty_cart">Your cart is empty</div>`;
+            }
+
+            $('#mini-cart-items').html(html);
+            $('#mini-cart-total').text(total + ' EGP');
+        }</script>
+
 </body>
 
 </html>
