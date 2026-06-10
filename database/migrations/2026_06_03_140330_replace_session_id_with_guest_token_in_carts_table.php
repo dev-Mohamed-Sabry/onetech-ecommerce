@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('guest_token')->nullable()->index()->after('user_id');
 
+            // نفس المنتج لا يتكرر لنفس الزائر
             $table->unique(['guest_token', 'product_id']);
         });
     }

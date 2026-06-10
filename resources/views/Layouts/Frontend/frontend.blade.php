@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/plugins/slick-1.8.0/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/main_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/responsive.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/website/styles/cart_styles.css') }}">
 
 
     @yield('css')
@@ -560,9 +560,11 @@
     <script src="{{ asset('assets/website/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/slick-1.8.0/slick.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
+    <script src="{{ asset('assets/website/js/cart_custom.js') }}"></script>
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
     @yield('script')
 
+    {{-- Search Function --}}
     <script>
         $('#searchForm').on('submit', function (e) {
 
@@ -622,170 +624,7 @@
                 })
             }
         })
-
-
-
     </script>
-
-    {{-- Cart --}}
-
-    {{-- Show All Products In Cart --}}
-    <script>
-        $(document).ready(function () {
-
-            $.ajax({
-                url: '/cart',
-                method: 'GET',
-                success: function (res) {
-                    renderCart(res.cart, res.total);
-                }
-            });
-
-        });
-    </script>
-    {{-- Add To Cart --}}
-    <script>
-        $(document).on('click', '#cartToggle', function (e) {
-            e.preventDefault();
-            $('#miniCart').toggle();
-        });
-
-        // إغلاق عند الضغط خارجها
-        $(document).on('click', function (e) {
-            if (!$(e.target).closest('.cart').length) {
-                $('#miniCart').hide();
-            }
-        });
-
-
-        // Add To Cart Button
-        $(document).on('click', '.add-to-cart', function (e) {
-            e.preventDefault();
-
-            let productId = $(this).data('product-id');
-
-            // productId ? console.log('Clicked') : null;
-            $.ajax({
-                url: '/cart/add',
-                method: 'POST',
-                data: {
-                    product_id: productId,
-                    quantity: 1
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                success: function (res) {
-
-                    let html = '';
-
-                    if (res.cart.length === 0) {
-                        html = `<div class="empty_cart">Your cart is empty</div>`;
-                    } else {
-
-                        res.cart.forEach(item => {
-                            html += `
-                            <div class="mini_cart_item" data-product-id="${item.product.id}">
-    
-                                <div class="item_name">${item.product.name}</div>
-
-                                <div class="qty_controls">
-                                    <button class="qty-minus">-</button>
-
-                                    <span class="qty">${item.quantity}</span>
-
-                                    <button class="qty-plus">+</button>
-                                </div>
-
-                                <div class="item_price">
-                                    ${item.product.final_price} EGP
-                                </div>
-                            </div>
-                            `;
-                        });
-                    }
-
-                    $('#mini-cart-items').html(html);
-                    $('#mini-cart-total').text(res.total + ' EGP');
-                },
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-
-    </script>
-
-    {{-- Update Cart --}}
-    <script>
-        $(document).on('click', '.qty-plus', function () {
-
-            let item = $(this).closest('.mini_cart_item');
-            let productId = item.data('product-id');
-            let qty = parseInt(item.find('.qty').text());
-
-            updateCart(productId, qty + 1);
-        });
-
-
-        $(document).on('click', '.qty-minus', function () {
-
-            let item = $(this).closest('.mini_cart_item');
-            let productId = item.data('product-id');
-            let qty = parseInt(item.find('.qty').text());
-
-            updateCart(productId, qty - 1);
-        });
-
-
-        function updateCart(productId, quantity) {
-
-            $.ajax({
-                url: '/cart/update',
-                method: 'POST',
-                data: {
-                    product_id: productId,
-                    quantity: quantity
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                success: function (res) {
-                    renderCart(res.cart, res.total);
-                }
-            });
-        }
-    </script>
-
-    <script>
-        function renderCart(cart, total) {
-
-            let html = '';
-
-            cart.forEach(item => {
-                html += `
-            <div class="mini_cart_item" data-product-id="${item.product.id}">
-                <div>${item.product.name}</div>
-
-                <div class="qty_controls">
-                    <button class="qty-minus">-</button>
-                    <span class="qty">${item.quantity}</span>
-                    <button class="qty-plus">+</button>
-                </div>
-
-                <div class='item_price'>${item.product.final_price * item.quantity} EGP</div>
-            </div>
-        `;
-            });
-
-            if (cart.length === 0) {
-                html = `<div class="empty_cart">Your cart is empty</div>`;
-            }
-
-            $('#mini-cart-items').html(html);
-            $('#mini-cart-total').text(total + ' EGP');
-        }</script>
-
 </body>
 
 </html>

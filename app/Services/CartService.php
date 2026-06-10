@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Cart;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
 
 class CartService
 {
@@ -55,16 +55,18 @@ class CartService
             });
     }
 
-    public function add($productId, $quantity = 0)
+    public function add($productId, $quantity = 1)
     {
         $cart = Cart::firstOrNew([
             $this->key() => $this->value(),
             'product_id' => $productId,
         ]);
 
-        $cart->quantity += $quantity;
+        $cart->quantity = ($cart->exists ? $cart->quantity : 0) + $quantity;
+
         $cart->save();
     }
+
 
     public function update($productId, $quantity)
     {
