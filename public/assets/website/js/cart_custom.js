@@ -1,3 +1,5 @@
+// Start Mini Cart Functions
+
 // Cart Toggle 
 $(document).on('click', '#cartToggle', function (e) {
 	e.preventDefault();
@@ -23,9 +25,6 @@ $(document).ready(function () {
 		}
 	});
 });
-
-
-
 
 // Add To Cart Button
 $(document).on('click', '.add-to-cart', function (e) {
@@ -100,7 +99,7 @@ $(document).on('click', '.add-to-cart', function (e) {
 
 $(document).on('click', '.qty-plus', function () {
 
-	let item = $(this).closest('.mini_cart_item');
+	let item = $(this).closest('[data-product-id]');
 	let productId = item.data('product-id');
 	let qty = parseInt(item.find('.qty').text());
 
@@ -110,7 +109,7 @@ $(document).on('click', '.qty-plus', function () {
 
 $(document).on('click', '.qty-minus', function () {
 
-	let item = $(this).closest('.mini_cart_item');
+	let item = $(this).closest('[data-product-id]');
 	let productId = item.data('product-id');
 	let qty = parseInt(item.find('.qty').text());
 
@@ -143,12 +142,15 @@ function updateCart(productId, quantity) {
 function renderCart(cart, total) {
 
 	let html = '';
+	let count = 0;
 
 	cart.forEach(item => {
+		count += item.quantity;
+
 		html += `
             <div class="mini_cart_item" data-product-id="${item.product.id}">
-                <div class="item_name"> ${item.product.name}</div>
-
+				 <img src="${item.product.image}" width="50"> 
+              	<div class="item_name"> ${item.product.name}</div>
                 <div class="qty_controls">
 				<button class="qty-plus">+</button>
 				<span class="qty">${item.quantity}</span>
@@ -166,4 +168,8 @@ function renderCart(cart, total) {
 
 	$('#mini-cart-items').html(html);
 	$('#mini-cart-total').text(total + ' EGP');
+	$('#cart-total').text(total + ' EGP');
+	$('#cart-count').text(count);
 }
+
+// End Mini Cart Functions

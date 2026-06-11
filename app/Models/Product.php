@@ -14,4 +14,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+
+
+
+    public function getImageAttribute($image)
+    {
+        return asset('uploads/products/' . $image);
+    }
 }

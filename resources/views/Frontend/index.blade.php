@@ -15,8 +15,7 @@
             style="background-image:url({{asset('assets/website/images/banner_background.jpg')}})"></div>
         <div class="container fill_height">
             <div class="row fill_height">
-                <div class="banner_product_image"><img src="{{ asset('uploads/products/' . $bannerProduct->image) }} "
-                        width="400" alt="">
+                <div class="banner_product_image"><img src="{{ $bannerProduct->image }} " width="400" alt="">
                 </div>
                 <div class="col-lg-5 offset-lg-4 fill_height">
                     <div class="banner_content">
@@ -114,13 +113,13 @@
                                     <!-- Deals Item -->
                                     <div class="owl-item deals_item">
                                         <div class="deals_image">
-                                            <img src="{{$product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg') }}"
+                                            <img src="{{$product->image ? $product->image : asset('uploads/products/no_img.jpg') }}"
                                                 alt="{{ $product->name }}">
                                         </div>
                                         <div class="deals_content">
                                             <div class="deals_info_line d-flex flex-row justify-content-start">
                                                 <div class="deals_item_category"><a
-                                                        href="{{ route('product.details', $product->id) }}">{{ $product->category->name }}</a>
+                                                        href="{{ route('product.details', $product->id) }}">{{ $product->name }}</a>
                                                 </div>
 
 
@@ -224,7 +223,7 @@
                                                     <a href="{{ route('product.details', $product->id)}}">
                                                         <div
                                                             class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                            <img src="{{ $product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg')}}"
+                                                            <img src="{{ $product->image ? $product->image : asset('uploads/products/no_img.jpg')}}"
                                                                 alt="{{$product->image ? $product->image : 'No Img'}}" height="100"
                                                                 width="100">
                                                         </div>
@@ -291,7 +290,7 @@
                                                 <a href="{{ route('product.details', $product->id)}}">
                                                     <div
                                                         class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                        <img src="{{ $product->image ? asset('uploads/products/' . $product->image) : asset('uploads/products/no_img.jpg')}}"
+                                                        <img src="{{ $product->image ? $product->image : asset('uploads/products/no_img.jpg')}}"
                                                             alt="{{$product->image ? $product->image : 'No Img'}}" height="100"
                                                             width="100">
                                                     </div>
@@ -491,8 +490,7 @@
                                     </div>
                                     <div class="col-lg-8 col-md-6 fill_height">
                                         <div class="banner_2_image_container">
-                                            <div class="banner_2_image"><img
-                                                    src="{{ asset('uploads/products/' . $product->image) }}"
+                                            <div class="banner_2_image"><img src="{{ $product->image }}"
                                                     alt="{{ $product->name }}" style="width: 80%;">
                                             </div>
                                         </div>
@@ -541,8 +539,8 @@
 
                                                             <div class="viewed_image">
 
-                                                                <img src="{{ $recent->product->image
-                                        ? asset('uploads/products/' . $recent->product->image)
+                                                                <img src="{{ $product->image
+                                        ? $product->image
                                         : asset('uploads/products/no_img.jpg') }}" alt="{{ $recent->product->name }}">
 
                                                             </div>

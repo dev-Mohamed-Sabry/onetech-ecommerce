@@ -203,7 +203,7 @@
                                             </div>
 
                                             <div class="mini_cart_actions">
-                                                <a href="#" class="btn_view_cart">View Cart</a>
+                                                <a href="{{route('cart.view')}}" class="btn_view_cart">View Cart</a>
                                                 <a href="#" class="btn_checkout">Checkout</a>
                                             </div>
                                         </div>

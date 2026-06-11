@@ -25,7 +25,7 @@
                         @if (!$product->image)
                             <img src="/uploads/products/no_img.jpg">
                         @else
-                            <img src="{{ asset('uploads/products/' . $product->image) }}">
+                            <img src="{{ $product->image }}">
                         @endif
                     </div>
 

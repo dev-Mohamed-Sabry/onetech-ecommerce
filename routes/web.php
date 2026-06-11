@@ -35,6 +35,7 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index');
+    Route::get('/cart-details', 'view')->name('cart.view');
     Route::post('/cart/add', 'add')->name('cart.add');
     Route::post('/cart/update', 'update');
     Route::post('/cart/remove', 'remove');

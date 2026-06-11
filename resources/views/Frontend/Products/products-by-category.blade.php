@@ -74,7 +74,7 @@
                                                 @if (!$product->image)
                                                     <img src="/uploads/products/no_img.jpg" width="120px" height="120px">
                                                 @else
-                                                    <img src=" {{ asset('uploads/products/' . $product->image) }}"
+                                                    <img src=" {{ $product->image }}"
                                                         alt="{{ $product->image }}" width="120px" height="120px">
                                                 @endif
 
@@ -165,8 +165,8 @@
 
                                                             <div class="viewed_image">
 
-                                                                <img src="{{ $recent->product->image
-                                        ? asset('uploads/products/' . $recent->product->image)
+                                                                <img src="{{ $product->image
+                                        ? asset( $product->image)
                                         : asset('uploads/products/no_img.jpg') }}" alt="{{ $recent->product->name }}">
 
                                                             </div>

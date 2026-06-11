@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\CartService;
 
@@ -10,11 +11,28 @@ class CartController extends Controller
 {
     public function index(CartService $cartService)
     {
-        return response()->json([
-            'success' => true,
-            'cart' => $cartService->get(),
-            'total' => $cartService->total(),
-        ]);
+        Cart::with('product')->get();
+        return
+            response()->json(
+                [
+                    'success' => true,
+                    'cart' => $cartService->get(),
+                    'total' => $cartService->total(),
+                ]
+            );
+    }
+
+    public function view(CartService $cartService)
+    {
+        $categories = Category::all('id', 'name');
+        return view(
+            'frontend.cart.view',
+            [
+                'categories' => $categories,
+                'cart' => $cartService->get(),
+                'total' => $cartService->total(),
+            ]
+        );
     }
 
     public function add(Request $request, CartService $cartService)
