@@ -11,7 +11,7 @@ class CartController extends Controller
 {
     public function index(CartService $cartService)
     {
-        Cart::with('product')->get();
+        $cartService->get();
         return
             response()->json(
                 [

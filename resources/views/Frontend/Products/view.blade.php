@@ -22,10 +22,10 @@
                 <!-- Selected Image -->
                 <div class="col-lg-5 order-lg-2 order-1">
                     <div class="image_selected">
-                        @if (!$product->image)
-                            <img src="/uploads/products/no_img.jpg">
-                        @else
+                        @if ($product->image)
                             <img src="{{ $product->image }}">
+                        @else
+                            <img src="/uploads/products/no_img.jpg">
                         @endif
                     </div>
 

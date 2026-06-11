@@ -15,7 +15,7 @@
 
             @forelse($cart as $item)
 
-                <div class="cart_row">
+                <div class="cart_row" data-product-id="{{ $item->product_id }}">
 
                     {{-- Product Image --}}
                     <div class="cart_col image">

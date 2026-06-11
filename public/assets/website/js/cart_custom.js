@@ -97,25 +97,30 @@ $(document).on('click', '.add-to-cart', function (e) {
 
 // Update Cart
 
+// Increment
 $(document).on('click', '.qty-plus', function () {
 
 	let item = $(this).closest('[data-product-id]');
 	let productId = item.data('product-id');
-	let qty = parseInt(item.find('.qty').text());
+
+	let qty = item.find('.qty').length
+		? parseInt(item.find('.qty').text())
+		: parseInt(item.find('input').val());
 
 	updateCart(productId, qty + 1);
 });
 
-
+// Decrement
 $(document).on('click', '.qty-minus', function () {
 
 	let item = $(this).closest('[data-product-id]');
 	let productId = item.data('product-id');
-	let qty = parseInt(item.find('.qty').text());
 
-	updateCart(productId, qty - 1);
+	let qty = item.find('.qty').length
+		? parseInt(item.find('.qty').text())
+		: parseInt(item.find('input').val());
+	updateCart(productId, Math.max(1, qty - 1));
 });
-
 
 function updateCart(productId, quantity) {
 

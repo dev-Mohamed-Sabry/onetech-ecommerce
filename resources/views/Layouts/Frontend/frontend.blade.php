@@ -126,27 +126,7 @@
                                         <form id="searchForm" method="POST" class="header_search_form clearfix">
                                             <input type="search" name="search" class="header_search_input"
                                                 placeholder="Search for products...">
-                                            {{-- <div class="custom_dropdown">
-                                                <div class="custom_dropdown_list">
-                                                    <span class="custom_dropdown_placeholder clc">All Categories</span>
-                                                    <i class="fas fa-chevron-down"></i>
-                                                    <ul class="custom_list clc">
-                                                        <li><a class="clc" href="#">All Categories</a></li>
-                                                        @forelse ($categories as $category)
-                                                        <li>
-                                                            <a class="clc"
-                                                                href="{{ route('products.by.category', $category) }}">{{
-                                                                $category->name }}
-                                                            </a>
-                                                        </li>
 
-                                                        @empty
-                                                        <li class=" text-danger">No Categories Found
-                                                        </li>
-                                                        @endforelse
-                                                    </ul>
-                                                </div>
-                                            </div> --}}
                                             <button type="submit" class="header_search_button trans_300"
                                                 value="Submit"><img
                                                     src="{{ asset('assets/website/images/search.png') }}"
@@ -208,7 +188,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
