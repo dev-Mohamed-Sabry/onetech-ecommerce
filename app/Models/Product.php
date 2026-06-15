@@ -16,8 +16,6 @@ class Product extends Model
     }
 
 
-
-
     public function getImageAttribute($image)
     {
         return asset('uploads/products/' . $image);

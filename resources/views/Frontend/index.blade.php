@@ -539,8 +539,8 @@
 
                                                             <div class="viewed_image">
 
-                                                                <img src="{{ $product->image
-                                        ? $product->image
+                                                                <img src="{{ $recent->product->image
+                                        ? asset($recent->product->image)
                                         : asset('uploads/products/no_img.jpg') }}" alt="{{ $recent->product->name }}">
 
                                                             </div>

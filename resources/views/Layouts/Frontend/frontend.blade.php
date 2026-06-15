@@ -539,9 +539,10 @@
     <script src="{{ asset('assets/website/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/slick-1.8.0/slick.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
-    <script src="{{ asset('assets/website/js/cart_custom.js') }}"></script>
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/website/js/cart_custom.js') }}"></script>
     @yield('script')
+
 
     {{-- Search Function --}}
     <script>
@@ -604,6 +605,7 @@
             }
         })
     </script>
+
 </body>
 
 </html>

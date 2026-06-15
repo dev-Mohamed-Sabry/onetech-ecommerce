@@ -21,6 +21,7 @@ $(document).ready(function () {
 		url: '/cart',
 		method: 'GET',
 		success: function (res) {
+			// $.get('/cart', console.log)
 			renderCart(res.cart, res.total);
 		}
 	});
@@ -44,6 +45,7 @@ $(document).on('click', '.add-to-cart', function (e) {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
 		},
 		success: function (res) {
+
 			if (res.success) {
 				Swal.mixin({
 					toast: true,
@@ -51,42 +53,14 @@ $(document).on('click', '.add-to-cart', function (e) {
 					showConfirmButton: false,
 					timer: 1000,
 					timerProgressBar: true,
-
 				}).fire({
 					icon: "success",
-					title: res.message ?? "Item Added To Cart Successfully ",
-				});
-			}
-			let html = '';
-
-			if (res.cart.length === 0) {
-				html = `<div class="empty_cart">Your cart is empty</div>`;
-			} else {
-
-				res.cart.forEach(item => {
-					html += `
-                            <div class="mini_cart_item" data-product-id="${item.product.id}">
-                                <div class="item_name"> ${item.product.name}
-								</div>
-
-                                <div class="qty_controls">
-								<button class="qty-plus">+</button>
-								
-								<span class="qty">${item.quantity}</span>
-								
-								<button class="qty-minus">-</button>
-                                </div>
-
-                                <div class="item_price">
-                                    ${item.product.final_price} EGP
-                                </div>
-                            </div>
-                            `;
+					title: res.message ?? "Item Added To Cart Successfully",
 				});
 			}
 
-			$('#mini-cart-items').html(html);
-			$('#mini-cart-total').text(res.total + ' EGP');
+			// console.log('ADD RESPONSE', res);
+			renderCart(res.cart, res.total);
 		},
 		error: function (xhr) {
 			console.log(xhr.responseText);
@@ -100,7 +74,7 @@ $(document).on('click', '.add-to-cart', function (e) {
 // Increment
 $(document).on('click', '.qty-plus', function () {
 
-	let item = $(this).closest('[data-product-id]');
+	let item = $(this).closest('.mini_cart_item, .cart_row');
 	let productId = item.data('product-id');
 
 	let qty = item.find('.qty').length
@@ -113,13 +87,20 @@ $(document).on('click', '.qty-plus', function () {
 // Decrement
 $(document).on('click', '.qty-minus', function () {
 
-	let item = $(this).closest('[data-product-id]');
+	let item = $(this).closest('.mini_cart_item, .cart_row');
 	let productId = item.data('product-id');
 
 	let qty = item.find('.qty').length
 		? parseInt(item.find('.qty').text())
 		: parseInt(item.find('input').val());
-	updateCart(productId, Math.max(1, qty - 1));
+
+	// لو الكمية 1 → نحذف المنتج
+	if (qty <= 1) {
+		updateCart(productId, 0);
+		return;
+	}
+
+	updateCart(productId, (qty - 1));
 });
 
 function updateCart(productId, quantity) {
@@ -143,30 +124,31 @@ function updateCart(productId, quantity) {
 
 
 // Render Cart
-
 function renderCart(cart, total) {
+	// console.log('RENDER CART', cart);
 
 	let html = '';
 	let count = 0;
 
 	cart.forEach(item => {
 		count += item.quantity;
-
+		// console.log(item.product);
 		html += `
-            <div class="mini_cart_item" data-product-id="${item.product.id}">
-				 <img src="${item.product.image}" width="50"> 
+				<div class="mini_cart_item" data-product-id="${item.product.id}">
+				<img src="${item.product.image}" width="50"> 
               	<div class="item_name"> ${item.product.name}</div>
                 <div class="qty_controls">
-				<button class="qty-plus">+</button>
-				<span class="qty">${item.quantity}</span>
-				<button class="qty-minus">-</button>
+					<button class="qty-plus">+</button>
+					<span class="qty">${item.quantity}</span>
+					<button class="qty-minus">-</button>
                 </div>
 
-                <div class='item_price'>${item.product.final_price * item.quantity} EGP</div>
+                <div class='mini-cart-total' class='item_price'>${item.product.final_price * item.quantity} EGP</div>
             </div>
         `;
 	});
 
+	console.log(html, total);
 	if (cart.length === 0) {
 		html = `<div class="empty_cart">Your cart is empty</div>`;
 	}
