@@ -143,12 +143,12 @@ function renderCart(cart, total) {
 					<button class="qty-minus">-</button>
                 </div>
 
-                <div class='mini-cart-total' class='item_price'>${item.product.final_price * item.quantity} EGP</div>
+                <div class='mini-cart-total' >${item.product.final_price * item.quantity} EGP</div>
             </div>
         `;
 	});
 
-	console.log(html, total);
+	// console.log(html, total);
 	if (cart.length === 0) {
 		html = `<div class="empty_cart">Your cart is empty</div>`;
 	}
@@ -158,5 +158,4 @@ function renderCart(cart, total) {
 	$('#cart-total').text(total + ' EGP');
 	$('#cart-count').text(count);
 }
-
 // End Mini Cart Functions

@@ -103,9 +103,10 @@
 
 .mini_cart_total {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	font-weight: 600;
-	font-size: 13px;
+	font-size: 15px;
+	gap: 25px;
 }
 
 .mini_cart_footer {

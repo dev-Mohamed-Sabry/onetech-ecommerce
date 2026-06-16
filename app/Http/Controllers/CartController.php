@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\CartService;
+use App\Services\RecentlyViewedService;
 
 class CartController extends Controller
 {
@@ -22,13 +24,22 @@ class CartController extends Controller
             );
     }
 
-    public function view(CartService $cartService)
+    public function view(CartService $cartService, RecentlyViewedService $recentlyViewed)
     {
+
+        $recentlyViewedProducts = $recentlyViewed->get();
+
+        $products = Product::with('category')
+            ->latest()
+            ->get();
+
         $categories = Category::all('id', 'name');
         return view(
             'frontend.cart.view',
             [
+                'products' => $products,
                 'categories' => $categories,
+                'recentlyViewedProducts' => $recentlyViewedProducts,
                 'cart' => $cartService->get(),
                 'total' => $cartService->total(),
             ]
