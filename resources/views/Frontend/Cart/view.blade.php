@@ -5,16 +5,15 @@
 <link rel="stylesheet" href="{{ asset('assets/website/styles/cart-details.css') }}">
 
 @section('content')
-    <div class="cart_page container">
 
+    <!-- Cart Products -->
+    <div class="cart_page container">
         <div class="cart_title">
             <h3>Your Cart</h3>
         </div>
 
         <div class="cart_wrapper">
-
             @forelse($cart as $item)
-
                 <div class="cart_row" data-product-id="{{ $item->product_id }}">
 
                     {{-- Product Image --}}
@@ -41,11 +40,10 @@
                     <div class="cart_col qty">
 
                         <div class="qty_box">
-                            <button class="qty_minus">-</button>
-
+                            <button class="qty-plus">+</button>
                             <input type="text" value="{{ $item->quantity }}">
+                            <button class="qty-minus">-</button>
 
-                            <button class="qty_plus">+</button>
                         </div>
 
                     </div>
@@ -62,15 +60,11 @@
                     <div class="cart_col remove">
                         <button class="remove_btn">×</button>
                     </div>
-
                 </div>
-
             @empty
-
                 <div class="empty_cart">
                     Your cart is empty
                 </div>
-
             @endforelse
 
         </div>
@@ -202,7 +196,7 @@
 @endsection
 
 
+
 @section('script')
     <script src="{{ asset('assets/website/js/product_custom.js') }}"></script>
 @endsection
-<script src="{{ asset('assets/website/js/cart_custom.js') }}"></script>

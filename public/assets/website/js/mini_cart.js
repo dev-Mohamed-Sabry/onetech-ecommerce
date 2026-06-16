@@ -87,7 +87,7 @@ $(document).on('click', '.qty-plus', function () {
 // Decrement
 $(document).on('click', '.qty-minus', function () {
 
-	let item = $(this).closest('.mini_cart_item, .cart_row');
+	let item = $(this).closest('.mini_cart_item, .cart_row') || $(this).closest('.qty_box, .cart_col');
 	let productId = item.data('product-id');
 
 	let qty = item.find('.qty').length

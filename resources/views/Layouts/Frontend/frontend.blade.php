@@ -540,7 +540,9 @@
     <script src="{{ asset('assets/website/plugins/slick-1.8.0/slick.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
-    <script src="{{ asset('assets/website/js/cart_custom.js') }}"></script>
+    <script src="{{ asset('assets/website/js/mini_cart.js') }}"></script>
+    <script src="{{ asset('assets/website/js/cart_page.js') }}"></script>
+
     @yield('script')
 
 
