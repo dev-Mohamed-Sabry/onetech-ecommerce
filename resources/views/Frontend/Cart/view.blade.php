@@ -14,6 +14,7 @@
 
         <div class="cart_wrapper">
             @forelse($cart as $item)
+
                 <div class="cart_row" data-product-id="{{ $item->product_id }}">
 
                     {{-- Product Image --}}
@@ -41,11 +42,11 @@
 
                         <div class="qty_box">
                             <button class="qty-plus">+</button>
-                            <input type="text" value="{{ $item->quantity }}">
+                            {{-- <span class="qty">{{ $item->quantity }}</span> --}}
+                            <input class="qty" type="text" value="{{ $item->quantity }}">
                             <button class="qty-minus">-</button>
 
                         </div>
-
                     </div>
 
                     {{-- Total --}}
@@ -58,7 +59,7 @@
 
                     {{-- Remove --}}
                     <div class="cart_col remove">
-                        <button class="remove_btn">×</button>
+                        <button class="remove_btn" data-source="page">×</button>
                     </div>
                 </div>
             @empty
@@ -119,7 +120,9 @@
 
                                                                 <img src="{{ $recent->product->image
                                         ? asset($recent->product->image)
-                                        : asset('uploads/products/no_img.jpg') }}" alt="{{ $recent->product->name }}">
+                                        : asset('uploads/products/no_img.jpg') }}"
+                                                                    alt="{{ $recent->product->name 
+                                                                                                                                                                                                                            }}">
 
                                                             </div>
 
@@ -195,8 +198,7 @@
     @endif
 @endsection
 
-
-
-@section('script')
-    <script src="{{ asset('assets/website/js/product_custom.js') }}"></script>
-@endsection
+{{--
+<script src="{{ asset('assets/website/js/mini_cart.js') }}"></script> --}}
+{{-- @section('script')
+@endsection --}}

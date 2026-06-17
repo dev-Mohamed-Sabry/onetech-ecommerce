@@ -22,7 +22,7 @@ $(document).ready(function () {
 		method: 'GET',
 		success: function (res) {
 			// $.get('/cart', console.log)
-			renderCart(res.cart, res.total);
+			renderMiniCart(res.cart, res.total);
 		}
 	});
 });
@@ -59,8 +59,8 @@ $(document).on('click', '.add-to-cart', function (e) {
 				});
 			}
 
-			// console.log('ADD RESPONSE', res);
-			renderCart(res.cart, res.total);
+			// تحديث الميني كارت
+			renderMiniCart(res.cart, res.total);
 		},
 		error: function (xhr) {
 			console.log(xhr.responseText);
@@ -77,9 +77,10 @@ $(document).on('click', '.qty-plus', function () {
 	let item = $(this).closest('.mini_cart_item, .cart_row');
 	let productId = item.data('product-id');
 
-	let qty = item.find('.qty').length
-		? parseInt(item.find('.qty').text())
-		: parseInt(item.find('input').val());
+	let qty = item.find('input').length
+		? parseInt(item.find('input').val())
+		: parseInt(item.find('.qty').text());
+	// console.log(qty);
 
 	updateCart(productId, qty + 1);
 });
@@ -87,12 +88,12 @@ $(document).on('click', '.qty-plus', function () {
 // Decrement
 $(document).on('click', '.qty-minus', function () {
 
-	let item = $(this).closest('.mini_cart_item, .cart_row') || $(this).closest('.qty_box, .cart_col');
+	let item = $(this).closest('.mini_cart_item, .cart_row');
 	let productId = item.data('product-id');
 
-	let qty = item.find('.qty').length
-		? parseInt(item.find('.qty').text())
-		: parseInt(item.find('input').val());
+	let qty = item.find('input').length
+		? parseInt(item.find('input').val())
+		: parseInt(item.find('.qty').text());
 
 	// لو الكمية 1 → نحذف المنتج
 	if (qty <= 1) {
@@ -101,8 +102,17 @@ $(document).on('click', '.qty-minus', function () {
 	}
 
 	updateCart(productId, (qty - 1));
+
 });
 
+
+
+function isCartPage() {
+	return $('.cart_page').length > 0;
+}
+
+
+// mini cart update
 function updateCart(productId, quantity) {
 
 	$.ajax({
@@ -116,15 +126,67 @@ function updateCart(productId, quantity) {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
 		},
 		success: function (res) {
-			renderCart(res.cart, res.total);
+			renderMiniCart(res.cart, res.total);
+
+			if (isCartPage()) {
+				renderCartPage(res.cart, res.total);
+			}
 		}
 	});
+}
+
+// Cart Page Update
+function renderCartPage(cart, total) {
+
+	let html = '';
+	let grandTotal = 0;
+
+	cart.forEach(item => {
+
+		grandTotal += item.product.final_price * item.quantity;
+
+		html += `
+        <div class="cart_row" data-product-id="${item.product.id}">
+
+            <div class="cart_col image">
+                <img src="${item.product.image}">
+            </div>
+
+            <div class="cart_col name">
+                ${item.product.name}
+            </div>
+
+            <div class="cart_col price">
+                ${item.product.final_price} EGP
+            </div>
+
+            <div class="cart_col qty">
+                <div class="qty_box">
+                    <button class="qty-minus">-</button>
+                    <input class="qty" value="${item.quantity}">
+                    <button class="qty-plus">+</button>
+                </div>
+            </div>
+
+            <div class="cart_col total">
+                ${item.product.final_price * item.quantity} EGP
+            </div>
+
+            <div class="cart_col remove">
+                <button class="remove_btn">×</button>
+            </div>
+
+        </div>`;
+	});
+
+	$('.cart_wrapper').html(html);
+	$('#cart-total').text(total + ' EGP');
 }
 
 
 
 // Render Cart
-function renderCart(cart, total) {
+function renderMiniCart(cart, total) {
 	// console.log('RENDER CART', cart);
 
 	let html = '';
@@ -138,12 +200,16 @@ function renderCart(cart, total) {
 				<img src="${item.product.image}" width="50"> 
               	<div class="item_name"> ${item.product.name}</div>
                 <div class="qty_controls">
-					<button class="qty-plus">+</button>
-					<span class="qty">${item.quantity}</span>
-					<button class="qty-minus">-</button>
+				<button class="qty-minus">-</button>
+				<span class="qty">${item.quantity}</span>
+				<button class="qty-plus">+</button>
                 </div>
-
-                <div class='mini-cart-total' >${item.product.final_price * item.quantity} EGP</div>
+                <div class='mini-cart-total' >
+				${item.product.final_price * item.quantity} EGP
+				</div>
+				<div class="cart_col remove">
+                    <button class="remove_btn" data-source="mini">×</button>
+                </div>
             </div>
         `;
 	});
@@ -159,3 +225,14 @@ function renderCart(cart, total) {
 	$('#cart-count').text(count);
 }
 // End Mini Cart Functions
+
+
+
+// Delete Product
+$(document).on('click', '.remove_btn', function () {
+
+	let item = $(this).closest('[data-product-id]');
+	let productId = item.data('product-id');
+
+	updateCart(productId, 0);
+});
