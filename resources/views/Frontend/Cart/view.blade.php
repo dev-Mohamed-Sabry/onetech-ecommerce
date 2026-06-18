@@ -72,18 +72,15 @@
 
         {{-- Footer --}}
         <div class="cart_footer">
-
             <div class="cart_total_box">
                 Total:
-                <span id="cart-total">{{ $total }} EGP</span>
+                <span id="cart-total" class="cart-total">{{ $total }} EGP</span>
             </div>
 
             <a href="/checkout" class="checkout_btn">
                 Checkout
             </a>
-
         </div>
-
     </div>
 
     <!-- Recently Viewed -->
@@ -122,7 +119,7 @@
                                         ? asset($recent->product->image)
                                         : asset('uploads/products/no_img.jpg') }}"
                                                                     alt="{{ $recent->product->name 
-                                                                                                                                                                                                                            }}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}">
 
                                                             </div>
 

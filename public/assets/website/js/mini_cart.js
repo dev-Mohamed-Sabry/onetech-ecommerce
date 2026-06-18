@@ -146,18 +146,28 @@ function renderCartPage(cart, total) {
 		grandTotal += item.product.final_price * item.quantity;
 
 		html += `
+
         <div class="cart_row" data-product-id="${item.product.id}">
 
             <div class="cart_col image">
                 <img src="${item.product.image}">
             </div>
 
-            <div class="cart_col name">
+            <div style="font-size: 14px;
+    					font-weight: 500;
+    					color: #222;
+    					display: -webkit-box;
+    					-webkit-line-clamp: 2;
+    					-webkit-box-orient: vertical;
+    					overflow: hidden;">
                 ${item.product.name}
             </div>
 
             <div class="cart_col price">
+			<span style="font-size: 11px; color: #888;"> Price </span>
+				<div style="font-weight: 600; color: #0e8ce4;">
                 ${item.product.final_price} EGP
+            	</div>
             </div>
 
             <div class="cart_col qty">
@@ -169,18 +179,22 @@ function renderCartPage(cart, total) {
             </div>
 
             <div class="cart_col total">
+			<span style="font-size: 11px; color: #888; ">Total</span>
+				<div style="font-weight: 600; color: #0e8ce4;">
                 ${item.product.final_price * item.quantity} EGP
+				</div>
             </div>
 
             <div class="cart_col remove">
                 <button class="remove_btn">×</button>
             </div>
+        </div>
+		`;
 
-        </div>`;
 	});
 
 	$('.cart_wrapper').html(html);
-	$('#cart-total').text(total + ' EGP');
+	$('.cart-total').text(total + ' EGP');
 }
 
 
@@ -192,8 +206,11 @@ function renderMiniCart(cart, total) {
 	let html = '';
 	let count = 0;
 
+	count = (cart.length);
+
 	cart.forEach(item => {
-		count += item.quantity;
+		console.log(count);
+
 		// console.log(item.product);
 		html += `
 				<div class="mini_cart_item" data-product-id="${item.product.id}">
