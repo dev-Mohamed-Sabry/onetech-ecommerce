@@ -106,7 +106,6 @@ $(document).on('click', '.qty-minus', function () {
 });
 
 
-
 function isCartPage() {
 	return $('.cart_page').length > 0;
 }
