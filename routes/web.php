@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,19 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/cart/add', 'add')->name('cart.add');
     Route::post('/cart/update', 'update');
     Route::post('/cart/remove', 'remove');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Wishlist Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::controller(WishlistController::class)->group(function () {
+    Route::get('/wishlist', 'index');
+    Route::post('/wishlist/add', 'add')->name('wishlist.add');
+    Route::post('/wishlist/remove', 'remove')->name('wishlist.remove');
 });
 
 /*

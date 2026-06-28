@@ -253,7 +253,9 @@
                                                             Cart</button>
                                                     </div>
                                                 </div>
-                                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                <div class="product_fav" data-product-id="{{ $product->id }}">
+                                                    <i class="fas fa-heart"></i>
+                                                </div>
                                                 <ul class="product_marks">
                                                     @if ($product->discount_value > 0)
 

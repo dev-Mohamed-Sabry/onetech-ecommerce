@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/main_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/website/styles/cart_styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/website/styles/wishlist.css') }}">
 
 
     @yield('css')
@@ -140,12 +141,45 @@
                         <!-- Wishlist -->
                         <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-                                <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                                    <div class="wishlist_icon"><img src="{{ asset('assets/website/images/heart.png') }}"
-                                            alt=""></div>
-                                    <div class="wishlist_content">
-                                        <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                        <div class="wishlist_count">115</div>
+
+                                <!-- Wishlist -->
+                                <div class="wishlist_wrapper position-relative">
+
+                                    <div class="wishlist d-flex flex-row align-items-center justify-content-end"
+                                        id="wishlistToggle">
+
+                                        <div class="wishlist_icon">
+                                            <img src="{{ asset('assets/website/images/heart.png') }}" alt="">
+                                        </div>
+
+                                        <div class="wishlist_content">
+                                            <div class="wishlist_text">
+                                                <a href="#">Wishlist</a>
+                                            </div>
+
+                                            <div class="wishlist_count" id="wishlist-count">
+                                                0
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Mini Wishlist -->
+                                    <div class="mini_wishlist shadow" id="miniWishlist">
+                                        <div class="mini_wishlist_header">
+                                            <span>Wishlist</span>
+                                        </div>
+                                        <div class="mini_wishlist_body" id="wishlist-items">
+                                            <div class="empty_wishlist">
+                                                Your wishlist is empty
+                                            </div>
+                                        </div>
+                                        <div class="mini_wishlist_footer">
+                                            <div class="wishlist_count_text">
+                                                Items:
+                                                <span id="wishlist-count">0</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -153,38 +187,44 @@
                                 <div class="cart position-relative">
                                     <div class="cart_container d-flex flex-row align-items-center justify-content-end"
                                         id="cartToggle">
-
                                         <div class="cart_icon position-relative">
                                             <img src="{{ asset('assets/website/images/cart.png') }}" alt="">
                                             <div class="cart_count">
                                                 <span id="cart-count">0</span>
                                             </div>
                                         </div>
-
                                         <div class="cart_content">
-                                            <div class="cart_text"><a href="#">Cart</a></div>
-                                            <div class="cart_price" id="cart-total">0 EGP</div>
+                                            <div class="cart_text">
+                                                <a href="">Cart</a>
+                                            </div>
+                                            <div class="cart_price" id="cart-total">
+                                                0 EGP
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Mini Cart Dropdown -->
+                                    <!-- Mini Cart -->
                                     <div class="mini_cart shadow" id="miniCart">
                                         <div class="mini_cart_header">
                                             <span>Shopping Cart</span>
                                         </div>
-
                                         <div class="mini_cart_body" id="mini-cart-items">
-                                            <div class="empty_cart">Your cart is empty</div>
+                                            <div class="empty_cart">
+                                                Your cart is empty
+                                            </div>
                                         </div>
-
                                         <div class="mini_cart_footer">
                                             <div class="mini_cart_total">
-                                                Total: <span id="mini-cart-total">0 EGP</span>
+                                                Total:
+                                                <span id="mini-cart-total">0 EGP</span>
                                             </div>
-
                                             <div class="mini_cart_actions">
-                                                <a href="{{route('cart.view')}}" class="btn_view_cart">View Cart</a>
-                                                <a href="#" class="btn_checkout">Checkout</a>
+                                                <a href="{{ route('cart.view') }}" class="btn_view_cart">
+                                                    View Cart
+                                                </a>
+                                                <a href="#" class="btn_checkout">
+                                                    Checkout
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -540,7 +580,8 @@
     <script src="{{ asset('assets/website/plugins/slick-1.8.0/slick.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/easing/easing.js') }}"></script>
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
-    <script src="{{ asset('assets/website/js/mini_cart.js') }}"></script>
+    <script src="{{ asset('assets/website/js/cart.js') }}"></script>
+    <script src="{{ asset('assets/website/js/wishlist.js') }}"></script>
 
     @yield('script')
 
