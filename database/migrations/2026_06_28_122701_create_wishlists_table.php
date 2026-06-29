@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('guest_token')->nullable()->index();
+            // نفس المنتج لا يتكرر لنفس الزائر
+            $table->unique(['guest_token', 'product_id']);
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('quantity')->default(1);
             $table->timestamps();
         });
     }
