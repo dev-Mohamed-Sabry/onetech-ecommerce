@@ -149,7 +149,9 @@ function renderCartPage(cart, total) {
         <div class="cart_row" data-product-id="${item.product.id}">
 
             <div class="cart_col image">
-                <img src="${item.product.image}">
+                <a href="/product-details/${item.product.id}">
+					<img src="${item.product.image}" >
+				</a>
             </div>
 
             <div style="font-size: 14px;
@@ -213,7 +215,9 @@ function renderMiniCart(cart, total) {
 		// console.log(item.product);
 		html += `
 				<div class="mini_cart_item" data-product-id="${item.product.id}">
-				<img src="${item.product.image}" width="50"> 
+				<a href="/product-details/${item.product.id}">
+					<img src="${item.product.image}" width="50" height="42">
+            	</a>
               	<div class="item_name"> ${item.product.name}</div>
                 <div class="qty_controls">
 				<button class="qty-minus">-</button>

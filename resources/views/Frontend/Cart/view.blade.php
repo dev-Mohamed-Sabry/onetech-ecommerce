@@ -19,7 +19,9 @@
 
                     {{-- Product Image --}}
                     <div class="cart_col image">
-                        <img src="{{ $item->product->image ?? asset('uploads/products/no_img.jpg') }}">
+                        <a href="{{ route('product.details', $item->product->id) }}">
+                            <img src="{{ $item->product->image ?? asset('uploads/products/no_img.jpg') }}">
+                        </a>
                     </div>
 
                     {{-- Product Name --}}
@@ -41,10 +43,10 @@
                     <div class="cart_col qty">
 
                         <div class="qty_box">
-                            <button class="qty-plus">+</button>
+                            <button class="qty-minus">-</button>
                             {{-- <span class="qty">{{ $item->quantity }}</span> --}}
                             <input class="qty" type="text" value="{{ $item->quantity }}">
-                            <button class="qty-minus">-</button>
+                            <button class="qty-plus">+</button>
 
                         </div>
                     </div>
@@ -119,7 +121,7 @@
                                         ? asset($recent->product->image)
                                         : asset('uploads/products/no_img.jpg') }}"
                                                                     alt="{{ $recent->product->name 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}">
 
                                                             </div>
 
