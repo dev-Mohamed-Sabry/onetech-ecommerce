@@ -66,8 +66,9 @@ function renderMiniWishlist(wishlist) {
         total += Number(item.product.final_price);
         html += `
 			<div class="mini_wishlist_item" data-product-id="${item.product.id}">
+            <a href="/product-details/${item.product.id}">
 				<img src="${item.product.image}" width="50" height="42">
-
+            </a>
               	<div class="item_name"> ${item.product.name} </div>
               	<div class="item_name"> ${item.product.final_price} </div>
 				<div class="cart_col remove">
