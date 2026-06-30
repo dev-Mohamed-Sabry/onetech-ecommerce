@@ -66,4 +66,12 @@ class WishlistService
             'product_id' => $productId,
         ])->delete();
     }
+
+    public function exists($productId)
+    {
+        return Wishlist::where([
+            $this->key() => $this->value(),
+            'product_id' => $productId,
+        ])->exists();
+    }
 }

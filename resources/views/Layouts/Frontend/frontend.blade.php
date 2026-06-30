@@ -177,7 +177,11 @@
                                         <div class="mini_wishlist_footer">
                                             <div class="wishlist_count_text">
                                                 Items:
-                                                <span id="wishlist-count">0</span>
+                                                <span id="wishlist-footer-count">0</span>
+                                            </div>
+                                            <div class="wishlist_count_text">
+                                                Total:
+                                                <span id="wishlist-footer-total">0</span>
                                             </div>
                                         </div>
                                     </div>

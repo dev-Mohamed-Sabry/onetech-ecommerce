@@ -208,7 +208,7 @@ function renderMiniCart(cart, total) {
 	count = (cart.length);
 
 	cart.forEach(item => {
-		console.log(count);
+		// console.log(count);
 
 		// console.log(item.product);
 		html += `

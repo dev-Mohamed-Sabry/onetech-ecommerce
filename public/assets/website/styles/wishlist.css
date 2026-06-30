@@ -1,8 +1,8 @@
 .mini_wishlist {
     position: absolute;
     top: 100%;
-    right: 0;
-    width: 320px;
+    left: 0;
+    width: 540px;
     background: #fff;
     display: none;
     z-index: 999;
@@ -15,12 +15,28 @@
     color: #0e8ce4;
 }
 
+.mini_wishlist_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #b7b7b7;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 5px;
+}
+
 .mini_wishlist_body {
+    display: flex;
+    flex-direction: column;
     max-height: 350px;
     overflow-y: auto;
+    border: 1px solid #b8b8b8;
+    border-radius: 15px;
 }
 
 .mini_wishlist_footer {
+    display: flex;
+    justify-content: space-between;
     padding: 15px;
     border-top: 1px solid #e5e5e5;
 }

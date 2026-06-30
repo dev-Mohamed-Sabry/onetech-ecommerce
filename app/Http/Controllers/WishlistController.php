@@ -36,6 +36,32 @@ class WishlistController extends Controller
         ]);
     }
 
+    public function toggle(Request $request, WishlistService $wishlistService)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        if ($wishlistService->exists($request->product_id)) {
+
+            $wishlistService->remove($request->product_id);
+
+            $message = 'Removed from Wishlist successfully';
+        } else {
+
+            $wishlistService->add($request->product_id);
+
+            $message = 'Added to Wishlist successfully';
+        }
+
+        return response()->json([
+            'success' => true,
+            'wishlist' => $wishlistService->get(),
+            'message' => $message,
+        ]);
+    }
+
+
     public function remove(Request $request, WishlistService $wishlistService)
     {
         $request->validate([

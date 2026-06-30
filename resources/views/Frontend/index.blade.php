@@ -253,7 +253,7 @@
                                                             Cart</button>
                                                     </div>
                                                 </div>
-                                                <div class="product_fav" data-product-id="{{ $product->id }}">
+                                                <div class="product_fav active" data-product-id="{{ $product->id }}">
                                                     <i class="fas fa-heart"></i>
                                                 </div>
                                                 <ul class="product_marks">
@@ -318,7 +318,8 @@
                                                     <button class="product_cart_button add-to-cart">Add to Cart</button>
                                                 </div>
                                             </div>
-                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                            <div class="product_fav active" data-product-id="{{ $product->id }}"><i
+                                                    class="fas fa-heart"></i></div>
                                             <ul class="product_marks">
                                                 @if ($product->discount_value > 0)
 
