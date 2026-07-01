@@ -74,4 +74,37 @@ class WishlistService
             'product_id' => $productId,
         ])->exists();
     }
+
+    public function mergeGuestWishlistToUser($userId)
+    {
+        $guestToken = request()->cookie('guest_token');
+
+        if (!$guestToken) {
+            return;
+        }
+
+        $guestItems = Wishlist::where(
+            'guest_token',
+            $guestToken
+        )->get();
+
+        foreach ($guestItems as $guestItem) {
+
+            $exists = Wishlist::where([
+                'user_id' => $userId,
+                'product_id' => $guestItem->product_id,
+            ])->exists();
+
+            if ($exists) {
+
+                $guestItem->delete();
+            } else {
+
+                $guestItem->update([
+                    'user_id' => $userId,
+                    'guest_token' => null,
+                ]);
+            }
+        }
+    }
 }

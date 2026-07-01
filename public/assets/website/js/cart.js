@@ -29,6 +29,8 @@ $(document).ready(function () {
 
 // Add To Cart Button
 $(document).on('click', '.add-to-cart', function (e) {
+	console.log('click');
+
 	e.preventDefault();
 
 	let productId = $(this).data('product-id');

@@ -121,7 +121,7 @@
                                         ? asset($recent->product->image)
                                         : asset('uploads/products/no_img.jpg') }}"
                                                                     alt="{{ $recent->product->name 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}">
 
                                                             </div>
 

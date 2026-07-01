@@ -250,7 +250,8 @@
                                                     <div class="product_extras">
                                                         <button id="cart_button" class="product_cart_button add-to-cart"
                                                             data-product-id="{{ $product->id }}">Add to
-                                                            Cart</button>
+                                                            Cart
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div class="product_fav active" data-product-id="{{ $product->id }}">
@@ -315,7 +316,8 @@
                                                         </div>
                                                 </a>
                                                 <div class="product_extras">
-                                                    <button class="product_cart_button add-to-cart">Add to Cart</button>
+                                                    <button class="product_cart_button add-to-cart"
+                                                        data-product-id="{{ $product->id }}">Add to Cart</button>
                                                 </div>
                                             </div>
                                             <div class="product_fav active" data-product-id="{{ $product->id }}"><i

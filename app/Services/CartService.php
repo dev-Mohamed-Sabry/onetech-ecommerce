@@ -86,4 +86,40 @@ class CartService
             'quantity' => $quantity
         ]);
     }
+
+
+    public function mergeGuestCartToUser($userId)
+    {
+        $guestToken = request()->cookie('guest_token');
+
+        if (!$guestToken) {
+            return;
+        }
+
+        $guestItems = Cart::where('guest_token', $guestToken)->get();
+
+        foreach ($guestItems as $guestItem) {
+
+            $userCart = Cart::where([
+                'user_id' => $userId,
+                'product_id' => $guestItem->product_id,
+            ])->first();
+
+            if ($userCart) {
+
+                $userCart->increment(
+                    'quantity',
+                    $guestItem->quantity
+                );
+
+                $guestItem->delete();
+            } else {
+
+                $guestItem->update([
+                    'user_id' => $userId,
+                    'guest_token' => null,
+                ]);
+            }
+        }
+    }
 }

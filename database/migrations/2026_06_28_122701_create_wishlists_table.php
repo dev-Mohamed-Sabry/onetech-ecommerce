@@ -18,7 +18,7 @@ return new class extends Migration
             // نفس المنتج لا يتكرر لنفس الزائر
             $table->unique(['guest_token', 'product_id']);
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('quantity')->default(1);
+            // $table->unsignedInteger('quantity')->default(1);
             $table->timestamps();
         });
     }

@@ -65,15 +65,24 @@ function renderMiniWishlist(wishlist) {
     wishlist.forEach(item => {
         total += Number(item.product.final_price);
         html += `
+        
 			<div class="mini_wishlist_item" data-product-id="${item.product.id}">
             <a href="/product-details/${item.product.id}">
 				<img src="${item.product.image}" width="50" height="42">
             </a>
               	<div class="item_name"> ${item.product.name} </div>
               	<div class="item_name"> ${item.product.final_price} </div>
+
+                <button class="add-to-cart-from-wishlist"
+                    data-product-id="${item.product.id}">
+                    Add To Cart
+                </button>
+
 				<div class="cart_col remove">
                     <button class="wishlist_remove_btn" data-source="mini">×</button>
                 </div>
+
+
             </div>
         `;
     });
@@ -85,6 +94,7 @@ function renderMiniWishlist(wishlist) {
 
 
     $('#wishlist-items').html(html);
+    // $('#add-to-cart-from-wishlist').show().text('Add To Cart');
     $('#wishlist-count').text(count);
     $('#wishlist-footer-count').text(count);
     $('#wishlist-footer-total').text(total + ' EGP');

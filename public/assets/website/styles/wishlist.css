@@ -1,7 +1,7 @@
 .mini_wishlist {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     width: 540px;
     background: #fff;
     display: none;
@@ -55,4 +55,16 @@
     padding: 10px;
     text-decoration: none;
     font-weight: 600;
+}
+
+.add-to-cart-from-wishlist {
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 65px;
+    padding: 5px 0;
+    background-color: #0e8ce4;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
 }

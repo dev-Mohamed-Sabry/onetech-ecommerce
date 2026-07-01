@@ -6,6 +6,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/shop_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/website/styles/shop_responsive.css') }}">
+
 @endsection
 
 @section('content')
@@ -67,18 +68,23 @@
                             @forelse ($products as $product)
                                 <a href="{{ route('product.details', $product->id) }}">
                                     <div class="product_item">
+
                                         <div
                                             class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="viewed_image">
 
+                                            <div class="viewed_image">
+                                                <div class="product_fav active" data-product-id="{{ $product->id }}"><i
+                                                        class="fas fa-heart"></i>
+                                                </div>
                                                 @if (!$product->image)
                                                     <img src="/uploads/products/no_img.jpg" width="120px" height="120px">
                                                 @else
-                                                    <img src=" {{ $product->image }}"
-                                                        alt="{{ $product->image }}" width="120px" height="120px">
+                                                    <img src=" {{ $product->image }}" alt="{{ $product->name }}" width="120px"
+                                                        height="120px">
                                                 @endif
 
                                             </div>
+
 
                                             <div class="viewed_content text-center">
                                                 @if ($product->discount_value > 0)
@@ -110,11 +116,16 @@
                                                         {{ Str::limit($product->name, 25, '...') }}
                                                     </a>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </a>
+                                <div class="product_extras">
+                                    <button id="cart_button" class="product_cart_button add-to-cart"
+                                        data-product-id="{{ $product->id }}">Add to
+                                        Cart
+                                    </button>
+                                </div>
                             @empty
                                     <p class="text-danger">No Products Found</p>
                                 </div>
@@ -166,7 +177,7 @@
                                                             <div class="viewed_image">
 
                                                                 <img src="{{ $product->image
-                                        ? asset( $product->image)
+                                        ? asset($product->image)
                                         : asset('uploads/products/no_img.jpg') }}" alt="{{ $recent->product->name }}">
 
                                                             </div>

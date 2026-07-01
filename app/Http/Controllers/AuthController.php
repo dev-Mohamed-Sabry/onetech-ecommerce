@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\URL;
 use Spatie\Permission\Guard;
 use function Pest\Laravel\json;
 
+use App\Services\CartService;
+use App\Services\WishlistService;
+
 class AuthController extends Controller
 {
 
@@ -87,7 +90,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login_method(Request $request)
+    public function login_method(Request $request, CartService $cartService, WishlistService $wishlistService)
     {
         $request->validate([
             'email'    => 'required|email',
@@ -114,6 +117,9 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        // Merge Cart & Wishlist Data after user login
+        $cartService->mergeGuestCartToUser($user->id);
+        $wishlistService->mergeGuestWishlistToUser($user->id);
 
         if ($user->hasRole('admin')) {
             return response()->json([
