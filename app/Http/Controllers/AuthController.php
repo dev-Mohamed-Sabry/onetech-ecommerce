@@ -56,6 +56,7 @@ class AuthController extends Controller
                 'status' => true,
                 'role' => 'user',
                 'message' => 'Registered Successfully, Waiting For Verification',
+                'redirect' => route('home'),
             ]);
         } catch (\Exception $e) {
 
