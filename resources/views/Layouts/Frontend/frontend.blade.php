@@ -226,7 +226,7 @@
                                                 <a href="{{ route('cart.view') }}" class="btn_view_cart">
                                                     View Cart
                                                 </a>
-                                                <a href="#" class="btn_checkout">
+                                                <a href="{{ route('checkout') }}" class="btn_checkout">
                                                     Checkout
                                                 </a>
                                             </div>
@@ -411,6 +411,13 @@
 
         </header>
 
+        @if (session('error'))
+            <div id="cart-error" class="  alert alert-danger text-center w-25 mx-auto">
+                <h5>{{ session('error') }}</h5>
+            </div>
+        @endif
+
+
         @yield('content')
 
 
@@ -589,6 +596,13 @@
 
     @yield('script')
 
+
+    {{-- Cart Error If exists --}}
+    <script>
+        setTimeout(function () {
+            $('#cart-error').fadeOut(500);
+        }, 3000);
+    </script>
 
     {{-- Search Function --}}
     <script>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontendController;
@@ -55,6 +56,16 @@ Route::controller(WishlistController::class)->group(function () {
     Route::post('/wishlist/toggle', 'toggle');
     Route::post('/wishlist/remove', 'remove')->name('wishlist.remove');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Checkout Route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
 
 /*
 |--------------------------------------------------------------------------
