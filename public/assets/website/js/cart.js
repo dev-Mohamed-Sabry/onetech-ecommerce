@@ -14,7 +14,6 @@ $(document).on('click', function (e) {
 });
 
 
-
 // Show All Products In Cart
 $(document).ready(function () {
 	$.ajax({
@@ -28,7 +27,7 @@ $(document).ready(function () {
 });
 
 // Add To Cart Button
-$(document).on('click', '.add-to-cart', function (e) {
+$(document).on('click', '.add-to-cart, .add-to-cart-from-wishlist', function (e) {
 	console.log('click');
 
 	e.preventDefault();

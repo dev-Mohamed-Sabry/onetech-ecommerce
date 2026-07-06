@@ -1,6 +1,3 @@
-'use strict'
-
-
 // Toggle
 $(document).on('click', '#wishlistToggle', function (e) {
     e.preventDefault();

@@ -63,6 +63,14 @@
     {{-- Login Ajax Login --}}
 
     <script>
+
+        // Error Message
+        setTimeout(function () {
+            $('#checkout-error').fadeOut(500);
+        }, 3000);
+
+
+
         $(document).ready(function () {
             $('#loginForm').on('submit', function (e) {
                 e.preventDefault();

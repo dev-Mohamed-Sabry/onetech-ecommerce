@@ -226,7 +226,8 @@
                                                 <a href="{{ route('cart.view') }}" class="btn_view_cart">
                                                     View Cart
                                                 </a>
-                                                <a href="{{ route('checkout') }}" class="btn_checkout">
+                                                <a href="{{ route('checkout') }}" id="checkout-btn"
+                                                    class="btn_checkout">
                                                     Checkout
                                                 </a>
                                             </div>
@@ -411,11 +412,7 @@
 
         </header>
 
-        @if (session('error'))
-            <div id="cart-error" class="  alert alert-danger text-center w-25 mx-auto">
-                <h5>{{ session('error') }}</h5>
-            </div>
-        @endif
+
 
 
         @yield('content')
@@ -593,79 +590,29 @@
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
     <script src="{{ asset('assets/website/js/cart.js') }}"></script>
     <script src="{{ asset('assets/website/js/wishlist.js') }}"></script>
+    {{--
+    <script src="{{ asset('assets/website/js/search.js') }}"></script> --}}
 
     @yield('script')
 
 
+
     {{-- Cart Error If exists --}}
-    <script>
-        setTimeout(function () {
-            $('#cart-error').fadeOut(500);
-        }, 3000);
-    </script>
+    @if(session('error'))
+        <script>
+            Swal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 3500,
+                timerProgressBar: true,
 
-    {{-- Search Function --}}
-    <script>
-        $('#searchForm').on('submit', function (e) {
-
-            e.preventDefault();
-            let input = $('.header_search_input').val();
-
-            if (input == '') {
-                Swal.mixin({
-                    toast: true,
-                    position: "top",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    timerProgressBar: true,
-
-                }).fire({
-                    icon: "info",
-                    title: "Search Can Not Be Empty",
-                });
-
-            } else {
-                $.ajax({
-                    url: '{{ route('products.search.check') }}',
-                    method: "POST",
-                    data: {
-                        search: input.trim()
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    success: function (response) {
-                        console.log(response);
-
-                        if (!response.success) {
-                            Swal.mixin({
-                                toast: true,
-                                position: "top",
-                                showConfirmButton: false,
-                                timer: 1500,
-                                timerProgressBar: true,
-
-                            }).fire({
-                                icon: "error",
-                                title: response.message ?? "Product Not Found ",
-                            });
-                        }
-                        else {
-                            console.log(input);
-                            // window.location.href = '/search/' + input + '';
-                            window.location.href = '/search?result=' + encodeURIComponent(input);
-                            // console.log(response);
-                        }
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseJSON);
-                        location.reload();
-                    }
-                })
-            }
-        })
-    </script>
-
+            }).fire({
+                icon: "warning",
+                text: "{{ session('error') }}",
+            });
+        </script>
+    @endif
 </body>
 
 </html>
