@@ -75,10 +75,9 @@
                                                             <div class="viewed_image">
 
                                                                 <img src="{{ $product->image
-                                ? asset('uploads/products/' . $product->image)
+                                ? asset($product->image)
                                 : asset('uploads/products/no_img.jpg') }}" alt="{{ $product->name }}" width="120"
                                                                     height="120">
-
                                                             </div>
 
                                                             <div class="viewed_content text-center">
@@ -288,4 +287,5 @@
     <script src="{{ asset('assets/website/plugins/Isotope/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('assets/website/plugins/parallax-js-master/parallax.min.js') }}"></script>
     <script src="{{asset('assets/website/js/shop_custom.js') }}"></script>
+
 @endsection

@@ -590,11 +590,11 @@
     <script src="{{ asset('assets/website/js/custom.js') }}"></script>
     <script src="{{ asset('assets/website/js/cart.js') }}"></script>
     <script src="{{ asset('assets/website/js/wishlist.js') }}"></script>
-    {{--
-    <script src="{{ asset('assets/website/js/search.js') }}"></script> --}}
 
     @yield('script')
 
+
+    <script src="{{ asset('assets/website/js/search.js') }}"></script>
 
 
     {{-- Cart Error If exists --}}
@@ -613,6 +613,7 @@
             });
         </script>
     @endif
+
 </body>
 
 </html>

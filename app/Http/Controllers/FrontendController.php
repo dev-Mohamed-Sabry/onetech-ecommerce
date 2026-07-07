@@ -157,7 +157,6 @@ class FrontendController extends Controller
         $categories = Category::all('id', 'name');
         $recentlyViewedProducts = $recentlyViewed->get();
 
-
         return view(
             'Frontend.Products.search-result',
             [
