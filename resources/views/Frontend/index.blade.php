@@ -112,78 +112,81 @@
                                 @foreach ($products_deals_of_the_week as $product)
                                     <!-- Deals Item -->
                                     <div class="owl-item deals_item">
-                                        <div class="deals_image">
-                                            <img src="{{$product->image ? $product->image : asset('uploads/products/no_img.jpg') }}"
-                                                alt="{{ $product->name }}">
-                                        </div>
-                                        <div class="deals_content">
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_category"><a
-                                                        href="{{ route('product.details', $product->id) }}">{{ $product->name }}</a>
-                                                </div>
-
-
-                                                @if ($product->discount_value > 0)
-                                                    <span class="deals_item_price_a ml-auto"
-                                                        style="text-decoration: line-through !important;">
-                                                        {{ $product->base_price }}
-                                                        {{-- 500 --}}
-                                                    </span>
-                                                    {{-- @else
-                                                    <div class="deals_item_price_a ml-auto">
-                                                        {{ $product->final_price }}
-                                                    </div> --}}
-
-                                                @endif
+                                        <a href="{{ route('product.details', $product) }}">
+                                            <div class="deals_image">
+                                                <img src="{{$product->image ? $product->image : asset('uploads/products/no_img.jpg') }}"
+                                                    alt="{{ $product->name }}">
                                             </div>
-                                            <div class="deals_info_line">
-                                                <div class="deals_item_price">
-                                                    <span style="color:#999999; font-size: 20px;">Limited Time:</span>
-                                                    {{ $product->final_price }} EGP
-                                                </div>
-                                                <br>
-                                                <div class="deals_item_name">{{Str::limit($product->name, 25, '...')}}</div>
-                                            </div>
-                                            <div class="available">
-                                                <div class="available_line d-flex flex-row justify-content-start">
-                                                    <div class="available_title">Available:
-                                                        <span>
-                                                            @if (count($products_deals_of_the_week) > 0)
-                                                                {{ $product->quantity }}
-                                                            @else
-                                                                Out Of Stock
-                                                            @endif
+                                            <div class="deals_content">
+                                                <div class="deals_info_line d-flex flex-row justify-content-start">
+                                                    <div class="deals_item_category"><a
+                                                            href="{{ route('product.details', $product->id) }}">{{ $product->name }}</a>
+                                                    </div>
 
+
+                                                    @if ($product->discount_value > 0)
+                                                        <span class="deals_item_price_a ml-auto"
+                                                            style="text-decoration: line-through !important;">
+                                                            {{ $product->base_price }}
+                                                            {{-- 500 --}}
                                                         </span>
+                                                        {{-- @else
+                                                        <div class="deals_item_price_a ml-auto">
+                                                            {{ $product->final_price }}
+                                                        </div> --}}
+
+                                                    @endif
+                                                </div>
+                                                <div class="deals_info_line">
+                                                    <div class="deals_item_price">
+                                                        <span style="color:#999999; font-size: 20px;">Limited Time:</span>
+                                                        {{ $product->final_price }} EGP
                                                     </div>
-                                                    {{-- <div class="sold_title ml-auto">Already sold: <span>28</span></div>
-                                                    --}}
+                                                    <br>
+                                                    <div class="deals_item_name">{{Str::limit($product->name, 25, '...')}}</div>
                                                 </div>
-                                                <div class="available_bar"><span style="width:17%"></span></div>
-                                            </div>
-                                            <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-                                                <div class="deals_timer_title_container">
-                                                    <div class="deals_timer_title">Hurry Up</div>
-                                                    <div class="deals_timer_subtitle">Offer ends in:</div>
+                                                <div class="available">
+                                                    <div class="available_line d-flex flex-row justify-content-start">
+                                                        <div class="available_title">Available:
+                                                            <span>
+                                                                @if (count($products_deals_of_the_week) > 0)
+                                                                    {{ $product->quantity }}
+                                                                @else
+                                                                    Out Of Stock
+                                                                @endif
+
+                                                            </span>
+                                                        </div>
+                                                        {{-- <div class="sold_title ml-auto">Already sold: <span>28</span></div>
+                                                        --}}
+                                                    </div>
+                                                    <div class="available_bar"><span style="width:17%"></span></div>
                                                 </div>
-                                                <div class="deals_timer_content ml-auto">
-                                                    <div class="deals_timer_box clearfix" data-target-time="">
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer1_hr" class="deals_timer_hr"></div>
-                                                            <span>hours</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer1_min" class="deals_timer_min"></div>
-                                                            <span>mins</span>
-                                                        </div>
-                                                        <div class="deals_timer_unit">
-                                                            <div id="deals_timer1_sec" class="deals_timer_sec"></div>
-                                                            <span>secs</span>
+                                                <div
+                                                    class="deals_timer d-flex flex-row align-items-center justify-content-start">
+                                                    <div class="deals_timer_title_container">
+                                                        <div class="deals_timer_title">Hurry Up</div>
+                                                        <div class="deals_timer_subtitle">Offer ends in:</div>
+                                                    </div>
+                                                    <div class="deals_timer_content ml-auto">
+                                                        <div class="deals_timer_box clearfix" data-target-time="">
+                                                            <div class="deals_timer_unit">
+                                                                <div id="deals_timer1_hr" class="deals_timer_hr"></div>
+                                                                <span>hours</span>
+                                                            </div>
+                                                            <div class="deals_timer_unit">
+                                                                <div id="deals_timer1_min" class="deals_timer_min"></div>
+                                                                <span>mins</span>
+                                                            </div>
+                                                            <div class="deals_timer_unit">
+                                                                <div id="deals_timer1_sec" class="deals_timer_sec"></div>
+                                                                <span>secs</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 @endforeach
 
@@ -403,8 +406,8 @@
 
                                     <div
                                         class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image"><img
-                                                src="{{ asset('assets/website/images/popular_2.png') }}" alt="">
+                                        <div class="popular_category_image">
+                                            <img src="{{ asset('assets/website/images/popular_2.png') }}" alt="">
                                         </div>
                                         <div class="popular_category_text">Computers & Laptops</div>
                                     </div>
@@ -489,14 +492,17 @@
                                                 <i></i><i></i><i></i><i></i><i></i>
                                             </div>
                                             <div class="button banner_2_button"><a
-                                                    href="{{ route('product.details', $product->id) }}">Explore</a></div>
+                                                    href="{{ route('product.details', $product) }}">Explore</a></div>
                                         </div>
 
                                     </div>
                                     <div class="col-lg-8 col-md-6 fill_height">
                                         <div class="banner_2_image_container">
-                                            <div class="banner_2_image"><img src="{{ $product->image }}"
-                                                    alt="{{ $product->name }}" style="width: 80%;">
+                                            <div class="banner_2_image">
+                                                <a href="{{ route('product.details', $product) }}">
+                                                    <img src="{{ $product->image }}" alt="{{ $product->name }}"
+                                                        style="width: 80%;">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

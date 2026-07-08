@@ -4,8 +4,10 @@
     <link rel="stylesheet" href="{{ asset('assets/website/styles/checkout.css') }}">
 @endsection
 
+
 @section('content')
 
+    {{-- @dd($cart) --}}
 
     <div class="checkout_page container">
 
@@ -19,31 +21,30 @@
 
                 <h4>Billing Details</h4>
 
-                <form id="checkout-form">
-
+                <form id="checkout-form" method="POST">
                     <div class="form_group">
                         <label>Full Name</label>
-                        <input type="text">
+                        <input type="text" name="name">
                     </div>
 
                     <div class="form_group">
                         <label>Phone</label>
-                        <input type="text">
+                        <input type="number" name="phone">
                     </div>
 
                     <div class="form_group">
                         <label>City</label>
-                        <input type="text">
+                        <input type="text" name="city">
                     </div>
 
                     <div class="form_group">
                         <label>Address</label>
-                        <textarea></textarea>
+                        <input type="text" name="address">
                     </div>
 
                     <div class="form_group">
                         <label>Notes</label>
-                        <textarea></textarea>
+                        <textarea name="note"></textarea>
                     </div>
 
                 </form>
@@ -52,18 +53,68 @@
 
             <div class="order_summary">
 
-                <h4>Order Summary</h4>
+                <div class="checkout_summary">
 
-                <div class="summary_items">
+                    <div class="summary_title">
+                        Order Summary
+                    </div>
 
-                    <!-- Products -->
+                    <div class="summary_items">
+
+                        @forelse ($cart as $item)
+
+                            <div class="summary_item">
+
+                                <div class="summary_item_image">
+                                    <a href="{{ route('product.details', $item->product->id) }}">
+                                        <img src="{{ $item?->product?->image ?? asset('uploads/products/no_img.jpg')}}"
+                                            alt="{{ $item->product->name }}">
+                                    </a>
+                                </div>
+
+                                <div class="summary_item_content">
+
+                                    <div class="summary_item_name">
+                                        {{ $item->product->name }}
+                                    </div>
+
+                                    <div class="summary_item_price">
+                                        Price:
+                                        <span>{{ $item->product->final_price }} EGP</span>
+                                    </div>
+
+                                    <div class="summary_item_qty">
+                                        Quantity:
+                                        <span>{{ $item->quantity }}</span>
+                                    </div>
+
+                                    <div class="summary_item_total">
+                                        Total:
+                                        <span>
+                                            {{ $item->product->final_price * $item->quantity }} EGP
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        @empty
+
+                            <div class="empty_summary">
+                                No products found
+                            </div>
+
+                        @endforelse
+
+                    </div>
+
+                    <div class="summary_total">
+                        Order Total:
+                        <span>{{ number_format($total, 2) }} EGP</span>
+                    </div>
 
                 </div>
-
-                <div class="summary_total">
-                    Total: 0 EGP
-                </div>
-
                 <button class="place_order_btn">
                     Place Order
                 </button>
