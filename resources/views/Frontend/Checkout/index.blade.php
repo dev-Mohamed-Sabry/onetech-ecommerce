@@ -22,24 +22,37 @@
                 <h4>Billing Details</h4>
 
                 <form id="checkout-form" method="POST">
+
+                    @csrf
+
                     <div class="form_group">
                         <label>Full Name</label>
-                        <input type="text" name="name">
+                        <input required type="text" name="name" value="{{ old('name', auth()->user()->name) }}">
+                    </div>
+
+                    <div class="form_group">
+                        <label>Email</label>
+                        <input required type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
                     </div>
 
                     <div class="form_group">
                         <label>Phone</label>
-                        <input type="number" name="phone">
+                        <input required type="tel" name="phone">
+                    </div>
+
+                    <div class="form_group">
+                        <label>Governorate</label>
+                        <input required type="text" name="governorate">
                     </div>
 
                     <div class="form_group">
                         <label>City</label>
-                        <input type="text" name="city">
+                        <input required type="text" name="city">
                     </div>
 
                     <div class="form_group">
                         <label>Address</label>
-                        <input type="text" name="address">
+                        <textarea name="address" rows="3"></textarea>
                     </div>
 
                     <div class="form_group">
@@ -47,8 +60,24 @@
                         <textarea name="note"></textarea>
                     </div>
 
-                </form>
+                    <div class="form_group payment_method_group">
 
+                        <label>Payment Method</label>
+
+                        <div class="payment_option">
+
+                            <input type="radio" id="cash_on_delivery" name="payment_method" value="cash_on_delivery"
+                                checked>
+
+                            <label for="cash_on_delivery">
+                                Cash on Delivery
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </form>
             </div>
 
             <div class="order_summary">
@@ -115,7 +144,7 @@
                     </div>
 
                 </div>
-                <button class="place_order_btn">
+                <button type="submit" form="checkout-form" class="place_order_btn">
                     Place Order
                 </button>
 
