@@ -612,8 +612,25 @@
                 text: "{{ session('error') }}",
             });
         </script>
-    @endif
 
+    @endif
+    {{-- Order Success --}}
+    @if(session('success'))
+        <script>
+            Swal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+
+            }).fire({
+                icon: "success",
+                text: "{{ session('success') }}",
+            });
+        </script>
+
+    @endif
 </body>
 
 </html>

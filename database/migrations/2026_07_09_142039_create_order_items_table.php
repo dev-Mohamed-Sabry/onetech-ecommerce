@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->foreignId('product_id')
                 ->constrained()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
 
             $table->unsignedInteger('quantity');
 

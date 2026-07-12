@@ -21,7 +21,7 @@
 
                 <h4>Billing Details</h4>
 
-                <form id="checkout-form" method="POST">
+                <form id="checkout-form" method="POST" action="{{ route('checkout.place-order') }}">
 
                     @csrf
 

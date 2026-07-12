@@ -63,7 +63,15 @@ Route::controller(WishlistController::class)->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/checkout', [CheckoutController::class, 'index'])->middleware('checkout.access')->name('checkout');
+Route::controller(CheckoutController::class)->group(function () {
+
+    Route::get('/checkout', 'index')
+        ->middleware('checkout.access')
+        ->name('checkout');
+
+    Route::post('/checkout/place-order', 'placeOrder')
+        ->name('checkout.place-order');
+});
 
 /*
 |--------------------------------------------------------------------------

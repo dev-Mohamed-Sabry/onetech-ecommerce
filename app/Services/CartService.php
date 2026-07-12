@@ -87,6 +87,13 @@ class CartService
         ]);
     }
 
+    public function clear()
+    {
+        Cart::where(
+            $this->key(),
+            $this->value()
+        )->delete();
+    }
 
     public function mergeGuestCartToUser($userId)
     {

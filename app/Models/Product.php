@@ -20,4 +20,9 @@ class Product extends Model
     {
         return asset('uploads/products/' . $image);
     }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
