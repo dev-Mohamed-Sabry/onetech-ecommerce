@@ -614,6 +614,26 @@
         </script>
 
     @endif
+
+
+    {{-- Stock Error If exists --}}
+    @if(session('message'))
+        <script>
+            Swal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 3500,
+                timerProgressBar: true,
+
+            }).fire({
+                icon: "warning",
+                text: "{{ session('message') }}",
+            });
+        </script>
+
+    @endif
+
     {{-- Order Success --}}
     @if(session('success'))
         <script>

@@ -107,30 +107,69 @@ $(document).on('click', '.qty-minus', function () {
 });
 
 
-function isCartPage() {
-	return $('.cart_page').length > 0;
-}
+// function isCartPage() {
+// 	return $('.cart_page').length > 0;
+// }
 
 
 // mini cart update
+// function updateCart(productId, quantity) {
+
+// 	$.ajax({
+// 		url: '/cart/update',
+// 		method: 'POST',
+// 		data: {
+// 			product_id: productId,
+// 			quantity: quantity
+// 		},
+// 		headers: {
+// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+// 		},
+// 		success: function (res) {
+
+// 			renderMiniCart(res.cart, res.total);
+// 			if (isCartPage()) {
+// 				renderCartPage(res.cart, res.total);
+// 			}
+// 		}
+// 	});
+// }
+
+
 function updateCart(productId, quantity) {
 
 	$.ajax({
 		url: '/cart/update',
 		method: 'POST',
 		data: {
+			_token: $('meta[name="csrf-token"]').attr('content'),
 			product_id: productId,
 			quantity: quantity
 		},
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-		},
-		success: function (res) {
-			renderMiniCart(res.cart, res.total);
 
-			if (isCartPage()) {
-				renderCartPage(res.cart, res.total);
-			}
+		success: function (response) {
+
+			renderMiniCart(response.cart, response.total);
+			renderCartPage(response.cart);
+
+
+			$('#cart-total').text(response.total + ' EGP');
+			$('#mini_cart_total').text(response.total + ' EGP');
+		},
+
+		error: function (xhr) {
+
+			Swal.mixin({
+				toast: true,
+				position: "top",
+				showConfirmButton: false,
+				timer: 3500,
+				timerProgressBar: true,
+			}).fire({
+				icon: "warning",
+				text: xhr.responseJSON.message
+			});
+
 		}
 	});
 }
@@ -225,7 +264,7 @@ function renderMiniCart(cart, total) {
 				<span class="qty">${item.quantity}</span>
 				<button class="qty-plus">+</button>
                 </div>
-                <div class='mini-cart-total' >
+                <div class='mini-cart-total ' >
 				${item.product.final_price * item.quantity} EGP
 				</div>
 				<div class="cart_col remove">

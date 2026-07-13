@@ -74,10 +74,17 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:0'
         ]);
 
-        $cartService->update(
+        $result = $cartService->update(
             $request->product_id,
             $request->quantity
         );
+
+        if (!$result['success']) {
+            return response()->json([
+                'success' => false,
+                'message' => $result['message']
+            ], 422);
+        }
 
         return response()->json([
             'success' => true,

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
@@ -51,7 +52,7 @@ class CartService
             ->where($this->key(), $this->value())
             ->get()
             ->sum(function ($item) {
-                return $item->product->final_price * $item->quantity;
+                return $item->product->final_price * $item->quantity ?? 0;
             });
     }
 
@@ -75,16 +76,34 @@ class CartService
             'product_id' => $productId,
         ])->first();
 
-        if (!$cart) return;
+        if (!$cart)  return [
+            'success' => false,
+            'message' => 'Cart item not found.',
+        ];;
 
         if ($quantity <= 0) {
             $cart->delete();
-            return;
+
+            return [
+                'success' => true,
+            ];
+        }
+
+        $product = Product::findOrFail($productId);
+
+        if ($quantity > $product->quantity) {
+            return [
+                'success' => false,
+                'message' => 'Available stock is only ' . $product->quantity,
+            ];
         }
 
         $cart->update([
             'quantity' => $quantity
         ]);
+        return [
+            'success' => true
+        ];
     }
 
     public function clear()
