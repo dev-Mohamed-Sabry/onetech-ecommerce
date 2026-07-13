@@ -86,8 +86,10 @@ class CheckoutController extends Controller
             $cartService->clear();
         });
 
+        $msg = "Order placed successfully. Total Cost: {$total} EGP. Thank you for shopping with us ♥";
+
         return redirect()
             ->route('home')
-            ->with('success', 'Order placed successfully. Thank You For Shopping With Us ♥');
+            ->with('success', $msg);
     }
 }
