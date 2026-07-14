@@ -53,7 +53,7 @@ class ProductController extends Controller
 
                 ->editColumn('image', function ($product) {
                     if (!$product->image) return ' <img src="/uploads/products/no_img.jpg" width="70" height="70">';
-                    return ' <img src="/uploads/products/' . $product->image . '" width="70" height="70">';
+                    return ' <img src="' . $product->image . '" width="70" height="70">';
                 })
 
                 ->editColumn('base_price', function ($product) {
