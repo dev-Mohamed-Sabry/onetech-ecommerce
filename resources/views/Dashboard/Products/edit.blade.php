@@ -99,7 +99,7 @@
                                     <!-- Preview -->
 
                                     <img id="product-image-preview"
-                                        src="{{ $product->image ? asset($product->image) : asset('uploads/products/no_img.jpg') }}"
+                                        src="{{ $product->image ? asset($product->image) : asset('/uploads/products/no_img.jpg') }}"
                                         width="120" height="120">
 
                                     @if ($product->image)

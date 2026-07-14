@@ -18,11 +18,15 @@ class Product extends Model
 
     public function getImageAttribute($image)
     {
+        if (!$image) {
+            return null;
+        }
         return asset('uploads/products/' . $image);
     }
 
     public function items()
     {
+
         return $this->hasMany(OrderItem::class);
     }
 }
