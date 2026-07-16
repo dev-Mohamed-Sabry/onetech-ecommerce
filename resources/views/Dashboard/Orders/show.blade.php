@@ -1,5 +1,8 @@
 @extends('layouts.dashboard.dashboard')
 
+
+@section('title', 'Order Details')
+
 @section('content')
     <div class="sl-mainpanel">
         <div class="container-fluid">
