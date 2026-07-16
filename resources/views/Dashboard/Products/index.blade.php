@@ -4,27 +4,9 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/datatable.css') }}">
 @endsection
-<style>
-    /* Start DataTables Styling */
-    #myTable_wrapper {
-        padding: 0 0 2rem;
-    }
 
-    .dt-input {
-        margin-right: 5px;
-    }
-
-    .dt-type-numeric {
-        text-align: center !important;
-    }
-
-    .table-bordered tbody tr td {
-        align-content: center !important;
-    }
-
-    /* End DataTables Styling */
-</style>
 
 @section('content')
 

@@ -1,6 +1,9 @@
 @extends('layouts.dashboard.dashboard')
 
-@section('title', 'Dashbaord') @section('content')
+@section('title', 'Dashbaord')
+
+
+@section('content')
 
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">

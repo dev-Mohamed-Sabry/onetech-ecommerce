@@ -1,0 +1,19 @@
+/* Start DataTables Styling */
+
+#myTable_wrapper {
+    padding: 0 0 2rem;
+}
+
+.dt-input {
+    margin-right: 5px;
+}
+
+.dt-type-numeric {
+    text-align: center !important;
+}
+
+.table-bordered tbody tr td {
+    align-content: center !important;
+}
+
+/* End DataTables Styling */

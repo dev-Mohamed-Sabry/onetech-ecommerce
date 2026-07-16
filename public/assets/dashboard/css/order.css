@@ -1,0 +1,61 @@
+/* Update Status Menu */
+.status-select {
+    min-width: 150px;
+    height: 38px;
+    padding: 0 12px;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+
+    background: #fff;
+    color: #333;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: #0e8ce4;
+
+    box-shadow:
+        0 0 0 3px rgba(14, 140, 228, .15);
+}
+
+/* Status Column */
+
+.order-status {
+    display: inline-block;
+    min-width: 100px;
+
+    padding: 6px 12px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-processing {
+    background: #0e8ce4;
+    color: #fff;
+}
+
+.status-delivered {
+    background: #28a745;
+    color: #fff;
+}
+
+.status-cancelled {
+    background: #dc3545;
+    color: #fff;
+}
