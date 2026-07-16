@@ -83,28 +83,28 @@ class OrderController extends Controller
 
                         'pending' =>
                         '<span class="order-status status-pending">
-            Pending
-        </span>',
+                            Pending
+                        </span>',
 
                         'processing' =>
                         '<span class="order-status status-processing">
-            Processing
-        </span>',
+                            Processing
+                        </span>',
 
                         'delivered' =>
                         '<span class="order-status status-delivered">
-            Delivered
-        </span>',
+                            Delivered
+                        </span>',
 
                         'cancelled' =>
                         '<span class="order-status status-cancelled">
-            Cancelled
-        </span>',
+                            Cancelled
+                        </span>',
 
                         default =>
                         '<span class="order-status">
-            Unknown
-        </span>',
+                            Unknown
+                        </span>',
                     };
                 })
                 ->rawColumns([
@@ -138,9 +138,17 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        return view('dashboard.orders.show');
+        $order->load([
+            'user',
+            'items.product'
+        ]);
+
+        return view(
+            'Dashboard.Orders.show',
+            compact('order')
+        );
     }
 
     /**
