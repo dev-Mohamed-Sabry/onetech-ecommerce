@@ -55,7 +55,7 @@
                                     <!-- Product Quantity -->
                                     <div class="product_quantity clearfix">
                                         <span>Quantity: </span>
-                                        <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
+                                        <input id="quantity_input" type="number" pattern="[0-9]*" value="1">
                                         <div class="quantity_buttons">
                                             <div id="quantity_inc_button" class="quantity_inc quantity_control"><i
                                                     class="fas fa-chevron-up"></i></div>
@@ -64,8 +64,9 @@
                                         </div>
                                     </div>
 
+
                                     <!-- Product Color -->
-                                    <ul class="product_color">
+                                    {{-- <ul class="product_color">
                                         <li>
                                             <span>Color: </span>
                                             <div class="color_mark_container">
@@ -86,20 +87,20 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
 
 
                                     <div class="product_price m-0">
                                         <div>Price:</div>
                                         @if($product->discount_value > 0)
                                             <span class="text-danger"
-                                                style="text-decoration: line-through">{{ $product->base_price }} EGP</span>
+                                                style="text-decoration: line-through;">{{ $product->base_price }} EGP</span>
                                         @endif
-                                        <h5>{{$product->final_price}} EGP</h5>
+                                        <h5 style="color: #0e8ce4;">{{$product->final_price}} EGP</h5>
                                     </div>
                                 </div>
                                 <div class="button_container">
-                                    <button type="button" id="cart_button" class="button cart_button add-to-cart"
+                                    <button type="button" id="cart_button" class="button cart_button"
                                         data-product-id="{{ $product->id }}">
                                         Add to Cart
                                     </button>
@@ -225,7 +226,6 @@
     @endif
 
     <!-- Brands -->
-
     <div class="brands">
         <div class="container">
             <div class="row">
@@ -291,4 +291,47 @@
 @section('script')
 
     <script src="{{ asset('assets/website/js/product_custom.js') }}"></script>
+
+    <script>
+        $(document).on('click', '#cart_button', function (e) {
+
+            e.preventDefault();
+            let product_id = $(this).data('product-id');
+            let quantity = $("#quantity_input").val();
+            if (quantity < 1) {
+                quantity = 1;
+            }
+
+            // console.log(quantity);
+            // console.log('ADD TO CART CLICKED');
+
+            $.ajax({
+                url: '/cart/add',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    product_id: product_id,
+                    quantity: quantity,
+                },
+                success: function (response) {
+                    Swal.mixin({
+                        toast: true,
+                        position: "top-right",
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                    }).fire({
+                        icon: "success",
+                        title: response.message ?? "Item Added To Cart Successfully",
+                    });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
+            })
+
+        })
+    </script>
 @endsection

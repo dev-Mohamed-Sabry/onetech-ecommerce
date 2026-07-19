@@ -79,7 +79,7 @@
                 <span id="cart-total" class="cart-total">{{ $total }} EGP</span>
             </div>
 
-            <a href="/checkout" class="checkout_btn">
+            <a href="{{ route('checkout') }}" class="checkout_btn">
                 Checkout
             </a>
         </div>
@@ -121,7 +121,7 @@
                                         ? asset($recent->product->image)
                                         : asset('uploads/products/no_img.jpg') }}"
                                                                     alt="{{ $recent->product->name 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }}">
 
                                                             </div>
 
@@ -200,4 +200,5 @@
 {{--
 <script src="{{ asset('assets/website/js/mini_cart.js') }}"></script> --}}
 {{-- @section('script')
-@endsection --}}
+@endsection
+--}}
