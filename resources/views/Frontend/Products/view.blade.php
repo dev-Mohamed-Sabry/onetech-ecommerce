@@ -297,7 +297,7 @@
 
             e.preventDefault();
             let product_id = $(this).data('product-id');
-            let quantity = $("#quantity_input").val();
+            let quantity = parseInt($("#quantity_input").val()) || 1;
             if (quantity < 1) {
                 quantity = 1;
             }
