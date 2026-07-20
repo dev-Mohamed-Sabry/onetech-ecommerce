@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category\CategoryController;
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Checkout\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontendController;
