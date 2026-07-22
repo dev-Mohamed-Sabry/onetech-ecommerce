@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category\CategoryController;
@@ -146,6 +147,18 @@ Route::controller(DashboardController::class)->group(function () {
     });
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| User Account Routes
+|--------------------------------------------------------------------------
+*/
+Route::controller(AccountController::class)
+    ->middleware('auth')->group(function () {
+        Route::get('/account', 'index')->name('account');
+        Route::get('/my-orders', 'orders')->name('account.orders');
+        Route::get('/my-orders/{order}', 'showOrder')->name('account.orders.show');
+    });
 
 /*
 |--------------------------------------------------------------------------

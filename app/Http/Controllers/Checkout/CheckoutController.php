@@ -58,7 +58,7 @@ class CheckoutController extends Controller
         DB::transaction(function () use ($request, $cartService, $cart, $total) {
 
             $order = Order::create([
-                'user_id' => auth()->id(),
+                'user_id' => auth()->user()->id(),
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
