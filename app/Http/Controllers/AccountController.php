@@ -40,7 +40,7 @@ class AccountController extends Controller
 
 
 
-        return view('user.index', compact(
+        return view('user_account_profile.index', compact(
             'user',
             'orders',
             'totalOrders',
@@ -52,20 +52,22 @@ class AccountController extends Controller
         ));
     }
 
-    public function orders()
+    // public function orders()
+    // {
+    //     $orders = Order::where('user_id', Auth::id())->latest()->paginate(5);
+    //     return view('user.orders', compact('orders'));
+    // }
+
+    public function view(Order $order)
     {
-        $orders = Order::where('user_id', Auth::id())->latest()->paginate(5);
-        return view('user.orders', compact('orders'));
-    }
+        abort_if($order->user_id !== Auth::id(), 403);
 
-    public function showOrder(Order $order)
-    {
+        // هات عناصر الطلب (items) ومع كل عنصر المنتج المرتبط به (product)
 
-        abort_if(
-            $order->user_id !== Auth::id(),
-            403
-        );
+        $order->load([
+            'items.product'
+        ]);
 
-        return view('user.view', compact('order'));
+        return view('user_account_profile.view', compact('order'));
     }
 }

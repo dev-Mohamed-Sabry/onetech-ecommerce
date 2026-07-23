@@ -155,9 +155,8 @@ Route::controller(DashboardController::class)->group(function () {
 */
 Route::controller(AccountController::class)
     ->middleware('auth')->group(function () {
-        Route::get('/account', 'index')->name('account');
-        Route::get('/my-orders', 'orders')->name('account.orders');
-        Route::get('/my-orders/{order}', 'showOrder')->name('account.orders.show');
+        Route::get('/account', 'index')->name('account.index');
+        Route::get('/account/order-details/{order}', 'view')->name('order-details.view');
     });
 
 /*

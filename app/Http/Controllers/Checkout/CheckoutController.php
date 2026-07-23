@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
@@ -58,7 +59,7 @@ class CheckoutController extends Controller
         DB::transaction(function () use ($request, $cartService, $cart, $total) {
 
             $order = Order::create([
-                'user_id' => auth()->user()->id(),
+                'user_id' => Auth::id(),
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
@@ -69,6 +70,13 @@ class CheckoutController extends Controller
                 'payment_method' => $request->payment_method,
                 'total' => $total,
                 'status' => 'pending',
+            ]);
+
+            $order->update([
+                'order_number' => 'ONT-' .
+                    $order->created_at->format('Ymd') .
+                    '-' .
+                    str_pad($order->id, 6, '0', STR_PAD_LEFT)
             ]);
 
             foreach ($cart as $item) {

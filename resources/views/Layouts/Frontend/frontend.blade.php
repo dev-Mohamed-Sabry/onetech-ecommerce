@@ -83,7 +83,7 @@
                                             alt=""></div>
                                     @if (Auth::check())
 
-                                        <div><a href="{{ route('account') }}">My Account</a></div>
+                                        <div><a href="{{ route('account.index') }}">My Account</a></div>
                                         <div>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf

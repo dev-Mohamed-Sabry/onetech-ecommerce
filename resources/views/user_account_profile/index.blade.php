@@ -92,7 +92,7 @@
                         <div class="order-row">
                             <div class="order-left">
                                 <div class="order-id">
-                                    Order #{{  random_int(1, 1000000) }}
+                                    # {{ $order->order_number }}
                                 </div>
                                 <div class="order-date">
                                     {{ $order->created_at->format('d M Y - h:i A') }}
@@ -122,7 +122,7 @@
                                     {{ number_format($order->total, 2) }} EGP
                                 </strong>
 
-                                <a href="{{ route('account.orders.show', $order->id) }}" class="btn btn-outline-primary btn-sm">
+                                <a href="{{ route('order-details.view', $order->id) }}" class="btn btn-outline-primary btn-sm">
                                     {{-- <a href="#" class="btn btn-outline-primary btn-sm"> --}}
                                         View
                                     </a>
