@@ -13,6 +13,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::controller(FrontendController::class)->group(function () {
 | Cart Routes
 |--------------------------------------------------------------------------
 */
+App::setLocale('ar');
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index');
