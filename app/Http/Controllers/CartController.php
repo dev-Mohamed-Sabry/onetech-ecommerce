@@ -13,15 +13,21 @@ class CartController extends Controller
 {
     public function index(CartService $cartService)
     {
-        return
-            response()->json(
-                [
-                    'success' => true,
-                    'cart' => $cartService->get(),
-                    'total' => $cartService->total(),
-                ]
-            );
+        if (request()->expectsJson()) {
+            return
+                response()->json(
+                    [
+                        'success' => true,
+                        'cart' => $cartService->get(),
+                        'total' => $cartService->total(),
+                    ]
+                );
+        }
+
+        return redirect()->route('cart.view');
     }
+
+
 
     public function view(CartService $cartService, RecentlyViewedService $recentlyViewed)
     {
