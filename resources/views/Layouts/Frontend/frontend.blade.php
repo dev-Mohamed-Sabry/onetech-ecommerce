@@ -849,7 +849,6 @@
 
     @endif
 
-
     {{-- Stock Error If exists --}}
     @if(session('message'))
         <script>
