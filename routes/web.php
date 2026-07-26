@@ -18,6 +18,23 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
+| Language Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/lang/{locale}', function ($locale) {
+
+    if (! in_array($locale, ['en', 'ar'])) {
+        abort(404);
+    }
+
+    session(['locale' => $locale]);
+
+    return redirect()->back();
+})->name('language.switch');
+
+/*
+|--------------------------------------------------------------------------
 | Frontend Routes
 |--------------------------------------------------------------------------
 */
@@ -37,7 +54,7 @@ Route::controller(FrontendController::class)->group(function () {
 | Cart Routes
 |--------------------------------------------------------------------------
 */
-App::setLocale('ar');
+
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index');

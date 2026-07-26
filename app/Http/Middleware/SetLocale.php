@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckoutAccess
+class SetLocale
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class CheckoutAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return redirect()->route('home')->with('error', 'Please login or create an account before checkout.');
-        };
+        App::setLocale(
+            session('locale', config('app.locale'))
+        );
         return $next($request);
     }
 }

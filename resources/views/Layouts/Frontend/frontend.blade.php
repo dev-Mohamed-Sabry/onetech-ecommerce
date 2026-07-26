@@ -54,21 +54,47 @@
                                 <div class="top_bar_icon">
                                     <img src="{{ asset('assets/website/images/phone.png') }}" alt="">
                                 </div>
-                                +38 068 005 3570
+                                <a href="https://wa.me/+201012537622" target="_blank">+20 1012537622</a>
                             </div>
 
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon">
                                     <img src="{{ asset('assets/website/images/mail.png') }}" alt="">
                                 </div>
-                                <a href="mailto:fastsales@gmail.com">
-                                    fastsales@gmail.com
+                                <a href="mailto:mo7ammed.sabre@gmail.com">
+                                    info@onetech.com
                                 </a>
                             </div>
 
                             <div class="top_bar_content ml-auto">
 
-                                {{-- Language Switcher مكان مناسب إضافته هنا لاحقاً --}}
+                                <div class="top_bar_menu">
+                                    <ul class="standard_dropdown top_bar_dropdown">
+                                        <li>
+                                            <a href="#">
+                                                {{ app()->getLocale() == 'ar' ? 'العربية' : 'English' }}
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul>
+                                                @if(app()->getLocale() == 'en')
+                                                    <li>
+                                                        <a href="{{ route('language.switch', 'ar') }}">
+                                                            العربية
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a href="{{ route('language.switch', 'en') }}">
+                                                            English
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+
+                                        </li>
+
+                                    </ul>
+                                </div>
 
                                 <div class="top_bar_user">
 
@@ -728,9 +754,19 @@
 
                                 © {{ date('Y') }}
 
-                                <strong>OneTech</strong>
+                                OneTech.
 
                                 {{ __('messages.copyright') }}
+
+                                <span class="text-muted ml-2">
+
+                                    {{ __('messages.powered_by') }}
+
+                                    <a href="https://www.linkedin.com/in/mo-sabre" target="_blank">
+                                        Mohamed Sabry
+                                    </a>
+
+                                </span>
 
                             </div>
 
