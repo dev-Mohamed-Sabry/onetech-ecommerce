@@ -3,17 +3,18 @@
 namespace App\Services;
 
 use App\Models\RecentlyViewedProduct;
+use Illuminate\Support\Facades\Auth;
 
 class RecentlyViewedService
 {
     private function key()
     {
-        return auth()->check() ? 'user_id' : 'session_id';
+        return Auth::check() ? 'user_id' : 'session_id';
     }
 
     private function value()
     {
-        return auth()->check() ? auth()->id() : session()->getId();
+        return Auth::check() ? Auth::id() : session()->getId();
     }
 
     public function track($productId)

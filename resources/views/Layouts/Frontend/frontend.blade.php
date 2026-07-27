@@ -825,6 +825,7 @@
     <script src="{{ asset('assets/website/js/cart.js') }}"></script>
     <script src="{{ asset('assets/website/js/wishlist.js') }}"></script>
 
+
     @yield('script')
 
 

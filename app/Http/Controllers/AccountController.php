@@ -52,11 +52,6 @@ class AccountController extends Controller
         ));
     }
 
-    // public function orders()
-    // {
-    //     $orders = Order::where('user_id', Auth::id())->latest()->paginate(5);
-    //     return view('user.orders', compact('orders'));
-    // }
 
     public function view(Order $order)
     {

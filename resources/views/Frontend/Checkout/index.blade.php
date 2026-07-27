@@ -8,7 +8,7 @@
 @section('content')
 
     {{-- @dd($cart) --}}
-
+    {{-- @dd(config('paymob.integration_id')); --}}
     <div class="checkout_page container">
 
         <div class="checkout_title">
@@ -65,14 +65,28 @@
                         <label>Payment Method</label>
 
                         <div class="payment_option">
-
-                            <input type="radio" id="cash_on_delivery" name="payment_method" value="cash_on_delivery"
-                                checked>
-
+                            <input type="radio" id="cash_on_delivery" name="payment_method" value="cash_on_delivery">
                             <label for="cash_on_delivery">
                                 Cash on Delivery
                             </label>
+                        </div>
 
+                        <div class="payment_option">
+                            <input type="radio" id="paymob" name="payment_method" value="paymob">
+                            <label for="paymob">
+                                <div class="payment_card">
+                                    <div class="payment_card_title">
+                                        Pay Online
+                                    </div>
+
+                                    <div class="payment_card_desc">
+                                        Visa, Mastercard, Meeza & more
+                                    </div>
+                                </div>
+                                <small class="text-muted">
+                                    You will be redirected to Paymob secure payment gateway.
+                                </small>
+                            </label>
                         </div>
 
                     </div>

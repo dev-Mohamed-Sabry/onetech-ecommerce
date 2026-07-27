@@ -197,3 +197,14 @@ Route::delete('/products/{product}/image', [ProductController::class, 'deletePro
 
 Route::get('/403', [ErrorController::class, 'error_403'])->name('error.403');
 Route::get('/404', [ErrorController::class, 'error_404'])->name('error.404');
+
+
+
+
+
+// Paymob
+Route::get('/paymob-test', function (
+    \App\Services\PaymobService $paymob
+) {
+    return $paymob->authenticate();
+});

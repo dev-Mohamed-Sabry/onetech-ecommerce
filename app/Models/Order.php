@@ -19,6 +19,8 @@ class Order extends Model
         'total',
         'status',
         'order_number',
+        'paymob_order_id',
+        'paymob_transaction_id',
         'created_at',
     ];
     public function user()

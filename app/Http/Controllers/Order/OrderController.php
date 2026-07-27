@@ -167,6 +167,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
 
         $allowed = [
+            'pending_payment' => ['processing', 'cancelled'],
             'pending' => ['processing', 'cancelled'],
             'processing' => ['delivered', 'cancelled'],
             'delivered' => [],
@@ -181,7 +182,7 @@ class OrderController extends Controller
         }
 
         $order->update([
-            'status' => $request->status
+            'status' => $request->status,
         ]);
 
         return response()->json([

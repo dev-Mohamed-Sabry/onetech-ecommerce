@@ -200,6 +200,7 @@
     border-radius: 4px;
 
     background: #fafafa;
+    margin-bottom: 15px;
 }
 
 .payment_option input[type="radio"] {
@@ -213,4 +214,25 @@
     font-weight: 500;
     color: #222;
     cursor: pointer;
+}
+
+.payment_card {
+    display: inline-block;
+    padding: 12px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: #fafafa;
+    width: 100%;
+    cursor: pointer;
+}
+
+.payment_card_title {
+    font-weight: 600;
+    color: #0e8ce4;
+}
+
+.payment_card_desc {
+    font-size: 13px;
+    color: #777;
+    margin-top: 4px;
 }
