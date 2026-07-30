@@ -131,63 +131,13 @@ class CheckoutController extends Controller
                 'paymob_order_id' => $paymobOrderId
             ]);
 
-            dd($paymobOrderId); // مؤقتًا للتأكد إنه رجع
+            // dd($paymobOrderId); // مؤقتًا للتأكد إنه رجع
+
+            $paymentKey = $paymobService->getPaymentKey($order);
+
+            $iframeUrl = $paymobService->getIframeUrl($paymentKey);
+
+            return redirect($iframeUrl);
         }
-
-        // DB::transaction(function () use ($request, $cartService, $cart, $total, $paymobService) {
-        //     $status = $request->payment_method === 'cash_on_delivery'
-        //         ? 'pending'
-        //         : 'pending_payment';
-
-        //     $order = Order::create([
-        //         'user_id' => Auth::id(),
-        //         'name' => $request->name,
-        //         'email' => $request->email,
-        //         'phone' => $request->phone,
-        //         'governorate' => $request->governorate,
-        //         'city' => $request->city,
-        //         'address' => $request->address,
-        //         'notes' => $request->note,
-        //         'payment_method' => $request->payment_method,
-        //         'total' => $total,
-        //         'status' => $status,
-        //     ]);
-
-        //     $order->update([
-        //         'order_number' => 'ONT-' .
-        //             $order->created_at->format('Ymd') .
-        //             '-' .
-        //             str_pad($order->id, 6, '0', STR_PAD_LEFT)
-        //     ]);
-
-        //     foreach ($cart as $item) {
-
-        //         OrderItem::create([
-        //             'order_id' => $order->id,
-        //             'product_id' => $item->product_id,
-        //             'quantity' => $item->quantity,
-        //             'price' => $item->product->final_price,
-        //             'item_total' => $item->product->final_price * $item->quantity,
-        //         ]);
-        //     }
-
-        //     if ($request->payment_method === 'cash_on_delivery') {
-        //         $cartService->clear();
-        //         $msg = "Order placed successfully. Total Cost: {$total} EGP. Thank you for shopping with us ♥";
-        //         return redirect()
-        //             ->route('home')
-        //             ->with('success', $msg);
-        //     }
-
-
-        //     if ($request->payment_method === 'paymob') {
-
-        //         $paymobOrderId = $paymobService->createOrder($order);
-
-        //         $order->update([
-        //             'paymob_order_id' => $paymobOrderId
-        //         ]);
-        //     }
-        // });
     }
 }

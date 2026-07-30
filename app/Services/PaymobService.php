@@ -39,7 +39,7 @@ class PaymobService
             [
                 'auth_token' => $token,
                 'delivery_needed' => false,
-                'amount_cents' => (int) round($order->total * 100),
+                'amount_cents' => (int) round($order->total * 100), // paymob بتقبل قيمة المبلغ بالقروش 
                 'currency' => 'EGP',
                 'merchant_order_id' => $order->order_number,
                 'items' => [],
@@ -49,5 +49,53 @@ class PaymobService
         $response->throw();
 
         return $response->json('id');
+    }
+
+    public function getPaymentKey(Order $order)
+    {
+        $token = $this->authenticate();
+
+        $response = Http::post(
+            'https://accept.paymob.com/api/acceptance/payment_keys',
+            [
+                'auth_token' => $token,
+
+                'amount_cents' => (int) round($order->total * 100),
+
+                'expiration' => 3600,
+
+                'order_id' => $order->paymob_order_id,
+
+                'billing_data' => [
+                    'first_name' => $order->name,
+                    'last_name' => '.',
+                    'email' => $order->email,
+                    'phone_number' => $order->phone,
+
+                    'apartment' => 'NA',
+                    'floor' => 'NA',
+                    'street' => $order->address,
+                    'building' => 'NA',
+                    'shipping_method' => 'NA',
+                    'postal_code' => 'NA',
+                    'city' => $order->city,
+                    'country' => 'EG',
+                    'state' => $order->governorate,
+                ],
+
+                'currency' => 'EGP',
+
+                'integration_id' => config('paymob.integration_id'),
+            ]
+        );
+
+        return $response->json('token');
+    }
+
+    public function getIframeUrl(string $paymentKey)
+    {
+        // \Log::emergency('PAYMOB WEBHOOK', array($paymentKey));
+
+        return "https://accept.paymob.com/api/acceptance/iframes/" . config('paymob.iframe_id') . "?payment_token=" . $paymentKey;
     }
 }

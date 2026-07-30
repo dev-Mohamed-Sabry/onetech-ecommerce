@@ -32,4 +32,23 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+    public function decreaseStock()
+    {
+        foreach ($this->items as $item) {
+
+            $product = $item->product;
+
+            if ($product->quantity < $item->quantity) {
+
+                throw new \Exception(
+                    "Insufficient stock for {$product->name}"
+                );
+            }
+
+            $product->decrement(
+                'quantity',
+                $item->quantity
+            );
+        }
+    }
 }

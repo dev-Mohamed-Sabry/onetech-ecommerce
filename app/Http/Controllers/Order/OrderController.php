@@ -167,8 +167,8 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
 
         $allowed = [
-            'pending_payment' => ['processing', 'cancelled'],
             'pending' => ['processing', 'cancelled'],
+            'pending_payment' => ['processing', 'cancelled'],
             'processing' => ['delivered', 'cancelled'],
             'delivered' => [],
             'cancelled' => [],
@@ -180,6 +180,12 @@ class OrderController extends Controller
                 'message' => 'Invalid status transition'
             ], 422);
         }
+        if (
+            $request->status === 'processing' && $order->status !== 'processing'
+        ) {
+            $order->decreaseStock();
+        }
+
 
         $order->update([
             'status' => $request->status,

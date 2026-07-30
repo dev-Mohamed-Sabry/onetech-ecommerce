@@ -521,12 +521,7 @@
 
         </header>
 
-
-
-
         @yield('content')
-
-
 
 
         <!-- Newsletter -->
@@ -883,7 +878,6 @@
                 text: "{{ session('success') }}",
             });
         </script>
-
     @endif
 </body>
 

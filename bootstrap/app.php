@@ -25,6 +25,14 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\SetLocale::class,
         ]);
     })
+    // CSRF exception
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(
+            except: [
+                'paymob/webhook',
+            ]
+        );
+    })
 
 
 

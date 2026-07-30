@@ -9,6 +9,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Order\OrderController;
+
+use App\Http\Controllers\Paymob_Payment\PaymentController;
+use App\Http\Controllers\Paymob_Payment\PaymobWebhookController;
+// use App\Http\Controllers\PaymobWebhookController;
+
+
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -202,9 +208,24 @@ Route::get('/404', [ErrorController::class, 'error_404'])->name('error.404');
 
 
 
-// Paymob
-Route::get('/paymob-test', function (
-    \App\Services\PaymobService $paymob
-) {
-    return $paymob->authenticate();
-});
+/*
+|--------------------------------------------------------------------------
+| Paymob Routes
+|--------------------------------------------------------------------------
+*/
+
+
+// Route::get('/paymob-test', function (
+//     \App\Services\PaymobService $paymob
+// ) {
+//     return $paymob->authenticate();
+// });
+
+Route::post('/paymob/webhook', [PaymobWebhookController::class, 'handle']);
+Route::get('/payment/success', [PaymentController::class, 'success'])
+    ->name('payment.success');
+// Route::post('/paymob/webhook', function () {
+//     return response()->json([
+//         'success' => true
+//     ]);
+// });
