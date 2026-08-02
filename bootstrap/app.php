@@ -18,21 +18,25 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'checkout.access' => CheckoutAccess::class,
         ]);
-    })
-    ->withMiddleware(function ($middleware) {
 
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
-    })
-    // CSRF exception
-    ->withMiddleware(function (Middleware $middleware) {
+
         $middleware->validateCsrfTokens(
             except: [
                 'paymob/webhook',
             ]
         );
     })
+    // ->withMiddleware(function (Middleware $middleware) {
+
+    // })
+
+    // CSRF exception
+    // ->withMiddleware(function (Middleware $middleware) {
+
+    // })
 
 
 

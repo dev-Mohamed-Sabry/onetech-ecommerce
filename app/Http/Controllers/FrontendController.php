@@ -18,7 +18,10 @@ class FrontendController extends Controller
 
     public function index(RecentlyViewedService $recentlyViewed)
     {
-
+        // dd(
+        //     app()->getLocale(),
+        //     session('locale')
+        // );
         $recentlyViewedProducts = $recentlyViewed->get();
 
         $product_by_category = Product::first();

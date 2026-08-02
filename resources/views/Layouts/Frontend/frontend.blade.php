@@ -73,7 +73,7 @@
                                         <li>
                                             <a href="#">
                                                 {{ app()->getLocale() == 'ar' ? 'العربية' : 'English' }}
-                                                <i class="fas fa-chevron-down"></i>
+                                                {{-- <i class="fas fa-chevron-down">ss</i> --}}
                                             </a>
                                             <ul>
                                                 @if(app()->getLocale() == 'en')
@@ -113,7 +113,6 @@
                                         <div>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-
                                                 <button type="submit" style="border:none;cursor:pointer;background:none;">
                                                     {{ __('messages.logout') }}
                                                 </button>

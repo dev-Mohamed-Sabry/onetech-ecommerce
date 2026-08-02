@@ -10,9 +10,6 @@ use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Order\OrderController;
 
-use App\Http\Controllers\Paymob_Payment\PaymentController;
-use App\Http\Controllers\Paymob_Payment\PaymobWebhookController;
-// use App\Http\Controllers\PaymobWebhookController;
 
 
 use App\Http\Controllers\Product\ProductController;
@@ -21,6 +18,11 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
+use App\Http\Controllers\Paymob_Payment\PaymentController;
+use App\Http\Controllers\Paymob_Payment\PaymobWebhookController;
+// use App\Http\Controllers\PaymobWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,14 +30,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+
 Route::get('/lang/{locale}', function ($locale) {
 
-    if (! in_array($locale, ['en', 'ar'])) {
+    if (!in_array($locale, ['en', 'ar'])) {
         abort(404);
     }
-
     session(['locale' => $locale]);
-
     return redirect()->back();
 })->name('language.switch');
 

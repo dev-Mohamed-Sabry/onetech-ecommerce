@@ -36,38 +36,65 @@
         <!-- Statistics -->
         <div class="row mb-4">
             <div class="col-lg col-md-4 col-sm-6 mb-3">
-                <div class="stat-box stat-total">
-                    <div class="number">{{ $totalOrders ?? 0 }}</div>
-                    <div class="label">Total Orders</div>
-                </div>
+                <a href="{{ route('account.index') }}" class="order-state">
+                    <div class="stat-box stat-total">
+                        <div class="number">{{ $totalOrders ?? 0 }}</div>
+                        <div class="label">Total Orders</div>
+                    </div>
+                </a>
             </div>
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
-                <div class="stat-box stat-pending">
-                    <div class="number">{{ $pendingOrders ?? 0 }}</div>
-                    <div class="label">Pending Orders</div>
-                </div>
+                <a href="{{ route('account.index', ['status' => 'pending']) }}" class="order-state">
+                    <div class="stat-box stat-pending {{ request('status') === 'pending' ? 'active' : '' }}">
+                        <div class="number">
+                            {{ $pendingOrders ?? 0 }}
+                        </div>
+                        <div class="label">
+                            Pending Orders
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
-                <div class="stat-box stat-processing">
-                    <div class="number">{{ $processingOrders ?? 0 }}</div>
-                    <div class="label">Processing Orders</div>
-                </div>
+                <a href="{{ route('account.index', ['status' => 'processing']) }}" class="order-state">
+                    <div class="stat-box stat-processing">
+                        <div class="number">
+                            {{ $pendingOrders ?? 0 }}
+                        </div>
+                        <div class="label">
+                            Processing Orders
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
-                <div class="stat-box stat-delivered">
-                    <div class="number">{{ $deliveredOrders ?? 0 }}</div>
-                    <div class="label">Delivered Orders</div>
-                </div>
+                <a href="{{ route('account.index', ['status' => 'delivered']) }}" class="order-state">
+                    <div class="stat-box stat-delivered">
+                        <div class="number">
+                            {{ $pendingOrders ?? 0 }}
+                        </div>
+                        <div class="label">
+                            Delivered Orders
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
-                <div class="stat-box stat-cancelled">
-                    <div class="number">{{ $canceledOrders ?? 0 }}</div>
-                    <div class="label">Cancelled Orders</div>
-                </div>
+                <a href="{{ route('account.index', ['status' => 'cancelled']) }}" class="order-state">
+                    <div class="stat-box stat-cancelled">
+                        <div class="number">
+                            {{ $pendingOrders ?? 0 }}
+                        </div>
+                        <div class="label">
+                            Cancelled Orders
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </div>
 
@@ -80,8 +107,9 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4 class="section-title mb-0">
-                            Recent Orders
+                            {{ $ordersTitle }}
                         </h4>
+
                         <span class="text-muted">
                             {{ $orders->total() }} Orders
                         </span>

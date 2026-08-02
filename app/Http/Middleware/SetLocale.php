@@ -16,9 +16,16 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // dd('middleware works');
         App::setLocale(
             session('locale', config('app.locale'))
         );
         return $next($request);
     }
+
+    // public function handle(Request $request, Closure $next): Response
+    // {
+    //     dd('SetLocale Middleware Works');
+    //     return $next($request);
+    // }
 }

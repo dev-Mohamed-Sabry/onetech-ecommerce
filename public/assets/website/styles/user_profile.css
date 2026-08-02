@@ -119,6 +119,23 @@
     gap: 20px;
     margin-bottom: 35px;
 } */
+.order-state {
+    text-decoration: none !important;
+}
+
+.order-state .stat-box {
+    transition: all 0.25s ease;
+}
+
+.order-state:hover .stat-box {
+    background-color: #f3f3f3;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.stat-box.active {
+    background-color: #e3ecf3;
+}
 
 .stat-box {
     background: #fff;

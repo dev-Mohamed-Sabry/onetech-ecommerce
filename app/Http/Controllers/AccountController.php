@@ -4,26 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
         $user = Auth::user();
 
-        $orders = Order::where('user_id', $user->id)
-            ->latest()
-            ->paginate(3);
+        $status = $request->status;
 
-        $totalOrders = $orders->total();
+        $orders = Order::where('user_id', $user->id)
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+
+        $totalOrders = Order::where('user_id', $user->id)->count();
 
         $pendingOrders = Order::where('user_id', $user->id)
             ->where('status', 'pending')
             ->count();
 
-        $processingOrders = Order::where('user_id', $user->id)->where('status', 'processing')->count();
+        $processingOrders = Order::where('user_id', $user->id)
+            ->where('status', 'processing')
+            ->count();
 
         $deliveredOrders = Order::where('user_id', $user->id)
             ->where('status', 'delivered')
@@ -33,22 +41,23 @@ class AccountController extends Controller
             ->where('status', 'cancelled')
             ->count();
 
-        $paginatedOrders = Order::where('user_id', $user->id)
-            ->latest()
-            ->paginate(5);
-
-
-
+        $ordersTitle = match ($status) {
+            'pending' => 'Pending Orders',
+            'processing' => 'Processing Orders',
+            'delivered' => 'Delivered Orders',
+            'cancelled' => 'Cancelled Orders',
+            default => 'Recent Orders',
+        };
 
         return view('user_account_profile.index', compact(
             'user',
             'orders',
+            'ordersTitle',
             'totalOrders',
             'pendingOrders',
             'processingOrders',
             'deliveredOrders',
             'canceledOrders',
-            'paginatedOrders',
         ));
     }
 
