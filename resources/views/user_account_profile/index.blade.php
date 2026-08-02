@@ -37,7 +37,7 @@
         <div class="row mb-4">
             <div class="col-lg col-md-4 col-sm-6 mb-3">
                 <a href="{{ route('account.index') }}" class="order-state">
-                    <div class="stat-box stat-total">
+                    <div class="stat-box stat-total {{ !request('status') ? 'active' : '' }}">
                         <div class="number">{{ $totalOrders ?? 0 }}</div>
                         <div class="label">Total Orders</div>
                     </div>
@@ -59,7 +59,7 @@
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
                 <a href="{{ route('account.index', ['status' => 'processing']) }}" class="order-state">
-                    <div class="stat-box stat-processing">
+                    <div class="stat-box stat-processing {{ request('status') === 'processing' ? 'active' : '' }}">
                         <div class="number">
                             {{ $pendingOrders ?? 0 }}
                         </div>
@@ -72,7 +72,7 @@
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
                 <a href="{{ route('account.index', ['status' => 'delivered']) }}" class="order-state">
-                    <div class="stat-box stat-delivered">
+                    <div class="stat-box stat-delivered {{ request('status') === 'delivered' ? 'active' : '' }}">
                         <div class="number">
                             {{ $pendingOrders ?? 0 }}
                         </div>
@@ -85,7 +85,7 @@
 
             <div class="col-lg col-md-4 col-sm-6 mb-3">
                 <a href="{{ route('account.index', ['status' => 'cancelled']) }}" class="order-state">
-                    <div class="stat-box stat-cancelled">
+                    <div class="stat-box stat-cancelled {{ request('status') === 'cancelled' ? 'active' : '' }}">
                         <div class="number">
                             {{ $pendingOrders ?? 0 }}
                         </div>
