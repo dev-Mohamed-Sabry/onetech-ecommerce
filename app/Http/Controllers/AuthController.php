@@ -26,6 +26,7 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
+
     public function register_method(Request $request)
     {
         $request->validate([

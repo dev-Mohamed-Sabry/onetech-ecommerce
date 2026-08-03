@@ -67,12 +67,13 @@
 
         <label class="sidebar-label">Navigation</label>
         <div class="sl-sideleft-menu">
-            <a href="{{route('dashboard')}}" class="sl-menu-link active">
+            {{-- <a href="{{route('dashboard')}}" class="sl-menu-link active">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                     <span class="menu-item-label">Dashboard</span>
                 </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
+            </a> --}}
+            <!-- sl-menu-link -->
             <a href="#" class="sl-menu-link">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
@@ -181,11 +182,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-header wd-200">
                         <ul class="list-unstyled user-profile-nav">
-                            <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+                            {{-- <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
                             <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
                             <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                             <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
-                            <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
+                            <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li> --}}
                             <li>
                                 <a href="{{ route('logout') }}
                                 " onclick="event.preventDefault();
@@ -205,20 +206,22 @@
                     </div><!-- dropdown-menu -->
                 </div><!-- dropdown -->
             </nav>
-            <div class="navicon-right">
+            {{-- <div class="navicon-right">
                 <a id="btnRightMenu" href="" class="pos-relative">
                     <i class="icon ion-ios-bell-outline"></i>
                     <!-- start: if statement -->
                     <span class="square-8 bg-danger"></span>
                     <!-- end: if statement -->
                 </a>
-            </div><!-- navicon-right -->
+            </div> --}}
+            <!-- navicon-right -->
         </div><!-- sl-header-right -->
 
     </div><!-- sl-header -->
     <!-- ########## END: HEAD PANEL ########## -->
 
     <!-- ########## START: RIGHT PANEL ########## -->
+    {{--
     <div class="sl-sideright">
         <ul class="nav nav-tabs nav-fill sidebar-tabs" role="tablist">
             <li class="nav-item">
@@ -392,8 +395,10 @@
                 </div><!-- media-list -->
             </div><!-- #notifications -->
 
-        </div><!-- tab-content -->
+        </div>
+        <!-- tab-content -->
     </div>
+    --}}
     <!-- sl-sideright -->
     <!-- ########## END: RIGHT PANEL ########## --->
 

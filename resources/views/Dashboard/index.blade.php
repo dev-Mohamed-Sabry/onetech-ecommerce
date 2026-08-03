@@ -169,7 +169,7 @@
                         <div id="flotPie2" class="ht-200 ht-sm-250"></div>
                     </div><!-- card -->
 
-                    <div class="card widget-messages mg-t-20">
+                    {{-- <div class="card widget-messages mg-t-20">
                         <div class="card-header">
                             <span>Messages</span>
                             <a href=""><i class="icon ion-more"></i></a>
@@ -225,7 +225,8 @@
                         <div class="card-footer">
                             <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-3"></i> Load more messages</a>
                         </div><!-- card-footer -->
-                    </div><!-- card -->
+                    </div> --}}
+                    <!-- card -->
                 </div><!-- col-3 -->
             </div><!-- row -->
 

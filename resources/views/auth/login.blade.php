@@ -67,7 +67,7 @@
         // Error Message
         setTimeout(function () {
             $('#checkout-error').fadeOut(500);
-        }, 3000);
+        }, 2500);
 
 
 
@@ -124,7 +124,7 @@
                                 });
 
                                 setTimeout(() => {
-                                    window.location.href = '{{ route('dashboard') }}';
+                                    window.location.href = '{{ route('orders.index') }}';
                                 }, 1500);
 
                             }
