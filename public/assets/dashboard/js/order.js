@@ -4,12 +4,12 @@ let table = new DataTable('#orderTable', {
     processing: true,
     serverSide: true,
     ajax: "/orders",
-    // order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
+    order: [[3, 'desc']],    //ترتيب العمود الثالث  تنازلي 
     columns: [
         { data: 'name', name: 'name', orderable: true },
         { data: 'total', name: 'total', orderable: true },
         { data: 'status', name: 'status', orderable: false, searchable: true },
-        { data: 'created_at', name: 'created_at', orderable: false, searchable: true },
+        { data: 'created_at', name: 'created_at', orderable: true, searchable: true },
         { data: 'action', name: 'action', orderable: false, searchable: true },
     ]
 });
