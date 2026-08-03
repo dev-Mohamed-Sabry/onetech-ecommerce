@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Mews\Purifier\Facades\Purifier;
 use Yajra\DataTables\DataTables;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ProductsImport;
 
 class ProductController extends Controller
 {
@@ -102,7 +104,7 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Category $category)
+    public function create()
     {
         $categories = Category::all('id', 'name');
         return view('Dashboard.Products.create', compact('categories'));
@@ -332,5 +334,31 @@ class ProductController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
+    }
+
+    public function downloadTemplate()
+    {
+        return response()->download(
+            storage_path(
+                'app/templates/product_import_template.xlsx'
+            )
+        );
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        Excel::import(
+            new ProductsImport,
+            $request->file('file')
+        );
+
+        return back()->with(
+            'success',
+            'Products imported successfully'
+        );
     }
 }

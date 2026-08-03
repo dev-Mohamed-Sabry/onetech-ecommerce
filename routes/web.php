@@ -170,6 +170,8 @@ Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::resource('categories', CategoryController::class);
         Route::resource('products', ProductController::class);
+        Route::get('/products/template/download', [ProductController::class, 'downloadTemplate'])->name('products.template.download');
+        Route::post('/products/import', [ProductController::class, 'import'])->name('products.import');
         Route::resource('orders', OrderController::class);
     });
 });

@@ -15,7 +15,6 @@ let table = new DataTable('#orderTable', {
 });
 
 
-
 $(document).on('change', '.change-status', function () {
 
     let orderId = $(this).data('id');
@@ -35,7 +34,6 @@ $(document).on('change', '.change-status', function () {
         if (!result.isConfirmed) {
             return;
         }
-
 
         $.ajax({
             url: '/orders/' + orderId,

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
@@ -15,12 +16,12 @@ class CartService
      */
     private function key()
     {
-        return auth()->check() ? 'user_id' : 'guest_token';
+        return Auth::check() ? 'user_id' : 'guest_token';
     }
 
     private function value()
     {
-        return auth()->check() ? auth()->id() : $this->guestToken();
+        return Auth::check() ? Auth::id() : $this->guestToken();
     }
 
     private function guestToken()

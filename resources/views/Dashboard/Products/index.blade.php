@@ -17,12 +17,76 @@
             <span class="breadcrumb-item active">Products</span>
         </nav>
 
-
         <div class=" sl-pagebody m-4">
 
             <a href="{{ route('products.create') }}" class="btn btn-primary mb-4">
                 Add New Product
             </a>
+
+            <div class="card pd-20 pd-sm-40 form-layout form-layout-4 mt-4">
+                <h6 class="card-body-title mb-4">
+                    Import Products From Excel
+                </h6>
+                <p class="mg-b-20 text-muted">
+                    Upload an Excel or CSV file to create multiple products at once.
+                </p>
+
+                <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row mb-3">
+                        <label class="col-sm-4 form-control-label">
+                            Excel File:
+                            <span class="tx-danger">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="file" name="file" accept=".xlsx,.xls,.csv" class="form-control">
+                            <small class="text-muted d-block mt-2">
+                                Supported formats:
+                                XLSX, XLS, CSV
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-4 form-control-label">
+                            Template:
+                        </label>
+
+                        <div class="col-sm-8">
+
+                            <a href="{{ route('products.template.download') }}" class="btn btn-outline-secondary btn-sm">
+
+                                <i class="fa fa-download"></i>
+                                Download Template
+
+                            </a>
+
+                        </div>
+
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <strong>Required Columns:</strong>
+                        <br>
+                        category,
+                        name,
+                        price,
+                        quantity,
+                        description,
+                        featured,
+                    </div>
+
+                    <div class="form-layout-footer">
+                        <button type="submit" class="btn btn-success" style="cursor: pointer;">
+                            <i class="fa fa-upload"></i>
+                            Import Products
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
 
             <table id="productTable" class="table table-hover table-bordered">
                 <thead>
@@ -45,32 +109,9 @@
 
             </table>
 
-        </div><!-- sl-pagebody -->
+        </div>
+        <!-- sl-pagebody -->
 
-        {{-- <footer class="sl-footer">
-            <div class="footer-left">
-                <div class="copyright_content">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
-                        target="_blank">Eng/
-                        Mohamed Sabry </a>
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </div>
-            </div>
-            <div class="footer-right d-flex align-items-center">
-                <span class="tx-uppercase mg-r-10">Share:</span>
-                <a target="_blank" class="pd-x-5"
-                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/starlight"><i
-                        class="fa fa-facebook tx-20"></i></a>
-                <a target="_blank" class="pd-x-5"
-                    href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
-                        class="fa fa-twitter tx-20"></i></a>
-            </div>
-        </footer> --}}
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 

@@ -55,7 +55,8 @@
                                     <!-- Product Quantity -->
                                     <div class="product_quantity clearfix">
                                         <span>Quantity: </span>
-                                        <input id="quantity_input" type="number" pattern="[0-9]*" value="1">
+                                        <input id="quantity_input" type="number" min="1" max="{{ $product->quantity }}"
+                                            value="1">
                                         <div class="quantity_buttons">
                                             <div id="quantity_inc_button" class="quantity_inc quantity_control"><i
                                                     class="fas fa-chevron-up"></i></div>
