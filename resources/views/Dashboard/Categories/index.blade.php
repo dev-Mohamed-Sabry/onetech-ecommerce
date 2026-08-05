@@ -43,6 +43,7 @@
                     <tr>
                         <th class="text-left">Category Name</th>
                         <th class="text-center">Order</th>
+                        <th class="text-center">Image</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -78,17 +79,17 @@
                 title: 'Edit Category',
 
                 html: `
-                                <input id="swal-name"
-                                       class="swal2-input"
-                                       placeholder="Category Name"
-                                       value="${name}">
+                                                            <input id="swal-name"
+                                                                class="swal2-input"
+                                                                placeholder="Category Name"
+                                                                value="${name}">
 
-                                <input id="swal-order"
-                                       type="number"
-                                       class="swal2-input"
-                                       placeholder="Order"
-                                       value="${order}">
-                            `,
+                                                            <input id="swal-order"
+                                                                type="number"
+                                                                class="swal2-input"
+                                                                placeholder="Order"
+                                                                value="${order}">
+                                                        `,
 
                 showCancelButton: true,
                 confirmButtonText: 'Update',
@@ -210,6 +211,7 @@
             columns: [
                 { data: 'name', name: 'name', orderable: true },
                 { data: 'order', name: 'order', orderable: true },
+                { data: 'image', name: 'image', orderable: true },
                 { data: 'action', name: 'action', orderable: false, searchable: true }
             ]
         });

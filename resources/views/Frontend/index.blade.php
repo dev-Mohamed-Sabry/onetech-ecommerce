@@ -468,74 +468,26 @@
                     <div class="popular_categories_slider_container">
                         <div class="owl-carousel owl-theme popular_categories_slider">
 
-                            <!-- Popular Categories Item -->
+                            <!-- Categories  -->
 
-                            <div class="owl-item">
-                                <a href="{{ route('products.by.category', $product_by_category->category->id) }} ">
-                                    <div
-                                        class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image"><img
-                                                src="{{ asset('assets/website/images/popular_1.png') }}" alt="">
+                            @forelse ($categories as $category)
+                                <div class="owl-item">
+                                    <a href="{{ route('categories.show', $category) }}">
+                                        <div
+                                            class="popular_category d-flex flex-column align-items-center justify-content-center">
+                                            <div class="popular_category_image"><img
+                                                    src="{{ asset('uploads/categories/' . $category->image) }}"
+                                                    alt="{{  $category?->name }}">
+                                            </div>
+                                            <div class="popular_category_text">{{ __('messages.smartphones_tablets') }}</div>
                                         </div>
-                                        <div class="popular_category_text">{{ __('messages.smartphones_tablets') }}</div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            @empty
+                                <div class="text-danger">No Categories Found</div>
+                            @endforelse
 
-                            <!-- Popular Categories Item -->
-                            <div class="owl-item">
-                                <a href="{{ route('products.by.category', $product_by_category->category->id) }} ">
 
-                                    <div
-                                        class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image">
-                                            <img src="{{ asset('assets/website/images/popular_2.png') }}" alt="">
-                                        </div>
-                                        <div class="popular_category_text">{{ __('messages.computers_laptops') }}</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Popular Categories Item -->
-                            <div class="owl-item">
-                                <a href="{{ route('products.by.category', $product_by_category->category->id) }} ">
-
-                                    <div
-                                        class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image"><img
-                                                src="{{ asset('assets/website/images/popular_3.png') }}" alt="">
-                                        </div>
-                                        <div class="popular_category_text">{{ __('messages.gadgets') }}</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Popular Categories Item -->
-                            <div class="owl-item">
-                                <a href="{{ route('products.by.category', $product_by_category->category->id) }} ">
-                                    <div
-                                        class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image"><img
-                                                src="{{ asset('assets/website/images/popular_4.png') }}" alt="">
-                                        </div>
-                                        <div class="popular_category_text">{{ __('messages.video_games') }}</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Popular Categories Item -->
-                            <div class="owl-item">
-                                <a href="{{ route('products.by.category', $product_by_category->category->id) }} ">
-
-                                    <div
-                                        class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image"><img
-                                                src="{{ asset('assets/website/images/popular_5.png') }}" alt="">
-                                        </div>
-                                        <div class="popular_category_text">{{ __('messages.accessories') }}</div>
-                                    </div>
-                                </a>
-                            </div>
 
 
                         </div>

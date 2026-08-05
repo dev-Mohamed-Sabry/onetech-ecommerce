@@ -20,8 +20,12 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = Category::select('id', 'name', 'order');
+            $categories = Category::select('id', 'name', 'image', 'order');
             return DataTables::of($categories)
+                ->editColumn('image', function ($category) {
+                    if (!$category->image) return '<div class="text-center"><img src="/uploads/categories/no_img.jpg"  width="70" height="70"></div>';
+                    return '<div class="text-center"><img src="uploads/categories/' . $category->image . '"  width="70" height="70"></div>';
+                })
                 ->addColumn('action', function ($category) {
                     return
                         ' <div class="text-center">
@@ -37,7 +41,8 @@ class CategoryController extends Controller
                             
                         </div> ';
                 })
-                ->rawColumns(['action'])
+
+                ->rawColumns(['image', 'action'])
                 ->make(true);
         }
         return view('Dashboard.Categories.index');
