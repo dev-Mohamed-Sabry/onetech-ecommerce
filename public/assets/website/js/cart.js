@@ -190,7 +190,7 @@ function renderCartPage(cart, total) {
 
             <div class="cart_col image">
                 <a href="/product-details/${item.product.id}">
-					<img src="${item.product.image}" >
+					<img src="${item.product.image ?? 'uploads/products/no_img.jpg'}" >
 				</a>
             </div>
 
@@ -235,7 +235,7 @@ function renderCartPage(cart, total) {
 	});
 
 	$('.cart_wrapper').html(html);
-	$('.cart-total').text(total + ' EGP');
+	$('.cart-total').text(grandTotal + ' EGP');
 }
 
 
@@ -256,7 +256,7 @@ function renderMiniCart(cart, total) {
 		html += `
 				<div class="mini_cart_item" data-product-id="${item.product.id}">
 				<a href="/product-details/${item.product.id}">
-					<img src="${item.product.image}" width="50" height="42">
+					<img src="${item.product.image ?? 'uploads/products/no_img.jpg'}" width="50" height="42">
             	</a>
               	<div class="item_name"> ${item.product.name}</div>
                 <div class="qty_controls">

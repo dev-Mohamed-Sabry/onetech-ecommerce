@@ -27,6 +27,11 @@
                 Add New Product
             </a>
 
+            <a href="{{ route('products.index') }}" class="btn btn-success mx-2 mb-4">
+                <i class="fa fa-file-excel"></i>
+                Import Products
+            </a>
+
             <table id="orderTable" class="table table-hover table-bordered">
                 <thead>
                     <tr>

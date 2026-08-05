@@ -17,7 +17,8 @@
             <div class="row fill_height">
 
                 <div class="banner_product_image">
-                    <img src="{{ asset($bannerProduct->image) }}" width="400" alt="{{ $bannerProduct->name }}">
+                    <img src="{{ asset($bannerProduct->image ?? 'uploads/products/no_img.jpg') }}" width="400"
+                        alt="{{ $bannerProduct->name ?? 'Banner Product'}}">
                 </div>
 
                 <div class="col-lg-5 offset-lg-4 fill_height">
@@ -171,7 +172,7 @@
                                     <div class="owl-item deals_item">
                                         <a href="{{ route('product.details', $product) }}">
                                             <div class="deals_image">
-                                                <img src="{{$product->image ? $product->image : asset('uploads/products/no_img.jpg') }}"
+                                                <img src="{{$product->image ?? asset('uploads/products/no_img.jpg') }}"
                                                     alt="{{ $product->name }}">
                                             </div>
                                             <div class="deals_content">
@@ -293,9 +294,8 @@
                                                     <a href="{{ route('product.details', $product->id)}}">
                                                         <div
                                                             class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                            <img src="{{ $product->image ? $product->image : asset('uploads/products/no_img.jpg')}}"
-                                                                alt="{{$product->image ? $product->image : 'No Img'}}" height="100"
-                                                                width="100">
+                                                            <img src="{{ $product->image ?? asset('uploads/products/no_img.jpg')}}"
+                                                                alt="{{$product->image ?? 'No Img'}}" height="100" width="100">
                                                         </div>
 
                                                         <div class="product_content">
@@ -364,9 +364,8 @@
                                                 <a href="{{ route('product.details', $product->id)}}">
                                                     <div
                                                         class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                        <img src="{{ $product->image ? $product->image : asset('uploads/products/no_img.jpg')}}"
-                                                            alt="{{$product->image ? $product->image : 'No Img'}}" height="100"
-                                                            width="100">
+                                                        <img src="{{ $product->image ?? asset('uploads/products/no_img.jpg')}}"
+                                                            alt="{{$product->image ?? 'No Img'}}" height="100" width="100">
                                                     </div>
                                                     <div class="product_content">
                                                         <div
@@ -585,8 +584,8 @@
                                         <div class="banner_2_image_container">
                                             <div class="banner_2_image">
                                                 <a href="{{ route('product.details', $product) }}">
-                                                    <img src="{{ $product->image }}" alt="{{ $product->name }}"
-                                                        style="width: 80%;">
+                                                    <img src="{{ $product->image ?? asset('uploads/products/no_img.jpg')}}"
+                                                        alt="{{ $product->name }}" style="width: 75%;">
                                                 </a>
                                             </div>
                                         </div>

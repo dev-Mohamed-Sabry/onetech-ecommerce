@@ -25,8 +25,16 @@ class CategoryController extends Controller
                 ->addColumn('action', function ($category) {
                     return
                         ' <div class="text-center">
-                            <button  class="btn btn-info edit-category " style="cursor:pointer;" data-id="' . $category->id . '" data-name="' . $category->name . '">Update</button>
-                            <button  class="btn btn-danger delete-category " style="cursor:pointer;" data-id="' . $category->id . '">Delete</button>
+                            <button  class="btn btn-info edit-category " style="cursor:pointer;"
+                            data-id="' . $category->id . '" data-name="' . $category->name . '"  data-order="' . $category->order . '">
+                            Update
+                            </button>
+
+                            <button  class="btn btn-danger delete-category " style="cursor:pointer;" 
+                            data-id="' . $category->id . '">
+                            Delete
+                            </button>
+                            
                         </div> ';
                 })
                 ->rawColumns(['action'])
@@ -84,6 +92,7 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3|max:255|unique:categories,name,' . $id,
+            'order' => 'required|string|min:1|max:255|unique:categories,order,' . $id,
         ]);
 
         if ($validator->fails()) {
@@ -95,7 +104,10 @@ class CategoryController extends Controller
         }
 
         $category = Category::findOrFail($id);
-        $category->update(['name' => $request->name]);
+        $category->update([
+            'name' => $request->name,
+            'order' => $request->order
+        ]);
 
         return response()->json([
             'status' => 'success',

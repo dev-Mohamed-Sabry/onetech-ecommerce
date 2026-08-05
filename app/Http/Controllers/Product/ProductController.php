@@ -12,6 +12,8 @@ use Mews\Purifier\Facades\Purifier;
 use Yajra\DataTables\DataTables;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ProductsImport;
+use App\Exports\ProductsExport;
+
 
 class ProductController extends Controller
 {
@@ -348,17 +350,41 @@ class ProductController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv'
+            'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
+        $import = new ProductsImport();
+
         Excel::import(
-            new ProductsImport,
+            $import,
             $request->file('file')
         );
 
-        return back()->with(
-            'success',
-            'Products imported successfully'
+        if ($import->failures()->isNotEmpty()) {
+
+            return redirect()
+                ->back()
+                ->with(
+                    'import_failures',
+                    $import->failures()
+                );
+        }
+
+        return redirect()
+            ->back()
+            ->with(
+                'success',
+                'Products imported successfully.'
+            );
+    }
+
+
+    public function export()
+    {
+        // dd('export works');
+        return Excel::download(
+            new ProductsExport,
+            'products.xlsx'
         );
     }
 }

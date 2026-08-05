@@ -32,7 +32,6 @@
             <span class="breadcrumb-item active">Categories</span>
         </nav>
 
-
         <div class=" sl-pagebody m-4">
 
             <a href="{{ route('categories.create') }}" class="btn btn-primary mb-4" z>
@@ -54,32 +53,9 @@
             </table>
 
         </div>
-        <!-- sl-pagebody -->
-        {{-- <footer class="sl-footer">
-            <div class="footer-left">
-                <div class="copyright_content">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script> All rights reserved | Project Developed By <a href="https://www.linkedin.com/in/mo-sabre"
-                        target="_blank">Eng/
-                        Mohamed Sabry </a>
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </div>
-            </div>
-            <div class="footer-right d-flex align-items-center">
-                <span class="tx-uppercase mg-r-10">Share:</span>
-                <a target="_blank" class="pd-x-5"
-                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/starlight"><i
-                        class="fa fa-facebook tx-20"></i></a>
-                <a target="_blank" class="pd-x-5"
-                    href="https://twitter.com/home?status=Starlight,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/starlight"><i
-                        class="fa fa-twitter tx-20"></i></a>
-            </div>
-        </footer> --}}
-    </div><!-- sl-mainpanel -->
+
+    </div>
+
     <!-- ########## END: MAIN PANEL ########## -->
 
 @endsection
@@ -91,57 +67,96 @@
     {{-- Update --}}
     <script>
         $(document).on('click', '.edit-category', function (e) {
+
             e.preventDefault();
 
             let id = $(this).data('id');
             let name = $(this).data('name');
+            let order = $(this).data('order');
 
             Swal.fire({
-                title: "Enter New Category Name",
-                input: "text",
-                inputValue: name,
+                title: 'Edit Category',
+
+                html: `
+                            <input id="swal-name"
+                                   class="swal2-input"
+                                   placeholder="Category Name"
+                                   value="${name}">
+
+                            <input id="swal-order"
+                                   type="number"
+                                   class="swal2-input"
+                                   placeholder="Order"
+                                   value="${order}">
+                        `,
+
                 showCancelButton: true,
-                confirmButtonText: "Update",
+                confirmButtonText: 'Update',
                 showLoaderOnConfirm: true,
-                preConfirm: (newName) => {
+
+                preConfirm: () => {
+
+                    const newName =
+                        document.getElementById('swal-name').value;
+
+                    const newOrder =
+                        document.getElementById('swal-order').value;
+
                     return fetch(`/categories/${id}`, {
-                        method: "POST",
+
+                        method: 'POST',
+
                         headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'Content-Type': 'application/json',
+
+                            'X-CSRF-TOKEN':
+                                document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content
                         },
+
                         body: JSON.stringify({
-                            _method: "PUT",
-                            name: newName
+                            _method: 'PUT',
+                            name: newName,
+                            order: newOrder
                         })
                     })
                         .then(async response => {
+
                             const data = await response.json();
 
                             if (!response.ok) {
-                                let messages = Object.values(data.errors || {}).flat().join('<br>');
 
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Validation Error',
-                                    text: messages
-                                });
+                                let messages = Object
+                                    .values(data.errors || {})
+                                    .flat()
+                                    .join('<br>');
 
-                                // ❌ نوقف العملية
+                                Swal.showValidationMessage(
+                                    messages
+                                );
+
                                 return false;
                             }
 
                             return data;
                         });
                 }
-            }).then(result => {
-                if (result.isConfirmed) {
-                    Swal.fire('Success', 'Updated!', 'success')
-                        .then(() => location.reload());
-                }
-            });
-        });
+            })
+                .then(result => {
 
+                    if (result.isConfirmed) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Updated Successfully',
+                            timer: 1500,
+                            showConfirmButton: false
+                        })
+                            .then(() => location.reload());
+                    }
+                });
+        });
     </script>
 
     {{-- {{ Delete }} --}}

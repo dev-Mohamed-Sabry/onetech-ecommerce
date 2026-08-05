@@ -65,7 +65,6 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index');
-
     Route::get('/cart-details', 'view')->name('cart.view');
     Route::post('/cart/add', 'add')->name('cart.add');
     Route::post('/cart/update', 'update');
@@ -169,9 +168,10 @@ Route::controller(DashboardController::class)->group(function () {
     Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::resource('categories', CategoryController::class);
-        Route::resource('products', ProductController::class);
         Route::get('/products/template/download', [ProductController::class, 'downloadTemplate'])->name('products.template.download');
+        Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
         Route::post('/products/import', [ProductController::class, 'import'])->name('products.import');
+        Route::resource('products', ProductController::class);
         Route::resource('orders', OrderController::class);
     });
 });

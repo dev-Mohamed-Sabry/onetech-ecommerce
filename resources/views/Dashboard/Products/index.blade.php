@@ -17,78 +17,143 @@
             <span class="breadcrumb-item active">Products</span>
         </nav>
 
-        <div class=" sl-pagebody m-4">
+        <div class="sl-pagebody m-4">
 
-            <a href="{{ route('products.create') }}" class="btn btn-primary mb-4">
-                Add New Product
-            </a>
+            {{-- Top Actions --}}
+            <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <div class="card pd-20 pd-sm-40 form-layout form-layout-4 mt-4">
-                <h6 class="card-body-title mb-4">
-                    Import Products From Excel
-                </h6>
-                <p class="mg-b-20 text-muted">
-                    Upload an Excel or CSV file to create multiple products at once.
-                </p>
+                <div class="d-flex">
 
-                <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row mb-3">
-                        <label class="col-sm-4 form-control-label">
-                            Excel File:
-                            <span class="tx-danger">*</span>
-                        </label>
-                        <div class="col-sm-8">
-                            <input type="file" name="file" accept=".xlsx,.xls,.csv" class="form-control">
-                            <small class="text-muted d-block mt-2">
-                                Supported formats:
-                                XLSX, XLS, CSV
-                            </small>
-                        </div>
-                    </div>
+                    <a href="{{ route('products.create') }}" class="btn btn-primary mr-2">
 
-                    <div class="row mb-3">
+                        <i class="fa fa-plus"></i>
+                        Add Product
 
-                        <label class="col-sm-4 form-control-label">
-                            Template:
-                        </label>
+                    </a>
 
-                        <div class="col-sm-8">
+                    <a href="{{ route('products.export') }}" class="btn btn-success mr-2">
 
-                            <a href="{{ route('products.template.download') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fa fa-file-excel"></i>
+                        Export Products
 
-                                <i class="fa fa-download"></i>
-                                Download Template
+                    </a>
 
-                            </a>
+                    <a href="{{ route('products.template.download') }}" class="btn btn-outline-secondary">
 
-                        </div>
+                        <i class="fa fa-download"></i>
+                        Download Template
 
-                    </div>
-                    <div class="alert alert-info mt-3">
-                        <strong>Required Columns:</strong>
-                        <br>
-                        category,
-                        name,
-                        price,
-                        quantity,
-                        description,
-                        featured,
-                    </div>
+                    </a>
 
-                    <div class="form-layout-footer">
-                        <button type="submit" class="btn btn-success" style="cursor: pointer;">
-                            <i class="fa fa-upload"></i>
-                            Import Products
-                        </button>
-                    </div>
-
-                </form>
+                </div>
 
             </div>
 
+            {{-- Display Import Errors --}}
+            @if(session('import_failures'))
 
+                <div class="alert alert-danger">
+
+                    <h6>
+                        Import Errors
+                    </h6>
+
+                    <ul class="mb-0">
+
+                        @foreach(session('import_failures') as $failure)
+
+                            <li>
+
+                                Row {{ $failure->row() }}
+
+                                :
+
+                                {{ implode(', ', $failure->errors()) }}
+
+                            </li>
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            @endif
+
+
+
+
+            {{-- Import Products --}}
+            <div class="card shadow-sm border-0 mb-4">
+
+                <div class="card-body">
+
+                    <h6 class="font-weight-bold mb-2">
+                        Import Products From Excel
+                    </h6>
+
+                    <p class="text-muted mb-3">
+                        Upload an Excel file to create multiple products at once.
+                    </p>
+
+                    <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+
+                        @csrf
+
+                        <div class="row align-items-center">
+
+                            <div class="col-md-8">
+
+                                <input type="file" name="file" accept=".xlsx,.xls,.csv" class="form-control">
+
+                                <div class="mt-3">
+
+                                    <small class="text-muted d-block mb-2">
+                                        Required Columns
+                                    </small>
+
+                                    <span class="badge badge-secondary mr-1">
+                                        category
+                                    </span>
+
+                                    <span class="badge badge-secondary mr-1">
+                                        name
+                                    </span>
+
+                                    <span class="badge badge-secondary mr-1">
+                                        price
+                                    </span>
+
+                                    <span class="badge badge-secondary mr-1">
+                                        quantity
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4 text-md-right mt-3 mt-md-0">
+
+                                <button type="submit" class="btn btn-info" style="cursor:pointer;">
+
+                                    <i class="fa fa-upload"></i>
+                                    Import Products
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {{-- Products Table --}}
             <table id="productTable" class="table table-hover table-bordered">
+
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -103,16 +168,13 @@
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody>
 
-                </tbody>
+                <tbody></tbody>
 
             </table>
 
         </div>
-        <!-- sl-pagebody -->
-
-    </div><!-- sl-mainpanel -->
+    </div>
     <!-- ########## END: MAIN PANEL ########## -->
 
 @endsection

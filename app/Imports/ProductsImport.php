@@ -2,17 +2,18 @@
 
 namespace App\Imports;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ProductsImport implements ToModel
+class ProductsImport implements ToModel,  WithHeadingRow, WithValidation, SkipsOnFailure
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+    use SkipsFailures;
 
     public function model(array $row)
     {
@@ -21,10 +22,29 @@ class ProductsImport implements ToModel
             trim($row['category'])
         )->first();
 
-        if (!$category) {
+        $discountType = strtolower(
+            trim($row['discount_type'] ?? 'none')
+        );
 
-            throw new \Exception(
-                "Category '{$row['category']}' not found"
+        $discountValue = (float) (
+            $row['discount_value'] ?? 0
+        );
+
+        $isFeatured = strtolower(trim($row['featured'] ?? 'no')) === 'yes';
+
+        $price = (float) $row['price'];
+
+        $finalPrice = $price;
+
+        if ($discountType === 'percent') {
+
+            $finalPrice = $price -
+                ($price * $discountValue / 100);
+        } elseif ($discountType === 'fixed') {
+
+            $finalPrice = max(
+                0,
+                $price - $discountValue
             );
         }
 
@@ -32,23 +52,91 @@ class ProductsImport implements ToModel
 
             'category_id' => $category->id,
 
-            'name' => $row['name'],
+            'name' => trim($row['name']),
 
-            'base_price' => $row['price'],
+            'base_price' => $price,
 
-            'quantity' => $row['quantity'],
+            'quantity' => (int) $row['quantity'],
 
-            'description' => $row['description'],
+            'description' => $row['description'] ?? null,
 
-            'is_featured' => strtolower(
-                trim($row['featured'] ?? 'no')
-            ) === 'yes',
+            'is_featured' => $isFeatured,
 
-            'discount_type' => 'none',
+            'discount_type' => $discountType,
 
-            'discount_value' => 0,
+            'discount_value' => $discountValue,
 
-            'final_price' => $row['price'],
+            'final_price' =>  $finalPrice,
         ]);
+    }
+
+    public function rules(): array
+    {
+        return [
+
+            '*.category' => [
+                'required',
+                Rule::exists('categories', 'name'),
+            ],
+
+            '*.name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            '*.price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            '*.quantity' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
+
+            '*.description' => [
+                'nullable',
+                'string',
+            ],
+
+            '*.featured' => [
+                'nullable',
+                Rule::in(['yes', 'no']),
+            ],
+
+            '*.discount_type' => [
+                'nullable',
+                Rule::in([
+                    'none',
+                    'fixed',
+                    'percent',
+                ]),
+            ],
+
+            '*.discount_value' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+
+        ];
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+
+            '*.category.exists' =>
+            'The selected category does not exist.',
+
+            '*.discount_type.in' =>
+            'Discount type must be none, fixed or percent.',
+
+            '*.featured.in' =>
+            'Featured must be yes or no.',
+        ];
     }
 }

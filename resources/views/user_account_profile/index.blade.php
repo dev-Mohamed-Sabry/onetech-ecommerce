@@ -197,7 +197,7 @@
                         <label>Name</label>
 
                         <div>
-                            Mohamed Sabry
+                            {{ $user->name }}
                         </div>
 
                     </div>
@@ -207,7 +207,7 @@
                         <label>Email</label>
 
                         <div>
-                            mo7ammed.sabre@gmail.com
+                            {{ $user->email }}
                         </div>
 
                     </div>
@@ -217,7 +217,7 @@
                         <label>Phone</label>
 
                         <div>
-                            01012537622
+                            {{ $user->orders->first()?->phone ?? '-' }}
                         </div>
 
                     </div>
@@ -227,7 +227,7 @@
                         <label>Member Since</label>
 
                         <div>
-                            July 2026
+                            {{ $user->created_at }}
                         </div>
 
                     </div>
