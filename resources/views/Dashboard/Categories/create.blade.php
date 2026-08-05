@@ -161,9 +161,9 @@
                                     title: "Category Added Successfully"
                                 });
 
-                                // setTimeout(() => {
-                                //     window.location.reload();
-                                // }, 1000);
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1000);
 
 
                             }
