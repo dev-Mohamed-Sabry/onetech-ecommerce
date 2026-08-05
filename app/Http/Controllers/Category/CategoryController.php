@@ -60,14 +60,33 @@ class CategoryController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:categories'],
             'order' => ['required', 'string', 'max:64', 'unique:categories'],
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+
+
+        // ========================
+        // 🔹 Store Image
+        // ========================
+        $imageName = null;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+            $image->move(public_path('uploads/categories'), $imageName);
+        }
 
         Category::create([
             'name' => $request->name,
             'order' => $request->order,
+            'image' => $imageName,
         ]);
-
-        return response()->json(['data' => true]);
+        return response()->json([
+            'data' => true,
+            'message' => 'Category added successfully'
+        ]);
     }
 
     /**

@@ -78,17 +78,17 @@
                 title: 'Edit Category',
 
                 html: `
-                            <input id="swal-name"
-                                   class="swal2-input"
-                                   placeholder="Category Name"
-                                   value="${name}">
+                                <input id="swal-name"
+                                       class="swal2-input"
+                                       placeholder="Category Name"
+                                       value="${name}">
 
-                            <input id="swal-order"
-                                   type="number"
-                                   class="swal2-input"
-                                   placeholder="Order"
-                                   value="${order}">
-                        `,
+                                <input id="swal-order"
+                                       type="number"
+                                       class="swal2-input"
+                                       placeholder="Order"
+                                       value="${order}">
+                            `,
 
                 showCancelButton: true,
                 confirmButtonText: 'Update',

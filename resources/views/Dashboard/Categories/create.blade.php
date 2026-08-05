@@ -19,7 +19,7 @@
                         <h6 class="card-body-title mb-4">Add New Category</h6>
                         {{-- <p class="mg-b-20 mg-sm-b-30">A basic form where labels are aligned in left.</p> --}}
 
-                        <form id="categoryForm" method="POST">
+                        <form id="categoryForm" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <label class="col-sm-4 form-control-label">Category Name: <span
@@ -34,10 +34,23 @@
                                 <label class="col-sm-4 form-control-label">Category Order: <span
                                         class="tx-danger">*</span></label>
                                 <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                    <input type="text" name="category-order" id="category-order" class="form-control"
+                                    <input type="number" name="category-order" id="category-order" class="form-control"
                                         placeholder="Enter Category Order">
                                 </div>
                             </div>
+
+                            <!-- Image -->
+                            <div class="row mg-t-20">
+                                <label class="col-sm-4 form-control-label">
+                                    Category Image:
+                                </label>
+                                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                    <input name="image" id="image" type="file" accept=".jpg,.jpeg,.png,.webp"
+                                        class="form-control">
+                                </div>
+                            </div>
+
+
                             <div class="form-layout-footer mg-t-30">
                                 <a href="{{ route('categories.index') }}" class="btn btn-secondary mg-r-5"
                                     style="cursor: pointer;">All Categories</a>
@@ -88,13 +101,23 @@
         $(document).ready(function () {
             $('#categoryForm').on('submit', function (e) {
                 e.preventDefault();
-                // console.log('test');
+
                 let categoryName = $('#category-name').val();
                 let categoryOrder = $('#category-order').val();
-                if (categoryName == '' || categoryOrder == '') {
+                let categoryImage = $('#image')[0].files[0];
+
+                let formData = new FormData();
+                formData.append('name', categoryName);
+                formData.append('order', categoryOrder);
+
+                if (categoryImage) {
+                    formData.append('image', categoryImage);
+                }
+
+                if (!categoryName.trim() || !categoryOrder) {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Please Enter Name & Order',
+                        text: 'Name & Order Are Required',
                         icon: 'error',
                         confirmButtonText: 'Okay!'
                     })
@@ -103,15 +126,15 @@
                     $.ajax({
                         method: "POST",
                         url: "{{ route('categories.store') }}",
-                        data: {
-                            name: categoryName,
-                            order: categoryOrder,
-                        },
+                        data: formData,
+                        processData: false,
+                        contentType: false,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function (response) {
-                            console.log(response);
+                            // console.log(response.data);
+
                             if (!response.data) {
                                 Swal.fire({
                                     title: 'Error!',
@@ -137,9 +160,10 @@
                                     icon: "success",
                                     title: "Category Added Successfully"
                                 });
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 1000);
+
+                                // setTimeout(() => {
+                                //     window.location.reload();
+                                // }, 1000);
 
 
                             }
@@ -147,12 +171,12 @@
 
                         },
                         error: function (xhr) {
-                            console.log(xhr.responseJSON);
+                            // console.log(xhr);
                             Swal.fire({
                                 title: 'Error!',
-                                text: xhr.responseJSON.message ?? 'Something went wrong!',
-                                icon: 'error',
-                                confirmButtonText: 'Okay!'
+                                text:
+                                    'Something went wrong!',
+                                icon: 'error'
                             });
                         }
                     })

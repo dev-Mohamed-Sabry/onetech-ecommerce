@@ -198,9 +198,6 @@
                     categoryId == "" ||
                     productName == '' ||
                     productBasePrice == '' ||
-                    // productDiscountType !== 'none' ||
-                    // productDiscountType !== 'fixed' ||
-                    // productDiscountType !== 'percent' ||
                     productQuantity == '' ||
                     productDescription == '' ||
                     productIsFeatured == ''
