@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = Category::select('id', 'name', 'image', 'order');
+            $categories = Category::select('id', 'name', 'image', 'order')->orderBy('order', 'asc');
             return DataTables::of($categories)
                 ->editColumn('image', function ($category) {
                     if (!$category->image) return '<div class="text-center"><img src="/uploads/categories/no_img.jpg"  width="70" height="70"></div>';
@@ -29,10 +29,11 @@ class CategoryController extends Controller
                 ->addColumn('action', function ($category) {
                     return
                         ' <div class="text-center">
-                            <button  class="btn btn-info edit-category " style="cursor:pointer;"
-                            data-id="' . $category->id . '" data-name="' . $category->name . '"  data-order="' . $category->order . '">
-                            Update
-                            </button>
+                           <a href="' . route('categories.edit', $category->id) . '"
+                                class="btn btn-info"
+                                style="cursor:pointer;">
+                                Edit
+                            </a>
 
                             <button  class="btn btn-danger delete-category " style="cursor:pointer;" 
                             data-id="' . $category->id . '">
@@ -105,18 +106,24 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category) {}
+    public function edit(Category $category)
+    {
+
+        return view('dashboard.categories.edit', compact('category'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3|max:255|unique:categories,name,' . $id,
-            'order' => 'required|string|min:1|max:255|unique:categories,order,' . $id,
+            'name' => 'required|string|min:3|max:255|unique:categories,name,' . $category->id,
+            'order' => 'required|integer|min:0|unique:categories,order,' . $category->id,
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
         ]);
 
         if ($validator->fails()) {
@@ -127,14 +134,39 @@ class CategoryController extends Controller
             ], 422);
         }
 
-        $category = Category::findOrFail($id);
+        $imageName = $category->image;
+
+        if ($request->hasFile('image')) {
+
+            if (
+                $category->image &&
+                $category->image !== 'no_img.jpg' &&
+                file_exists(public_path('uploads/categories/' . $category->image))
+            ) {
+                unlink(public_path('uploads/categories/' . $category->image));
+            }
+
+            $image = $request->file('image');
+
+            $imageName =
+                uniqid('cat_') .
+                '.' .
+                $image->extension();
+
+            $image->move(
+                public_path('uploads/categories'),
+                $imageName
+            );
+        }
+
         $category->update([
             'name' => $request->name,
-            'order' => $request->order
+            'order' => $request->order,
+            'image' => $imageName,
         ]);
 
         return response()->json([
-            'status' => 'success',
+            'data' => true,
             'message' => 'Category updated successfully'
         ]);
     }

@@ -67,96 +67,90 @@
 
     {{-- Update --}}
     <script>
-        $(document).on('click', '.edit-category', function (e) {
-
-            e.preventDefault();
+        $(document).on('click', '.edit-category', function () {
 
             let id = $(this).data('id');
             let name = $(this).data('name');
             let order = $(this).data('order');
 
             Swal.fire({
-                title: 'Edit Category',
+
+                title: 'Update Category',
 
                 html: `
-                                                            <input id="swal-name"
-                                                                class="swal2-input"
-                                                                placeholder="Category Name"
-                                                                value="${name}">
+                                            <input id="swal-name"
+                                                class="swal2-input"
+                                                value="${name}">
 
-                                                            <input id="swal-order"
-                                                                type="number"
-                                                                class="swal2-input"
-                                                                placeholder="Order"
-                                                                value="${order}">
-                                                        `,
+                                            <input id="swal-order"
+                                                class="swal2-input"
+                                                value="${order}">
+
+                                            <input id="swal-image"
+                                                type="file"
+                                                class="swal2-file"
+                                                accept=".jpg,.jpeg,.png,.webp">
+                                        `,
 
                 showCancelButton: true,
-                confirmButtonText: 'Update',
-                showLoaderOnConfirm: true,
 
                 preConfirm: () => {
 
-                    const newName =
-                        document.getElementById('swal-name').value;
+                    let formData = new FormData();
 
-                    const newOrder =
-                        document.getElementById('swal-order').value;
+                    formData.append('name', $('#swal-name').val());
+                    formData.append('order', $('#swal-order').val());
+                    formData.append('_method', 'PUT');
 
-                    return fetch(`/categories/${id}`, {
+                    let image = document.getElementById('swal-image').files[0];
 
-                        method: 'POST',
-
-                        headers: {
-                            'Content-Type': 'application/json',
-
-                            'X-CSRF-TOKEN':
-                                document.querySelector(
-                                    'meta[name="csrf-token"]'
-                                ).content
-                        },
-
-                        body: JSON.stringify({
-                            _method: 'PUT',
-                            name: newName,
-                            order: newOrder
-                        })
-                    })
-                        .then(async response => {
-
-                            const data = await response.json();
-
-                            if (!response.ok) {
-
-                                let messages = Object
-                                    .values(data.errors || {})
-                                    .flat()
-                                    .join('<br>');
-
-                                Swal.showValidationMessage(
-                                    messages
-                                );
-
-                                return false;
-                            }
-
-                            return data;
-                        });
-                }
-            })
-                .then(result => {
-
-                    if (result.isConfirmed) {
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Updated Successfully',
-                            timer: 1500,
-                            showConfirmButton: false
-                        })
-                            .then(() => location.reload());
+                    if (image) {
+                        formData.append('image', image);
                     }
-                });
+
+                    return $.ajax({
+                        url: `/categories/${id}`,
+                        method: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN':
+                                $('meta[name="csrf-token"]').attr('content')
+                        }
+                    }).catch(function (xhr) {
+
+                        let errors = xhr.responseJSON?.errors;
+
+                        let message = '';
+
+                        if (errors) {
+                            message = Object.values(errors)
+                                .flat()
+                                .join('<br>');
+                        } else {
+                            message = 'Something went wrong';
+                        }
+
+                        Swal.showValidationMessage(message);
+                    });
+                }
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    Swal.fire(
+                        'Success',
+                        'Category Updated',
+                        'success'
+                    ).then(() => {
+                        $('#myTable')
+                            .DataTable()
+                            .ajax.reload(null, false);
+                    });
+                }
+            });
         });
     </script>
 
