@@ -29,13 +29,13 @@ class CategoryController extends Controller
                 ->addColumn('action', function ($category) {
                     return
                         ' <div class="text-center">
-                           <a href="' . route('categories.edit', $category->id) . '"
+                            <a href="' . route('categories.edit', $category->id) . '"
                                 class="btn btn-info"
                                 style="cursor:pointer;">
                                 Edit
                             </a>
 
-                            <button  class="btn btn-danger delete-category " style="cursor:pointer;" 
+                            <button  class="btn btn-danger delete-category" style="cursor:pointer;" 
                             data-id="' . $category->id . '">
                             Delete
                             </button>
@@ -177,7 +177,25 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if (
+            $category->image &&  $category->image !== 'no_img.jpg' && file_exists(
+                public_path(
+                    'uploads/categories/' . $category->image
+                )
+            )
+        ) {
+            unlink(public_path('uploads/categories/' . $category->image));
+        }
+
+        if ($category->products()->exists()) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cannot delete category because it contains products.'
+            ], 422);
+        }
         $category->delete();
+
         return response()->json([
             'status' => 'success',
             'message' => 'Category Deleted successfully'

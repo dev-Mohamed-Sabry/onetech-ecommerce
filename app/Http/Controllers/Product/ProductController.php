@@ -311,15 +311,14 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
-    { {
-            if ($product->image && file_exists(public_path('uploads/products/' . $product->image))) {
-                unlink(public_path('uploads/products/' . $product->image));
-            }
-            $product->delete();
-            return response()->json([
-                'status' => 'success',
-            ]);
+    {
+        if ($product->image && file_exists(public_path('uploads/products/' . $product->image))) {
+            unlink(public_path('uploads/products/' . $product->image));
         }
+        $product->delete();
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 
 

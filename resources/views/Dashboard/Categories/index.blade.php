@@ -78,19 +78,19 @@
                 title: 'Update Category',
 
                 html: `
-                                                <input id="swal-name"
-                                                    class="swal2-input"
-                                                    value="${name}">
+                                                                                                                                                <input id="swal-name"
+                                                                                                                                                    class="swal2-input"
+                                                                                                                                                    value="${name}">
 
-                                                <input id="swal-order"
-                                                    class="swal2-input"
-                                                    value="${order}">
+                                                                                                                                                <input id="swal-order"
+                                                                                                                                                    class="swal2-input"
+                                                                                                                                                    value="${order}">
 
-                                                <input id="swal-image"
-                                                    type="file"
-                                                    class="swal2-file"
-                                                    accept=".jpg,.jpeg,.png,.webp">
-                                            `,
+                                                                                                                                                <input id="swal-image"
+                                                                                                                                                    type="file"
+                                                                                                                                                    class="swal2-file"
+                                                                                                                                                    accept=".jpg,.jpeg,.png,.webp">
+                                                                                                                                            `,
 
                 showCancelButton: true,
 
@@ -157,6 +157,7 @@
     {{-- {{ Delete }} --}}
     <script>
 
+
         $(document).on('click', '.delete-category', function (e) {
             e.preventDefault();
 
@@ -166,27 +167,39 @@
                 title: "Are you sure?",
                 icon: "warning",
                 showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-
-                    fetch(`/categories/${id}`, {
-                        method: "DELETE",
+                    $.ajax({
+                        method: 'DELETE',
+                        url: `/categories/${id}`,
                         headers: {
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
-                        // body: JSON.stringify({ _method: "DELETE" })
-                    })
-                        .then(res => res.json())
-                        .then(() => {
-                            Swal.fire('Deleted!', '', 'success')
-                                .then(() => location.reload());
-                        })
-                        .catch(() => {
-                            Swal.fire('Error!', 'Something went wrong', 'error');
-                        });
 
+                        success: function (response) {
+                            let table = $('#myTable').DataTable();
+                            if (response.status === 'success') {
+                                Swal.fire('Deleted!', response.message, 'success');
+                                table.ajax.reload(null, false); // بدون refresh الصفحة
+                            }
+                        },
+                        error: function (xhr) {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: xhr.responseJSON?.message ??
+                                    'Something went wrong'
+                            });
+
+                        }
+                    })
                 }
-            });
+            })
         });
 
     </script>
