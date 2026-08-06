@@ -177,6 +177,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+
+        if ($category->products()->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Cannot delete category because it contains products.'
+            ], 422);
+        }
+
         if (
             $category->image &&  $category->image !== 'no_img.jpg' && file_exists(
                 public_path(
@@ -187,13 +195,6 @@ class CategoryController extends Controller
             unlink(public_path('uploads/categories/' . $category->image));
         }
 
-        if ($category->products()->exists()) {
-
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Cannot delete category because it contains products.'
-            ], 422);
-        }
         $category->delete();
 
         return response()->json([
