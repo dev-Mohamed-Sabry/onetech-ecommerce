@@ -201,7 +201,7 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('categories.index') }}",
-            order: [[2, 'asc']],    //ترتيب العمود التاني  تصاعدي 
+            order: [[1, 'asc']],    //ترتيب العمود التاني  تصاعدي 
             columns: [
                 { data: 'name', name: 'name', orderable: true },
                 { data: 'order', name: 'order', orderable: true },

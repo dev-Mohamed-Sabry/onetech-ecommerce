@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = Category::select('id', 'name', 'image', 'order')->orderBy('order', 'asc');
+            $categories = Category::select('id', 'name', 'image', 'order');
             return DataTables::of($categories)
                 ->editColumn('image', function ($category) {
                     if (!$category->image) return '<div class="text-center"><img src="/uploads/categories/no_img.jpg"  width="70" height="70"></div>';
