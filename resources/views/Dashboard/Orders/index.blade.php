@@ -16,7 +16,7 @@
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
-            <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
+            <a class="breadcrumb-item" href="#">Dashboard</a>
             <span class="breadcrumb-item active">Orders</span>
         </nav>
 

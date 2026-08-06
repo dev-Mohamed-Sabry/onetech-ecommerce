@@ -28,7 +28,7 @@
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
-            <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
+            <a class="breadcrumb-item" href="#">Dashboard</a>
             <span class="breadcrumb-item active">Categories</span>
         </nav>
 
@@ -78,19 +78,19 @@
                 title: 'Update Category',
 
                 html: `
-                                            <input id="swal-name"
-                                                class="swal2-input"
-                                                value="${name}">
+                                                <input id="swal-name"
+                                                    class="swal2-input"
+                                                    value="${name}">
 
-                                            <input id="swal-order"
-                                                class="swal2-input"
-                                                value="${order}">
+                                                <input id="swal-order"
+                                                    class="swal2-input"
+                                                    value="${order}">
 
-                                            <input id="swal-image"
-                                                type="file"
-                                                class="swal2-file"
-                                                accept=".jpg,.jpeg,.png,.webp">
-                                        `,
+                                                <input id="swal-image"
+                                                    type="file"
+                                                    class="swal2-file"
+                                                    accept=".jpg,.jpeg,.png,.webp">
+                                            `,
 
                 showCancelButton: true,
 
