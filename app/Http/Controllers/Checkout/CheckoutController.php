@@ -102,6 +102,8 @@ class CheckoutController extends Controller
             return $order;
         });
 
+
+        // Send Order Mail
         $order->load('items.product');
         Mail::to($order->email)
             ->queue(new OrderCreatedMail($order));
