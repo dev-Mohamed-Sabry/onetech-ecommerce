@@ -11,6 +11,8 @@ use App\Services\PaymobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Mail\OrderCreatedMail;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -76,6 +78,7 @@ class CheckoutController extends Controller
                 'status' => $status,
             ]);
 
+
             $order->update([
                 'order_number' => 'ONT-' .
                     $order->created_at->format('Ymd') .
@@ -94,8 +97,14 @@ class CheckoutController extends Controller
                 ]);
             }
 
+
+
             return $order;
         });
+
+        $order->load('items.product');
+        Mail::to($order->email)
+            ->queue(new OrderCreatedMail($order));
 
         /*
     |--------------------------------------------------------------------------
