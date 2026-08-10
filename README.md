@@ -295,7 +295,7 @@ Example:
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/onetech.git
+git clone https://github.com/dev-Mohamed-Sabry/onetech.git
 cd onetech
 ```
 
@@ -399,7 +399,7 @@ AdminUserSeeder
 
 ---
 
-## Queue Worker
+## Queue Worker (Made For Order Mail Only)
 
 Required for:
 
@@ -423,7 +423,7 @@ php artisan queue:work --tries=3 --timeout=90
 
 ---
 
-## Email Features
+## Email Features using send() method
 
 ### Verification Email
 
@@ -441,7 +441,7 @@ Example:
 
 ```php
 Mail::to($user->email)
-    ->queue(
+    ->send(
         new ForgetPassword($url)
     );
 ```
