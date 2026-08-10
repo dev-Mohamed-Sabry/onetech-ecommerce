@@ -1,64 +1,296 @@
-# OneTech E-Commerce
+# OneTech E-Commerce Platform
 
-A modern e-commerce platform built with Laravel, providing a complete shopping experience for customers and a powerful administration panel for store management.
-
----
-
-## ✨ Features
-
-### Customer Features
-
-- User Registration & Authentication
-- Browse Products
-- Product Categories
-- Product Search
-- Product Details Page
-- Shopping Cart
-- Wishlist
-- Checkout Process
-- Order Management
-- User Profile Dashboard
-- Order History
-- Multi-language Support (English / Arabic)
-
-### Admin Features
-
-- Product Management
-- Category Management
-- Order Management
-- Customer Management
-- Inventory Tracking
-- Discount Support
+A modern e-commerce platform built with Laravel 12, providing a complete shopping experience including product management, category management, shopping cart, wishlist, order processing, user authentication, role management, email verification, password recovery, and Paymob payment integration.
 
 ---
 
-## 🛠️ Tech Stack
+## Features
+
+### Authentication & Authorization
+
+* User Registration
+* User Login
+* User Logout
+* Email Verification
+* Forgot Password
+* Password Reset
+* Role-Based Access Control (RBAC)
+* Spatie Laravel Permission Integration
+
+### Product Management
+
+* Product CRUD Operations
+* Product Image Management
+* Product Import
+* Product Export
+* Download Import Templates
+
+### Category Management
+
+* Category CRUD Operations
+* Product Categorization
+
+### Shopping Experience
+
+* Shopping Cart
+* Wishlist
+* Product Search
+* Product Details Page
+* Category Filtering
+
+### Orders & Checkout
+
+* Checkout Process
+* Order Placement
+* Order Tracking
+* Order Management
+
+### Payments
+
+* Paymob Payment Gateway Integration
+* Payment Success Callback
+* Payment Webhook Processing
+
+### User Account
+
+* Account Dashboard
+* Order History
+* Order Details
+
+### Localization
+
+* Multi-language Support
+* Dynamic Language Switching
+
+---
+
+## Tech Stack
 
 ### Backend
 
-- Laravel 12
-- PHP 8+
-- MySQL
-- Eloquent ORM
+* Laravel 12
+* PHP 8.4
+* MySQL
 
 ### Frontend
 
-- Blade Templates
-- Bootstrap
-- JavaScript
-- jQuery
-- AJAX
+* Blade Templates
+* Bootstrap 5
+* JavaScript
+* jQuery
+* AJAX
 
-### Tools
+### Authentication
 
-- Composer
-- Git & GitHub
-- Vite
-- Laravel Localization
+* Laravel Authentication
+* Email Verification
+* Password Reset
+
+### Authorization
+
+* Spatie Laravel Permission
+
+### Mail
+
+* Laravel Mailables
+* Queue Support
+
+### Payments
+
+* Paymob
 
 ---
 
-## 🚀 Installation
+## Project Structure
+
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── FrontendController.php
+│   │   ├── DashboardController.php
+│   │   ├── AccountController.php
+│   │   ├── CartController.php
+│   │   ├── WishlistController.php
+│   │   ├── CheckoutController.php
+│   │   ├── ProductController.php
+│   │   ├── CategoryController.php
+│   │   ├── OrderController.php
+│   │   ├── PaymentController.php
+│   │   └── PaymobWebhookController.php
+│   │
+│   ├── Middleware/
+│   ├── Requests/
+│   └── Services/
+│
+├── Mail/
+├── Models/
+├── Jobs/
+├── Notifications/
+│
+database/
+├── migrations/
+├── seeders/
+│
+resources/
+├── views/
+│
+routes/
+├── web.php
+```
+
+---
+
+## Core Modules
+
+### Authentication Module
+
+Responsible for:
+
+* Registration
+* Login
+* Logout
+* Email Verification
+* Password Recovery
+
+Features:
+
+* Email verification required before login
+* Signed URLs for verification links
+* Password hashing
+* Session regeneration after login
+* Login rate limiting
+
+---
+
+### Authorization Module
+
+Powered by Spatie Laravel Permission.
+
+Default Roles:
+
+* admin
+* user
+
+Middleware:
+
+```php
+role
+permission
+role_or_permission
+```
+
+Example:
+
+```php
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    //
+});
+```
+
+---
+
+### Product Module
+
+Features:
+
+* Create Products
+* Edit Products
+* Delete Products
+* Manage Product Images
+* Product Import
+* Product Export
+
+---
+
+### Category Module
+
+Features:
+
+* Create Categories
+* Edit Categories
+* Delete Categories
+* Category Sorting
+
+---
+
+### Cart Module
+
+Features:
+
+* Add To Cart
+* Remove From Cart
+* Update Quantity
+* Guest Cart Support
+* Cart Synchronization After Login
+
+---
+
+### Wishlist Module
+
+Features:
+
+* Add To Wishlist
+* Remove From Wishlist
+* Wishlist Synchronization After Login
+
+---
+
+### Checkout Module
+
+Features:
+
+* Review Cart
+* Calculate Totals
+* Create Orders
+* Redirect To Payment Gateway
+
+---
+
+### Order Module
+
+Features:
+
+* Order Management
+* Order Status Tracking
+* Customer Order History
+* Order Details
+
+---
+
+### Payment Module
+
+Provider:
+
+* Paymob
+
+Features:
+
+* Payment Initialization
+* Payment Verification
+* Success Callback
+* Webhook Processing
+
+---
+
+### Localization Module
+
+Features:
+
+* Dynamic Language Switching
+* Session-Based Locale Storage
+
+Example:
+
+```url
+/lang/en
+/lang/ar
+```
+
+---
+
+## Installation
 
 ### Clone Repository
 
@@ -71,12 +303,44 @@ cd onetech
 
 ```bash
 composer install
+npm install
 ```
 
-### Create Environment File
+### Environment Configuration
+
+Copy the environment file:
 
 ```bash
 cp .env.example .env
+```
+
+Configure your environment variables:
+
+```env
+APP_NAME=OneTech
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+
+MAIL_MAILER=smtp
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=
+
+PAYMOB_API_KEY=
+PAYMOB_INTEGRATION_ID=
+PAYMOB_IFRAME_ID=
+
+ADMIN_NAME=Admin
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=ChangeMe123
 ```
 
 ### Generate Application Key
@@ -85,23 +349,31 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-### Configure Database
-
-Update your database credentials inside:
-
-```env
-DB_DATABASE= root
-DB_USERNAME=
-DB_PASSWORD=
-```
-
 ### Run Migrations
 
 ```bash
 php artisan migrate
 ```
 
-### Start Development Server
+### Seed Database
+
+```bash
+php artisan db:seed
+```
+
+### Create Storage Link
+
+```bash
+php artisan storage:link
+```
+
+### Build Frontend Assets
+
+```bash
+npm run build
+```
+
+### Run Development Server
 
 ```bash
 php artisan serve
@@ -109,53 +381,197 @@ php artisan serve
 
 ---
 
-## 📂 Main Modules
+## Default Admin Account
 
-- Products
-- Categories
-- Cart
-- Wishlist
-- Checkout
-- Orders
-- User Account
-- Admin Dashboard
+The default administrator account is created using environment variables.
 
----
+```env
+ADMIN_NAME=Admin
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=ChangeMe123
+```
 
-## 🌍 Localization
+The account is generated through:
 
-Currently supported languages:
-
-- English 🇺🇸
-- Arabic 🇪🇬
-
-Localization is implemented using Laravel's localization system with session-based locale switching.
+```php
+AdminUserSeeder
+```
 
 ---
 
-## 📈 Future Enhancements
+## Queue Worker
 
-- Online Payment Gateways
-- Product Reviews & Ratings
-- Coupons & Promotions
-- Advanced Product Filters
-- Notifications System
-- REST API
-- Progressive Web App (PWA)
+Required for:
+
+* Sending Emails
+* Background Jobs
+* Notifications
+
+Run locally:
+
+```bash
+php artisan queue:work
+```
+
+Production environments should use Supervisor.
+
+Example Supervisor command:
+
+```bash
+php artisan queue:work --tries=3 --timeout=90
+```
 
 ---
 
-## 👨‍💻 Author
+## Email Features
 
-### Mohamed Sabry
+### Verification Email
 
-Frontend & Full Stack Developer
+Sent after successful registration.
 
-- GitHub: https://github.com/MS4LIFE
-- LinkedIn: https://www.linkedin.com/in/mo-sabre
+### Password Reset Email
+
+Uses:
+
+* Temporary Signed URLs
+* Expiration Time
+* Secure Verification Flow
+
+Example:
+
+```php
+Mail::to($user->email)
+    ->queue(
+        new ForgetPassword($url)
+    );
+```
 
 ---
 
-## 📄 License
+## Security Features
 
-This project is open-source and available under the MIT License.
+* CSRF Protection
+* Password Hashing
+* Signed URLs
+* Email Verification
+* Session Regeneration
+* Login Rate Limiting
+* Role-Based Authorization
+* Permission-Based Authorization
+
+---
+
+## Main Routes
+
+### Authentication
+
+```text
+/register
+/login
+/logout
+/forgot-password
+/reset-password
+/email/verify
+```
+
+### Store
+
+```text
+/
+/products
+/product-details/{slug}
+/cart
+/wishlist
+/checkout
+```
+
+### User Account
+
+```text
+/account
+/orders
+/order-details/{id}
+```
+
+### Dashboard
+
+```text
+/dashboard
+/categories
+/products
+/orders
+/users
+```
+
+### Localization
+
+```text
+/lang/{locale}
+```
+
+---
+
+## Database Seeders
+
+### RolesSeeder
+
+Creates application roles.
+
+```text
+admin
+user
+```
+
+### PermissionsSeeder
+
+Creates application permissions.
+
+### AdminUserSeeder
+
+Creates the default administrator account.
+
+---
+
+## Development Standards
+
+### Authentication
+
+* Email verification required.
+* Passwords stored using Laravel hashing.
+* Session regenerated after successful login.
+
+### Authorization
+
+* Use Roles for user classification.
+* Use Permissions for fine-grained access control.
+
+### Mail
+
+* Queue-enabled Mailables.
+* Blade-based email templates.
+
+### Database
+
+* Use migrations for schema changes.
+* Use seeders for default data.
+
+---
+
+## Future Improvements
+
+* Coupons & Discounts
+* Product Reviews
+* Inventory Management
+* Notifications Center
+* Activity Logs
+* Advanced Reporting
+* REST API
+* Mobile Application Support
+* Multi-Vendor Marketplace
+* SEO Management
+
+---
+
+## License
+
+This project is available for educational and commercial use. Modify and extend it according to your business requirements.
