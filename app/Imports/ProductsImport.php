@@ -128,7 +128,6 @@ class ProductsImport implements ToModel,  WithHeadingRow, WithValidation, SkipsO
     public function customValidationMessages()
     {
         return [
-
             '*.category.exists' =>
             'The selected category does not exist.',
 
