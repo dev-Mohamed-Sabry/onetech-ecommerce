@@ -578,8 +578,8 @@
                                         class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                         <div class="viewed_image">
                                             <img src="{{ $recent->product->image
-                                                                                    ? asset($recent->product->image)
-                                                                                    : asset('uploads/products/no_img.jpg') }}"
+                                                                                        ? asset($recent->product->image)
+                                                                                        : asset('uploads/products/no_img.jpg') }}"
                                                 alt="{{ $recent->product->name }}">
                                         </div>
                                         <div class="viewed_content text-center">
