@@ -8,59 +8,59 @@ A modern e-commerce platform built with Laravel 12, providing a complete shoppin
 
 ### Authentication & Authorization
 
-* User Registration
-* User Login
-* User Logout
-* Email Verification
-* Forgot Password
-* Password Reset
-* Role-Based Access Control (RBAC)
-* Spatie Laravel Permission Integration
+- User Registration
+- User Login
+- User Logout
+- Email Verification
+- Forgot Password
+- Password Reset
+- Role-Based Access Control (RBAC)
+- Spatie Laravel Permission Integration
 
 ### Product Management
 
-* Product CRUD Operations
-* Product Image Management
-* Product Import
-* Product Export
-* Download Import Templates
+- Product CRUD Operations
+- Product Image Management
+- Product Import
+- Product Export
+- Download Import Templates
 
 ### Category Management
 
-* Category CRUD Operations
-* Product Categorization
+- Category CRUD Operations
+- Product Categorization
 
 ### Shopping Experience
 
-* Shopping Cart
-* Wishlist
-* Product Search
-* Product Details Page
-* Category Filtering
+- Shopping Cart
+- Wishlist
+- Product Search
+- Product Details Page
+- Category Filtering
 
 ### Orders & Checkout
 
-* Checkout Process
-* Order Placement
-* Order Tracking
-* Order Management
+- Checkout Process
+- Order Placement
+- Order Tracking
+- Order Management
 
 ### Payments
 
-* Paymob Payment Gateway Integration
-* Payment Success Callback
-* Payment Webhook Processing
+- Paymob Payment Gateway Integration
+- Payment Success Callback
+- Payment Webhook Processing
 
 ### User Account
 
-* Account Dashboard
-* Order History
-* Order Details
+- Account Dashboard
+- Order History
+- Order Details
 
 ### Localization
 
-* Multi-language Support
-* Dynamic Language Switching
+- Multi-language Support (En-Ar)
+- Dynamic Language Switching
 
 ---
 
@@ -68,36 +68,36 @@ A modern e-commerce platform built with Laravel 12, providing a complete shoppin
 
 ### Backend
 
-* Laravel 12
-* PHP 8.4
-* MySQL
+- Laravel 12
+- PHP 8.4
+- MySQL
 
 ### Frontend
 
-* Blade Templates
-* Bootstrap 5
-* JavaScript
-* jQuery
-* AJAX
+- Blade Templates
+- Bootstrap 4
+- JavaScript
+- jQuery
+- AJAX
 
 ### Authentication
 
-* Laravel Authentication
-* Email Verification
-* Password Reset
+- Laravel Authentication
+- Email Verification
+- Password Reset
 
 ### Authorization
 
-* Spatie Laravel Permission
+- Spatie Laravel Permission
 
 ### Mail
 
-* Laravel Mailables
-* Queue Support
+- Laravel Mailables
+- Queue Support
 
 ### Payments
 
-* Paymob
+- Paymob
 
 ---
 
@@ -148,19 +148,19 @@ routes/
 
 Responsible for:
 
-* Registration
-* Login
-* Logout
-* Email Verification
-* Password Recovery
+- Registration
+- Login
+- Logout
+- Email Verification
+- Password Recovery
 
 Features:
 
-* Email verification required before login
-* Signed URLs for verification links
-* Password hashing
-* Session regeneration after login
-* Login rate limiting
+- Email verification required before login
+- Signed URLs for verification links
+- Password hashing
+- Session regeneration after login
+- Login rate limiting
 
 ---
 
@@ -170,8 +170,8 @@ Powered by Spatie Laravel Permission.
 
 Default Roles:
 
-* admin
-* user
+- admin
+- user
 
 Middleware:
 
@@ -195,12 +195,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Features:
 
-* Create Products
-* Edit Products
-* Delete Products
-* Manage Product Images
-* Product Import
-* Product Export
+- Create Products
+- Edit Products
+- Delete Products
+- Manage Product Images
+- Product Import
+- Product Export
 
 ---
 
@@ -208,10 +208,10 @@ Features:
 
 Features:
 
-* Create Categories
-* Edit Categories
-* Delete Categories
-* Category Sorting
+- Create Categories
+- Edit Categories
+- Delete Categories
+- Category Sorting
 
 ---
 
@@ -219,11 +219,11 @@ Features:
 
 Features:
 
-* Add To Cart
-* Remove From Cart
-* Update Quantity
-* Guest Cart Support
-* Cart Synchronization After Login
+- Add To Cart
+- Remove From Cart
+- Update Quantity
+- Guest Cart Support
+- Cart Synchronization After Login
 
 ---
 
@@ -231,9 +231,9 @@ Features:
 
 Features:
 
-* Add To Wishlist
-* Remove From Wishlist
-* Wishlist Synchronization After Login
+- Add To Wishlist
+- Remove From Wishlist
+- Wishlist Synchronization After Login
 
 ---
 
@@ -241,10 +241,10 @@ Features:
 
 Features:
 
-* Review Cart
-* Calculate Totals
-* Create Orders
-* Redirect To Payment Gateway
+- Review Cart
+- Calculate Totals
+- Create Orders
+- Redirect To Payment Gateway
 
 ---
 
@@ -252,10 +252,10 @@ Features:
 
 Features:
 
-* Order Management
-* Order Status Tracking
-* Customer Order History
-* Order Details
+- Order Management
+- Order Status Tracking
+- Customer Order History
+- Order Details
 
 ---
 
@@ -263,14 +263,14 @@ Features:
 
 Provider:
 
-* Paymob
+- Paymob
 
 Features:
 
-* Payment Initialization
-* Payment Verification
-* Success Callback
-* Webhook Processing
+- Payment Initialization
+- Payment Verification
+- Success Callback
+- Webhook Processing
 
 ---
 
@@ -278,8 +278,8 @@ Features:
 
 Features:
 
-* Dynamic Language Switching
-* Session-Based Locale Storage
+- Dynamic Language Switching (En-Ar)
+- Session-Based & Cookie-Based Locale Storage
 
 Example:
 
@@ -387,8 +387,8 @@ The default administrator account is created using environment variables.
 
 ```env
 ADMIN_NAME=Admin
-ADMIN_EMAIL=admin@example.com
-ADMIN_PASSWORD=ChangeMe123
+ADMIN_EMAIL=admin@admin.com
+ADMIN_PASSWORD=12345678
 ```
 
 The account is generated through:
@@ -403,9 +403,9 @@ AdminUserSeeder
 
 Required for:
 
-* Sending Emails
-* Background Jobs
-* Notifications
+- Sending Emails
+- Background Jobs
+- Notifications
 
 Run locally:
 
@@ -433,9 +433,9 @@ Sent after successful registration.
 
 Uses:
 
-* Temporary Signed URLs
-* Expiration Time
-* Secure Verification Flow
+- Temporary Signed URLs
+- Expiration Time
+- Secure Verification Flow
 
 Example:
 
@@ -450,14 +450,14 @@ Mail::to($user->email)
 
 ## Security Features
 
-* CSRF Protection
-* Password Hashing
-* Signed URLs
-* Email Verification
-* Session Regeneration
-* Login Rate Limiting
-* Role-Based Authorization
-* Permission-Based Authorization
+- CSRF Protection
+- Password Hashing
+- Signed URLs
+- Email Verification
+- Session Regeneration
+- Login Rate Limiting
+- Role-Based Authorization
+- Permission-Based Authorization
 
 ---
 
@@ -536,39 +536,39 @@ Creates the default administrator account.
 
 ### Authentication
 
-* Email verification required.
-* Passwords stored using Laravel hashing.
-* Session regenerated after successful login.
+- Email verification required.
+- Passwords stored using Laravel hashing.
+- Session regenerated after successful login.
 
 ### Authorization
 
-* Use Roles for user classification.
-* Use Permissions for fine-grained access control.
+- Use Roles for user classification.
+- Use Permissions for fine-grained access control.
 
 ### Mail
 
-* Queue-enabled Mailables.
-* Blade-based email templates.
+- Queue-enabled Mailables.
+- Blade-based email templates.
 
 ### Database
 
-* Use migrations for schema changes.
-* Use seeders for default data.
+- Use migrations for schema changes.
+- Use seeders for default data.
 
 ---
 
 ## Future Improvements
 
-* Coupons & Discounts
-* Product Reviews
-* Inventory Management
-* Notifications Center
-* Activity Logs
-* Advanced Reporting
-* REST API
-* Mobile Application Support
-* Multi-Vendor Marketplace
-* SEO Management
+- Coupons & Discounts
+- Product Reviews
+- Inventory Management
+- Notifications Center
+- Activity Logs
+- Advanced Reporting
+- REST API
+- Mobile Application Support
+- Multi-Vendor Marketplace
+- SEO Management
 
 ---
 
